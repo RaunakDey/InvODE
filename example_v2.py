@@ -41,7 +41,7 @@ def mse(output):
     return np.mean((output - noisy_data)**2)
 
 # === Parameter bounds and initial guess ===
-
+'''
 param_bounds = {
     'alpha': (0.5, 1.5),
     'beta': (0.05, 0.2),
@@ -55,6 +55,23 @@ initial_guess = {
     'delta': 0.1,
     'gamma': 1.2
 }
+'''
+
+
+param_bounds = {
+    'alpha': (0.5, 10),
+    'beta': (0.05, 0.9),
+    'delta': (0.05, 0.9),
+    'gamma': (1.0, 5.0)
+}
+
+initial_guess = {
+    'alpha': 5,
+    'beta': 0.5,
+    'delta': 0.7,
+    'gamma': 4.0
+}
+
 
 # === Run optimization ===
 
@@ -68,7 +85,9 @@ best_params, best_error = naive_optimization(
     verbose=True,
     verbose_plot=True,
     do_local_opt=True,
-    local_method='L-BFGS-B'
+    local_method='L-BFGS-B',
+    num_top_candidates=4,
+    
 )
 
 # === Plot results ===
