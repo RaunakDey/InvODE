@@ -67,7 +67,7 @@ def local_refine(best_params, ode_func, error_func, param_bounds, method='L-BFGS
 
 
 
-def naive_optimization(
+def optimization(
     ode_func,
     error_func,
     param_bounds,
@@ -82,8 +82,9 @@ def naive_optimization(
     local_method='L-BFGS-B',
     num_top_candidates=1,
     show_final_candidates=False,
-    parallel=True,
+    parallel=False,
     max_workers=None,  # uses all available by default
+    local_parallel=False
     ):
     """
     Naively optimize parameters by iterated Latin Hypercube Sampling with shrinking bounds.
@@ -205,6 +206,26 @@ def naive_optimization(
 
 
     if do_local_opt:
+        if local_parallel:
+            from concurrent.futures import ProcessPoolExecutor
+            def local_worker(p):
+                return local_refine(p[0], ode_func, error_func, param_bounds, method=local_method, verbose=False)
+
+            with ProcessPoolExecutor(max_workers=max_workers) as executor:
+                refined_candidates = list(executor.map(local_worker, top_candidates))
+
+            # Re-attach param values (since local_refine returns (param, error))
+            refined_candidates = list(refined_candidates)
+        else:
+            refined_candidates = []
+            for i, (params, err) in enumerate(top_candidates):
+                refined_param, refined_error = local_refine(
+                    params, ode_func, error_func, param_bounds,
+                    method=local_method, verbose=verbose
+                )
+                refined_candidates.append((refined_param, refined_error))
+                
+        '''
         refined_candidates = []
         for i, (params, err) in enumerate(top_candidates):
             if verbose:
@@ -214,6 +235,8 @@ def naive_optimization(
                 method=local_method, verbose=verbose
             )
             refined_candidates.append((refined_param, refined_error))
+        '''
+        
 
     # Sort again and update best
     refined_candidates.sort(key=lambda x: x[1])
@@ -241,140 +264,3 @@ def naive_optimization(
 
 
 
-'''
-def naive_optimization(
-    ode_func,
-    error_func,
-    param_bounds,
-    initial_guess,
-    n_samples=100,
-    num_iter=5,
-    shrink_factor=0.5,
-    seed=None,
-    verbose=False,
-    verbose_plot=False,
-    do_local_opt=False,
-    local_method='L-BFGS-B'
-):
-    """
-    Naively optimize parameters by iterated Latin Hypercube Sampling with shrinking bounds.
-
-    Parameters:
-    ----------
-    ode_func : callable
-        ODE simulation function. Should accept parameters as dict.
-    error_func : callable
-        Error function comparing model output to data. Should accept model output and return float.
-    param_bounds : dict
-        Initial parameter bounds. {param_name: (min, max)}
-    initial_guess : dict
-        Initial guess for parameters. Used to center bounds during shrinking.
-    n_samples : int
-        Number of samples per iteration.
-    num_iter : int
-        Number of iterations.
-    shrink_factor : float
-        Fraction by which bounds shrink in each iteration.
-    seed : int or None
-        Seed for reproducibility.
-    verbose : bool
-        Whether to print progress.
-
-    Returns:
-    -------
-    best_params : dict
-        Parameters with the lowest error found.
-    best_error : float
-        Corresponding error.
-    """
-
-    best_params = initial_guess.copy()
-    best_error = float('inf')
-    rng = np.random.default_rng(seed)
-
-    current_bounds = param_bounds.copy()
-    
-    error_history = []
-
-    for iteration in range(num_iter):
-        if verbose:
-            print(f"\nIteration {iteration+1}/{num_iter}")
-            print(f"Current bounds: {current_bounds}")
-
-        samples = lhs_sample(current_bounds, n_samples, seed=rng.integers(1e9))
-
-        for i, param_set in enumerate(samples):
-            try:
-                model_output = ode_func(param_set)
-                err = error_func(model_output)
-
-                if err < best_error:
-                    best_error = err
-                    best_params = param_set.copy()
-
-            except Exception as e:
-                if verbose:
-                    print(f"Sample {i+1} failed: {e}")
-                continue
-
-        # Shrink bounds around best_params
-        for key in current_bounds:
-            width = (current_bounds[key][1] - current_bounds[key][0]) * shrink_factor / 2
-            center = best_params[key]
-            new_min = max(center - width, param_bounds[key][0])
-            new_max = min(center + width, param_bounds[key][1])
-            current_bounds[key] = (new_min, new_max)
-
-        if verbose:
-            print(f"Best error so far: {best_error}")
-            print(f"Best params: {best_params}")
-        
-        error_history.append(best_error)
-
-    # === Plot error over iterations ===
-    if verbose_plot:
-        
-        plt.figure(figsize=(6, 4))
-        plt.plot(error_history, marker='o')
-        plt.xlabel("Iteration")
-        plt.ylabel("Best Error")
-        plt.title("Error over Optimization Iterations")
-        plt.grid(True)
-        plt.tight_layout()
-        plt.show()
-
-        if do_local_opt:
-
-            param_keys = list(best_params.keys())
-            
-            def wrapped_error(param_vector):
-                param_dict = dict(zip(param_keys, param_vector))
-                try:
-                    output = ode_func(param_dict)
-                    return error_func(output)
-                except Exception:
-                    return np.inf
-
-            initial_vector = [best_params[k] for k in param_keys]
-            bounds_list = [param_bounds[k] for k in param_keys]
-
-            result = minimize(
-                wrapped_error,
-                x0=initial_vector,
-                method=local_method,
-                bounds=bounds_list
-            )
-
-            if result.success:
-                best_params = dict(zip(param_keys, result.x))
-                best_error = result.fun
-                if verbose:
-                    print("\n[Local Optimization]")
-                    print("Refined parameters:", best_params)
-                    print("Refined error:", best_error)
-            else:
-                if verbose:
-                    print("\n[Local Optimization] failed:", result.message)
-
-    return best_params, best_error
-    '''

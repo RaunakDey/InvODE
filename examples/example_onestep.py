@@ -9,7 +9,7 @@ from concurrent.futures import ProcessPoolExecutor
 # Get path 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_root)
-from ode_fit_pointwise import naive_optimization, lhs_sample
+from ode_fit_pointwise import optimization, lhs_sample
 from ode_fit_pointwise import load_matlab_data
 
 
@@ -108,7 +108,7 @@ free_phages_sol = simulate_model(initial_guess)
 
 # === Run optimization ===
 if __name__ == '__main__':
-    best_params, best_error = naive_optimization(
+    best_params, best_error = optimization(
         ode_func=simulate_model,
         error_func=mse,
         param_bounds={
@@ -126,7 +126,8 @@ if __name__ == '__main__':
         do_local_opt=True,
         local_method='L-BFGS-B',
         num_top_candidates=2,
-        parallel=False
+        parallel=False,
+        local_parallel=False
     )
 
 phages_fit = simulate_model(best_params)
