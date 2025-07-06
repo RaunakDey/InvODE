@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import os
 import sys
 import scipy.io
+from concurrent.futures import ProcessPoolExecutor
 
 # Get path 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -106,26 +107,27 @@ free_phages_sol = simulate_model(initial_guess)
 
 
 # === Run optimization ===
-
-best_params, best_error = naive_optimization(
-    ode_func=simulate_model,
-    error_func=mse,
-    param_bounds={
-        'r': (0.1, 0.5),
-        'phi': (1e-8, 1e-7),
-        'beta': (100, 500),
-        'tau': (1, 5),
-        'NE': (100, 200)
-    },
-    initial_guess=initial_guess,
-    n_samples=300,
-    num_iter=10,
-    verbose=True,
-    verbose_plot=True,
-    do_local_opt=True,
-    local_method='L-BFGS-B',
-    num_top_candidates=2
-)
+if __name__ == '__main__':
+    best_params, best_error = naive_optimization(
+        ode_func=simulate_model,
+        error_func=mse,
+        param_bounds={
+            'r': (0.1, 0.5),
+            'phi': (1e-8, 1e-7),
+            'beta': (100, 500),
+            'tau': (1, 5),
+            'NE': (100, 200)
+        },
+        initial_guess=initial_guess,
+        n_samples=300,
+        num_iter=10,
+        verbose=True,
+        verbose_plot=True,
+        do_local_opt=True,
+        local_method='L-BFGS-B',
+        num_top_candidates=2,
+        parallel=False
+    )
 
 phages_fit = simulate_model(best_params)
 

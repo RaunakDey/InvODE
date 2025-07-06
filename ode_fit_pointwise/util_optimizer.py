@@ -2,7 +2,7 @@ import numpy as np
 from scipy.stats import qmc
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
-
+from concurrent.futures import ProcessPoolExecutor
 
 def lhs_sample(param_bounds, n_samples, seed=None):
     """
@@ -81,7 +81,9 @@ def naive_optimization(
     do_local_opt=False,
     local_method='L-BFGS-B',
     num_top_candidates=1,
-    show_final_candidates=False
+    show_final_candidates=False,
+    parallel=True,
+    max_workers=None,  # uses all available by default
     ):
     """
     Naively optimize parameters by iterated Latin Hypercube Sampling with shrinking bounds.
@@ -151,6 +153,7 @@ def naive_optimization(
             local_samples = lhs_sample(local_bounds, n_samples, seed=rng.integers(1e9))
             all_sampled.extend(local_samples)
 
+        '''
         evaluated = []
         for param_set in all_sampled:
             try:
@@ -161,6 +164,24 @@ def naive_optimization(
                 if verbose:
                     print(f"Sample failed: {e}")
                 continue
+        '''
+        evaluated = []
+
+        def evaluate(param_set):
+            try:
+                output = ode_func(param_set)
+                err = error_func(output)
+                return (param_set, err)
+            except Exception:
+                return None  # Skip failed ones
+
+        if parallel:
+            with ProcessPoolExecutor(max_workers=max_workers) as executor:
+                results = executor.map(evaluate, all_sampled)
+                evaluated = [res for res in results if res is not None]
+        else:
+            evaluated = [res for res in map(evaluate, all_sampled) if res is not None]
+            # evaluated = [evaluate(param_set) for param_set in all_sampled if evaluate(param_set) is not None]        
 
         evaluated.sort(key=lambda x: x[1])
         top_candidates = evaluated[:num_top_candidates]
