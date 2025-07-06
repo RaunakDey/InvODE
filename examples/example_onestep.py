@@ -5,7 +5,7 @@ import os
 import sys
 import scipy.io
 
-# Get path to MCMCwithODEs_primer (3 levels up)
+# Get path 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_root)
 from ode_fit_pointwise import naive_optimization, lhs_sample
@@ -13,7 +13,7 @@ from ode_fit_pointwise import load_matlab_data
 
 
 
-file_path = './HS6_13-15_2024.mat' 
+file_path = './../sample_data/HS6_13-15_2024.mat' 
 free_phages = load_matlab_data(file_path)['free_phages']
 S0 = np.mean(load_matlab_data(file_path)['S0_replicates'])
 V0 = np.mean(load_matlab_data(file_path)['V0_replicates'])
