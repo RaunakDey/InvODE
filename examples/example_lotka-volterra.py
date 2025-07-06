@@ -1,7 +1,16 @@
 import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
-from util_optimizer import naive_optimization, lhs_sample
+import os
+import sys
+import scipy.io
+
+# Get path to MCMCwithODEs_primer (3 levels up)
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, project_root)
+from ode_fit_pointwise import naive_optimization, lhs_sample
+from ode_fit_pointwise import load_matlab_data
+
 
 # === Define the true model ===
 
@@ -87,7 +96,7 @@ best_params, best_error = naive_optimization(
     do_local_opt=True,
     local_method='L-BFGS-B',
     num_top_candidates=4,
-    
+
 )
 
 # === Plot results ===
@@ -98,7 +107,6 @@ plt.figure(figsize=(10, 5))
 plt.subplot(1, 2, 1)
 plt.plot(t, noisy_data[:, 0], 'o', alpha=0.4, label='Prey data')
 plt.plot(t, best_fit[:, 0], label='Prey fit')
-plt.plot(t, true_sol[:, 0], '--', label='Prey true')
 plt.xlabel("Time")
 plt.ylabel("Population")
 plt.legend()
@@ -107,7 +115,6 @@ plt.title("Prey")
 plt.subplot(1, 2, 2)
 plt.plot(t, noisy_data[:, 1], 'o', alpha=0.4, label='Predator data')
 plt.plot(t, best_fit[:, 1], label='Predator fit')
-plt.plot(t, true_sol[:, 1], '--', label='Predator true')
 plt.xlabel("Time")
 plt.ylabel("Population")
 plt.legend()
