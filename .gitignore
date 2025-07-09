@@ -1,0 +1,10 @@
+
+# Ignore the examples_resistance.py file in the examples directory
+examples/examples_resistance.py
+examples/examples_resistance_initfit.py
+
+sample_data/NEWDATA_microcystis.csv
+
+./__pycache__
+# Ignore Python cache files
+*.pyc
