@@ -6,6 +6,7 @@
 - Regularization Penalized loss or priors PyMC, NumPyro
 - Surrogate modeling GP/RF + active sampling GPyOpt, emukit, skopt
 - Caching Hashing parameter dicts Custom or joblib.Memory
+- Scaling and reparameterization (eg: log transformed).
 
 
 

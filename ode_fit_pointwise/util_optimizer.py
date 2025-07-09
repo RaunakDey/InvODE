@@ -246,7 +246,7 @@ def optimization(
     if verbose and show_final_candidates:
         print("\nTop candidates at final iteration:")
         for i, (params, err) in enumerate(top_candidates):
-            print(f"  {i+1}. Error: {err:.6f}, Params: {params}")
+            print(f"  {i+1}. Error: {err:.2f}, Params: {params}")
             
     ## show plots
     if verbose_plot:

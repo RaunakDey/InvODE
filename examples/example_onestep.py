@@ -126,6 +126,7 @@ if __name__ == '__main__':
         do_local_opt=True,
         local_method='L-BFGS-B',
         num_top_candidates=2,
+        show_final_candidates=True,
         parallel=False,
         local_parallel=False
     )
