@@ -1,10 +1,12 @@
 
 # Ignore the examples_resistance.py file in the examples directory
-examples/example_resistance.py
-examples/example_resistance_initfit.py
+legacy/examples/example_resistance.py
+legacy/examples/example_resistance_initfit.py
 
 sample_data/NEWDATA_microcystis.csv
 
 ./__pycache__
 # Ignore Python cache files
 *.pyc
+*.ipynb_checkpoint 
+# Ignore Jupyter notebook checkpoints
