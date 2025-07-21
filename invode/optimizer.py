@@ -9,6 +9,16 @@ import pandas as pd
 from tqdm import trange  
 
 
+from concurrent.futures import ProcessPoolExecutor
+from tqdm import trange
+import numpy as np
+from scipy.optimize import minimize
+
+
+from concurrent.futures import ProcessPoolExecutor
+from tqdm import trange
+import numpy as np
+
 class ODEOptimizer:
     def __init__(
         self,
@@ -26,11 +36,15 @@ class ODEOptimizer:
         local_parallel=False,
         verbose=False,
         verbose_plot=False,
-        seed=None
+        seed=None,
+        fixed_params=None
     ):
         self.ode_func = ode_func
         self.error_func = error_func
-        self.param_bounds = param_bounds
+        self.seed = seed
+        self.rng = np.random.default_rng(seed)
+        self.verbose = verbose
+        self.verbose_plot = verbose_plot
         self.n_samples = n_samples
         self.num_iter = num_iter
         self.num_top_candidates = num_top_candidates
@@ -39,33 +53,44 @@ class ODEOptimizer:
         self.shrink_rate = shrink_rate
         self.parallel = parallel
         self.local_parallel = local_parallel
-        self.verbose = verbose
-        self.verbose_plot = verbose_plot
-        self.seed = seed
-        self.top_candidates_per_iter = []  
-        self.rng = np.random.default_rng(seed)
+        self.top_candidates_per_iter = []
+        self.history = []
 
-        # Handle optional initial guess
+        # Handle fixed parameters directly from bounds if provided as scalar
+        self.param_bounds = {}
+        self.fixed_params = fixed_params.copy() if fixed_params else {}
+        for key, bound in param_bounds.items():
+            if isinstance(bound, (int, float)):
+                self.fixed_params[key] = bound
+            else:
+                self.param_bounds[key] = bound
+
+        self.varying_params = list(self.param_bounds.keys())
+        if not self.varying_params:
+            raise ValueError("At least one parameter must be free (not fixed) for optimization.")
+
+        # Handle initial guess
         if initial_guess is not None:
             self.initial_guess = initial_guess.copy()
-            # Validation
-            for key, value in self.initial_guess.items():
-                if key not in param_bounds:
+            for key, val in self.initial_guess.items():
+                if key in self.fixed_params:
+                    if val != self.fixed_params[key]:
+                        raise ValueError(f"Initial guess for '{key}' = {val} does not match fixed value {self.fixed_params[key]}")
+                elif key in self.param_bounds:
+                    low, high = self.param_bounds[key]
+                    if not (low <= val <= high):
+                        raise ValueError(f"Initial guess for '{key}' = {val} is out of bounds ({low}, {high})")
+                else:
                     raise ValueError(f"Unknown parameter '{key}' in initial guess.")
-                low, high = param_bounds[key]
-                if not (low <= value <= high):
-                    raise ValueError(f"Initial guess for '{key}' = {value} is out of bounds ({low}, {high}).")
         else:
-            # Generate midpoint guess from bounds
+            # Midpoint guess for varying, use fixed values for fixed
             self.initial_guess = {
                 k: (v[0] + v[1]) / 2 for k, v in self.param_bounds.items()
             }
+            self.initial_guess.update(self.fixed_params)
 
         self.best_params = self.initial_guess.copy()
         self.best_error = float('inf')
-        self.history = []  # Error history per iteration
-
-    
 
     def get_top_candidates_history(self):
         return self.top_candidates_per_iter
@@ -73,8 +98,7 @@ class ODEOptimizer:
     def fit(self):
         top_candidates = [(self.best_params.copy(), float('inf'))]
 
-        #for iteration in range(self.num_iter):
-        for iteration in trange(self.num_iter, desc="Fitting Progress"): #desc = f"Iter {i} - Best: {best_error:.4f}"):
+        for iteration in trange(self.num_iter, desc="Fitting Progress"):
             if self.verbose:
                 print(f"\nIteration {iteration + 1}/{self.num_iter}")
 
@@ -82,23 +106,28 @@ class ODEOptimizer:
 
             for candidate_params, _ in top_candidates:
                 local_bounds = {}
-                for key in self.param_bounds:
+                for key in self.varying_params:
                     full_min, full_max = self.param_bounds[key]
-                    width = (full_max - full_min) * (self.shrink_rate / 2)
                     center = candidate_params[key]
+                    width = (full_max - full_min) * (self.shrink_rate / 2)
                     new_min = max(center - width, full_min)
                     new_max = min(center + width, full_max)
                     local_bounds[key] = (new_min, new_max)
 
                 local_samples = lhs_sample(local_bounds, self.n_samples, seed=self.rng.integers(1e9))
-                all_sampled.extend(local_samples)
+
+                for sample in local_samples:
+                    full_sample = {**sample, **self.fixed_params}
+                    all_sampled.append(full_sample)
 
             def evaluate(param_set):
                 try:
                     output = self.ode_func(param_set)
                     err = self.error_func(output)
                     return (param_set, err)
-                except Exception:
+                except Exception as e:
+                    if self.verbose:
+                        print(f"Evaluation failed for params {param_set}: {e}")
                     return None
 
             if self.parallel:
@@ -108,9 +137,12 @@ class ODEOptimizer:
             else:
                 evaluated = [res for res in map(evaluate, all_sampled) if res is not None]
 
+            if not evaluated:
+                raise RuntimeError("All evaluations failed. Check ODE function and parameter ranges.")
+
             evaluated.sort(key=lambda x: x[1])
             top_candidates = evaluated[:self.num_top_candidates]
-            self.top_candidates_per_iter.append(top_candidates.copy()) 
+            self.top_candidates_per_iter.append(top_candidates.copy())
 
             if top_candidates[0][1] < self.best_error:
                 self.best_params = top_candidates[0][0]
@@ -121,37 +153,67 @@ class ODEOptimizer:
             if self.verbose:
                 print(f"Best error so far: {self.best_error:.4f}")
                 print(f"Best params: {self.best_params}")
-            
 
-
+        # Local refinement
         if self.do_local_opt:
+            bounds_for_local = {k: self.param_bounds[k] for k in self.varying_params}
+
             if self.local_parallel:
                 def local_worker(p):
-                    return local_refine(
-                        p[0], self.ode_func, self.error_func,
-                        self.param_bounds, method=self.local_method
+                    var_params = {k: v for k, v in p[0].items() if k in self.varying_params}
+                    
+                    refined_param, refined_error = local_refine(
+                        var_params,
+                        self.ode_func,
+                        self.error_func,
+                        bounds_for_local,
+                        method=self.local_method
                     )
+                    full_param = {**refined_param, **self.fixed_params}
+                    return (full_param, refined_error)
 
                 with ProcessPoolExecutor() as executor:
                     refined_candidates = list(executor.map(local_worker, top_candidates))
             else:
                 refined_candidates = []
                 for i, (params, _) in enumerate(top_candidates):
+                    var_params = {k: v for k, v in params.items() if k in self.varying_params}
+                    print(f"Refining params: {var_params}")
                     refined_param, refined_error = local_refine(
-                        params, self.ode_func, self.error_func,
-                        self.param_bounds, method=self.local_method,
+                        var_params,
+                        self.ode_func,
+                        self.error_func,
+                        self.fixed_params,
+                        bounds_for_local,
+                        method=self.local_method,
                         verbose=self.verbose
                     )
-                    refined_candidates.append((refined_param, refined_error))
+                    #refined_param, refined_error = local_refine(
+                    #    var_params,
+                    #    self.ode_func,
+                    #    self.error_func,
+                    #    bounds_for_local,
+                    #    method=self.local_method,
+                    #    verbose=self.verbose
+                    #)
+
+                    full_param = {**refined_param, **self.fixed_params}
+                    refined_candidates.append((full_param, refined_error))
 
             refined_candidates.sort(key=lambda x: x[1])
             self.best_params, self.best_error = refined_candidates[0]
+
+            if self.verbose:
+                print("After local refinement:")
+                print(f"Best params: {self.best_params}")
+                print(f"Best error: {self.best_error:.4f}")
 
         if self.verbose_plot:
             self.plot_error_history()
 
         return self.best_params, self.best_error
 
+        
     def best_params(self):
         """Returns the best parameters found."""
         return self.best_params
