@@ -6,7 +6,7 @@ import sys
 import scipy.io
 
 # Get path to MCMCwithODEs_primer (3 levels up)
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, project_root)
 from ode_fit_pointwise import optimization, lhs_sample
 from ode_fit_pointwise import load_matlab_data

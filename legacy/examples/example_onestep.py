@@ -14,7 +14,7 @@ from ode_fit_pointwise import load_matlab_data
 
 
 
-file_path = './../sample_data/HS6_13-15_2024.mat' 
+file_path = './../../sample_data/HS6_13-15_2024.mat' 
 free_phages = load_matlab_data(file_path)['free_phages']
 S0 = np.mean(load_matlab_data(file_path)['S0_replicates'])
 V0 = np.mean(load_matlab_data(file_path)['V0_replicates'])
