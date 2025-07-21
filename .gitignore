@@ -11,8 +11,8 @@ sample_data/NEWDATA_microcystis.csv
 *.ipynb_checkpoint 
 # Ignore Jupyter notebook checkpoints
 
-examples/phage_compartmental_model.ipynb
-examples/monod_growth.ipynb
+case_studies/phage_compartmental_model.ipynb
+case_studies/monod_growth.ipynb
 
 invode/optimizer_old.py
 
