@@ -6,6 +6,8 @@ from .sampling import lhs_sample
 from .utils import local_refine
 import matplotlib.pyplot as plt
 import pandas as pd
+from tqdm import trange  
+
 
 class ODEOptimizer:
     def __init__(
@@ -13,7 +15,7 @@ class ODEOptimizer:
         ode_func,
         error_func,
         param_bounds,
-        initial_guess,
+        initial_guess=None,
         n_samples=100,
         num_iter=10,
         num_top_candidates=1,
@@ -29,7 +31,6 @@ class ODEOptimizer:
         self.ode_func = ode_func
         self.error_func = error_func
         self.param_bounds = param_bounds
-        self.initial_guess = initial_guess
         self.n_samples = n_samples
         self.num_iter = num_iter
         self.num_top_candidates = num_top_candidates
@@ -42,20 +43,29 @@ class ODEOptimizer:
         self.verbose_plot = verbose_plot
         self.seed = seed
         self.top_candidates_per_iter = []  
-
-
         self.rng = np.random.default_rng(seed)
-        self.best_params = initial_guess.copy()
+
+        # Handle optional initial guess
+        if initial_guess is not None:
+            self.initial_guess = initial_guess.copy()
+            # Validation
+            for key, value in self.initial_guess.items():
+                if key not in param_bounds:
+                    raise ValueError(f"Unknown parameter '{key}' in initial guess.")
+                low, high = param_bounds[key]
+                if not (low <= value <= high):
+                    raise ValueError(f"Initial guess for '{key}' = {value} is out of bounds ({low}, {high}).")
+        else:
+            # Generate midpoint guess from bounds
+            self.initial_guess = {
+                k: (v[0] + v[1]) / 2 for k, v in self.param_bounds.items()
+            }
+
+        self.best_params = self.initial_guess.copy()
         self.best_error = float('inf')
         self.history = []  # Error history per iteration
 
-        # Initial validation
-        for key, value in initial_guess.items():
-            if key not in param_bounds:
-                raise ValueError(f"Unknown parameter '{key}' in initial guess.")
-            low, high = param_bounds[key]
-            if not (low <= value <= high):
-                raise ValueError(f"Initial guess for '{key}' = {value} is out of bounds ({low}, {high}).")
+    
 
     def get_top_candidates_history(self):
         return self.top_candidates_per_iter
@@ -63,7 +73,8 @@ class ODEOptimizer:
     def fit(self):
         top_candidates = [(self.best_params.copy(), float('inf'))]
 
-        for iteration in range(self.num_iter):
+        #for iteration in range(self.num_iter):
+        for iteration in trange(self.num_iter, desc="Fitting Progress"): #desc = f"Iter {i} - Best: {best_error:.4f}"):
             if self.verbose:
                 print(f"\nIteration {iteration + 1}/{self.num_iter}")
 

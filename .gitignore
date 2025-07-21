@@ -10,3 +10,5 @@ sample_data/NEWDATA_microcystis.csv
 *.pyc
 *.ipynb_checkpoint 
 # Ignore Jupyter notebook checkpoints
+
+examples/phage_compartmental_model.ipynb
