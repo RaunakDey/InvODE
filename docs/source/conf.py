@@ -54,6 +54,7 @@ html_theme = 'sphinx_rtd_theme'
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../../invode'))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
 project = 'InvODE'
 author = 'Raunak Dey'
@@ -68,6 +69,12 @@ extensions = [
     'sphinx.ext.mathjax'
     #'sphinx_copybutton',
 ]
+
+autodoc_default_options = {
+    'members': True,
+    'undoc-members': True,
+    'show-inheritance': True,
+}
 
 # If you have Jupyter notebooks with matplotlib plots:
 nbsphinx_allow_errors = True  # Optional: allow errors in notebooks to not break build

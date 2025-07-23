@@ -39,6 +39,55 @@ class ODEOptimizer:
         seed=None,
         fixed_params=None
     ):
+        
+        """
+        Initializes the optimizer for solving ordinary differential equations (ODEs).
+        Parameters:
+        -----------
+        ode_func : callable
+            The function representing the ODE to be solved.
+        error_func : callable
+            The function used to calculate the error between the model and the observed data.
+        param_bounds : dict
+            A dictionary defining the bounds for the parameters to be optimized. 
+            Each key should correspond to a parameter name, and the value should be a tuple 
+            (lower_bound, upper_bound) or a scalar for fixed parameters.
+        initial_guess : dict, optional
+            A dictionary providing the initial guess for the parameters. 
+            Keys should match those in `param_bounds`. If not provided, a midpoint guess 
+            will be used for varying parameters.
+        n_samples : int, optional
+            The number of samples to draw for the optimization process. Default is 100.
+        num_iter : int, optional
+            The number of iterations for the optimization process. Default is 10.
+        num_top_candidates : int, optional
+            The number of top candidates to retain after each iteration. Default is 1.
+        do_local_opt : bool, optional
+            Whether to perform local optimization after the global search. Default is True.
+        local_method : str, optional
+            The optimization method to use for local optimization. Default is 'L-BFGS-B'.
+        shrink_rate : float, optional
+            The rate at which to shrink the search space during optimization. Default is 0.5.
+        parallel : bool, optional
+            Whether to run the optimization in parallel. Default is False.
+        local_parallel : bool, optional
+            Whether to run local optimization in parallel. Default is False.
+        verbose : bool, optional
+            If True, enables verbose output during optimization. Default is False.
+        verbose_plot : bool, optional
+            If True, enables plotting of the optimization process. Default is False.
+        seed : int, optional
+            Random seed for reproducibility. Default is None.
+        fixed_params : dict, optional
+            A dictionary of parameters that should remain fixed during optimization. 
+            Keys should match those in `param_bounds`. Default is None.
+        Raises:
+        -------
+        ValueError
+            If no parameters are free for optimization, if the initial guess does not match 
+            fixed values, or if the initial guess is out of bounds.
+        """
+
         self.ode_func = ode_func
         self.error_func = error_func
         self.seed = seed
@@ -93,9 +142,176 @@ class ODEOptimizer:
         self.best_error = float('inf')
 
     def get_top_candidates_history(self):
+        """
+        Returns the history of top candidates from each optimization iteration.
+        This method retrieves the stored history of top candidates found during each
+        iteration of the optimization process. Each entry in the history corresponds to
+        a specific iteration and contains the best parameter sets along with their
+        associated error values.
+        Returns
+        -------
+        list
+            A list of lists, where each inner list contains tuples of (parameter_dict, error_value)
+            representing the top candidates for that iteration. The outer list corresponds to the
+            iterations performed during optimization.
+        Notes
+        -----
+        - Each inner list contains the top candidates sorted by their error values.
+        - The first element of each inner list is the best candidate for that iteration.
+        - If no optimization has been performed, this method returns an empty list.
+        - The structure allows easy access to the best candidates at each iteration for further analysis.
+        """
+
         return self.top_candidates_per_iter
 
     def fit(self):
+
+        """
+    Fit the model using a global optimization algorithm to minimize ODE function error.
+    
+    This method implements a sophisticated parameter optimization strategy that combines
+    global exploration with local refinement. It uses Latin Hypercube Sampling (LHS) 
+    around the best candidates from each iteration, progressively shrinking search regions
+    to converge on optimal parameter values. The algorithm maintains diversity by tracking
+    multiple top candidates and optionally performs local optimization for fine-tuning.
+    
+    The optimization process consists of three main phases:
+    
+    1. **Global Search**: Iteratively samples parameter space using LHS around current
+       best candidates, with search regions that shrink over iterations
+    2. **Candidate Selection**: Evaluates all samples and retains the top performers
+       for the next iteration
+    3. **Local Refinement** (optional): Applies gradient-based optimization to polish
+       the final results
+    
+    Algorithm Details
+    -----------------
+    The method uses an adaptive sampling strategy where:
+    
+    - Each iteration generates samples around the current top candidates
+    - Search regions shrink by a factor of `shrink_rate` each iteration
+    - Multiple candidates are maintained to preserve solution diversity
+    - Parallel evaluation is supported for computational efficiency
+    
+    Returns
+    -------
+    tuple of (dict, float)
+        A tuple containing:
+        
+        - **best_params** (dict): The optimal parameter set found during optimization.
+          Contains both varying and fixed parameters as key-value pairs.
+        - **best_error** (float): The minimum error value achieved by the best parameters.
+          This represents the objective function value at the optimum.
+    
+    Raises
+    ------
+    RuntimeError
+        If all parameter evaluations fail during any iteration. This typically occurs
+        when the ODE function encounters numerical issues or parameter bounds are 
+        too restrictive.
+    
+    Attributes Modified
+    -------------------
+    The method updates several instance attributes during execution:
+    
+    - **best_params** (dict): Updated with the optimal parameter set
+    - **best_error** (float): Updated with the minimum error found
+    - **history** (list): Appends the best error from each iteration
+    - **top_candidates_per_iter** (list): Stores top candidates from each iteration
+    
+    Configuration Parameters
+    ------------------------
+    The fitting behavior is controlled by several instance attributes:
+    
+    - **num_iter** (int): Number of optimization iterations to perform
+    - **num_top_candidates** (int): Number of best candidates to retain per iteration
+    - **n_samples** (int): Number of LHS samples to generate around each candidate
+    - **shrink_rate** (float): Rate at which search regions contract (0 < rate < 1)
+    - **do_local_opt** (bool): Whether to perform local refinement after global search
+    - **parallel** (bool): Enable parallel evaluation of candidate parameters
+    - **local_parallel** (bool): Enable parallel local refinement
+    - **verbose** (bool): Print detailed progress information
+    - **verbose_plot** (bool): Display error history plot after fitting
+    
+    Notes
+    -----
+    - The algorithm maintains both varying and fixed parameters. Only varying parameters
+      are optimized, while fixed parameters remain constant throughout.
+    - Search regions are bounded by the original parameter bounds specified in
+      `param_bounds`, ensuring samples never exceed feasible ranges.
+    - The shrinking search strategy balances exploration and exploitation, starting
+      with broad sampling and gradually focusing on promising regions.
+    - Local refinement uses gradient-based methods (specified by `local_method`)
+      which can significantly improve convergence for smooth objective functions.
+    - Progress tracking through `trange` provides real-time feedback on optimization
+      status and estimated completion time.
+    
+    Examples
+    --------
+    Basic usage with default settings:
+    
+    >>> optimizer = ODEOptimizer(
+    ...     ode_func=my_ode_solver,
+    ...     error_func=my_error_metric,
+    ...     param_bounds={'k1': (0.1, 10), 'k2': (0.01, 1)},
+    ...     varying_params=['k1', 'k2']
+    ... )
+    >>> best_params, best_error = optimizer.fit()
+    >>> print(f"Optimal parameters: {best_params}")
+    >>> print(f"Final error: {best_error:.6f}")
+    
+    With custom configuration for faster convergence:
+    
+    >>> optimizer = ODEOptimizer(
+    ...     ode_func=my_ode_solver,
+    ...     error_func=my_error_metric,
+    ...     param_bounds={'k1': (0.1, 10), 'k2': (0.01, 1)},
+    ...     varying_params=['k1', 'k2'],
+    ...     num_iter=50,
+    ...     num_top_candidates=5,
+    ...     shrink_rate=0.7,
+    ...     do_local_opt=True,
+    ...     parallel=True
+    ... )
+    >>> best_params, best_error = optimizer.fit()
+    
+    Accessing optimization history:
+    
+    >>> optimizer.fit()
+    >>> import matplotlib.pyplot as plt
+    >>> plt.plot(optimizer.history)
+    >>> plt.xlabel('Iteration')
+    >>> plt.ylabel('Best Error')
+    >>> plt.title('Optimization Progress')
+    >>> plt.show()
+    
+    Performance Considerations
+    --------------------------
+    - **Parallel Evaluation**: Enable `parallel=True` for computationally expensive
+      ODE functions. Most effective when `n_samples * num_top_candidates > num_cores`.
+    - **Local Optimization**: Set `do_local_opt=True` for smooth objective functions
+      where gradient information is available and reliable.
+    - **Memory Usage**: Large values of `num_iter` or `num_top_candidates` increase
+      memory usage through history storage.
+    - **Convergence**: Monitor `history` attribute to detect premature convergence
+      or the need for additional iterations.
+    
+    See Also
+    --------
+    get_top_candidates_history : Access the complete candidate history
+    get_top_candidates_table : Get optimization results as a pandas DataFrame
+    plot_error_history : Visualize the optimization progress
+    local_refine : The local optimization function used in refinement phase
+    lhs_sample : Latin Hypercube Sampling function for parameter generation
+    
+    References
+    ----------
+    .. [1] McKay, M. D., Beckman, R. J., & Conover, W. J. (1979). "Comparison of 
+           three methods for selecting values of input variables in the analysis 
+           of output from a computer code." Technometrics, 21(2), 239-245.
+    .. [2] Nocedal, J., & Wright, S. (2006). "Numerical optimization" 
+           (Vol. 2, pp. 497-528). New York: Springer.
+    """
         top_candidates = [(self.best_params.copy(), float('inf'))]
 
         for iteration in trange(self.num_iter, desc="Fitting Progress"):
@@ -215,15 +431,73 @@ class ODEOptimizer:
 
         
     def best_params(self):
+        """
+        Retrieve the best parameters found during the optimization process.
+
+        This method returns the best parameters that have been identified 
+        by the optimizer. The parameters are typically the result of 
+        an optimization algorithm that seeks to minimize or maximize 
+        a specific objective function.
+
+        Returns:
+            dict: A dictionary containing the best parameters found, 
+                  where keys are parameter names and values are the 
+                  corresponding optimal values.
+        """
         """Returns the best parameters found."""
         return self.best_params
     
     def best_error(self):
+        """
+        Returns the best error found during the optimization process.
+
+        This method retrieves the value of the best error that has been recorded
+        by the optimizer. The best error is typically the lowest error value 
+        achieved by the optimization algorithm, indicating the best fit to the 
+        data or model being optimized.
+
+        Returns:
+            float: The best error value found.
+        """
         """Returns the best error found."""
         return self.best_error
     
 
     def plot_error_history(self, figsize=(6, 4), xlabel='Iteration', ylabel='Best Error', title='Error over Optimization Iterations', fontsize=12):
+        """
+        Plots the optimization error over iterations.
+
+        This method generates a line plot representing the best error recorded during 
+        the optimization process across multiple iterations. It provides a visual 
+        representation of how the optimization error changes over time, which can be 
+        useful for diagnosing the performance of the optimization algorithm.
+
+        Parameters:
+        -----------
+        figsize : tuple, optional
+            The size of the figure to be created (default is (6, 4)).
+        xlabel : str, optional
+            The label for the x-axis (default is 'Iteration').
+        ylabel : str, optional
+            The label for the y-axis (default is 'Best Error').
+        title : str, optional
+            The title of the plot (default is 'Error over Optimization Iterations').
+        fontsize : int, optional
+            The font size for the labels and title (default is 12).
+
+        Returns:
+        --------
+        None
+
+        Raises:
+        -------
+        None
+
+        Notes:
+        ------
+        If there is no optimization history available, a message will be printed 
+        indicating that there is no data to plot.
+        """
         """Plots the optimization error over iterations."""
         if not self.history:
             print("No optimization history to plot.")
@@ -240,13 +514,35 @@ class ODEOptimizer:
 
     def summary(self, return_dict=False):
         """
-        Prints or returns a summary of the optimizer settings and current best result.
-        
-        Parameters
-        ----------
-        return_dict : bool
-            If True, returns the summary as a dictionary instead of printing.
+        Summary of the optimizer settings and current best result.
+        This method provides a comprehensive overview of the optimizer's configuration and its best-found parameters. It can either print the summary to the console or return it as a dictionary, depending on the value of the `return_dict` parameter.
+        return_dict : bool, optional
+            If True, the summary is returned as a dictionary. If False (default), the summary is printed to the console.
+        Returns
+        -------
+        dict or None
+            Returns a dictionary containing the optimizer settings and results if `return_dict` is True; otherwise, returns None.
+        Attributes Included in Summary
+        -------------------------------
+        - ode_func: The name of the ODE function being optimized.
+        - error_func: The name of the error function used for optimization.
+        - param_bounds: The bounds for the parameters being optimized.
+        - initial_guess: The initial guess for the parameters.
+        - n_samples: The number of samples used in the optimization process.
+        - num_iter: The number of iterations performed during optimization.
+        - num_top_candidates: The number of top candidates to consider.
+        - do_local_opt: A flag indicating whether local optimization is performed.
+        - local_method: The method used for local optimization.
+        - shrink_rate: The rate at which the search space is shrunk.
+        - parallel: A flag indicating whether parallel processing is enabled.
+        - local_parallel: A flag indicating whether local optimization should be parallelized.
+        - verbose: A flag indicating whether verbose output is enabled.
+        - verbose_plot: A flag indicating whether verbose plotting is enabled.
+        - seed: The random seed used for reproducibility.
+        - best_error: The best error found during optimization.
+        - best_params: The parameters corresponding to the best error found.
         """
+    
         summary_dict = {
             "ode_func": self.ode_func.__name__ if hasattr(self.ode_func, '__name__') else str(self.ode_func),
             "error_func": self.error_func.__name__ if hasattr(self.error_func, '__name__') else str(self.error_func),
@@ -279,9 +575,69 @@ class ODEOptimizer:
 
     def get_top_candidates_table(self):
         """
-        Returns a pandas DataFrame with the top candidates and their errors
-        from all iterations.
-        """
+    Returns a pandas DataFrame with the top candidates and their errors from all iterations.
+    
+    This method aggregates the optimization history by collecting the top candidate
+    parameter sets and their corresponding error values from each iteration, then
+    structures them into a comprehensive DataFrame for analysis and visualization.
+    
+    The resulting DataFrame provides a complete view of the optimization process,
+    showing how candidate solutions evolved across iterations and their relative
+    performance rankings.
+    
+    Returns
+    -------
+    pandas.DataFrame
+        A DataFrame containing the top candidates from all optimization iterations.
+        Each row represents one candidate solution with the following columns:
+        
+        - **iteration** (int): The iteration number (1-indexed)
+        - **rank** (int): The ranking of the candidate within its iteration (1-indexed, 
+          where 1 is the best performing candidate)
+        - **error** (float): The error/loss value for this candidate
+        - **Additional columns**: All parameter names and their values from the 
+          parameter dictionary are flattened into separate columns
+    
+    Notes
+    -----
+    - The iteration and rank columns are 1-indexed for better readability
+    - Parameter dictionaries are flattened, so each parameter becomes its own column
+    - The DataFrame structure allows for easy filtering, sorting, and analysis of 
+      optimization progress
+    - If no optimization history exists, an empty DataFrame is returned
+    
+    Examples
+    --------
+    >>> optimizer = YourOptimizerClass()
+    >>> # ... run optimization ...
+    >>> df = optimizer.get_top_candidates_table()
+    >>> print(df.head())
+       iteration  rank     error  param1  param2  param3
+    0          1     1  0.125430    0.45    2.1    True
+    1          1     2  0.134521    0.52    1.8   False
+    2          2     1  0.098234    0.48    2.3    True
+    3          2     2  0.112456    0.41    2.0    True
+    
+    >>> # Filter to see only the best candidate from each iteration
+    >>> best_per_iter = df[df['rank'] == 1]
+    
+    >>> # Analyze parameter evolution over iterations
+    >>> import matplotlib.pyplot as plt
+    >>> best_per_iter.plot(x='iteration', y='error')
+    >>> plt.title('Best Error vs Iteration')
+    >>> plt.show()
+    
+    See Also
+    --------
+    get_top_candidates_history : Returns the raw history data used by this method
+    
+    Raises
+    ------
+    AttributeError
+        If the optimizer instance doesn't have the required history tracking methods
+    KeyError
+        If the parameter dictionaries contain inconsistent keys across iterations
+    """
         records = []
         history = self.get_top_candidates_history()
         for iter_idx, candidates in enumerate(history):

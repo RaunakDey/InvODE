@@ -19,6 +19,7 @@ Welcome to InvODE's documentation!
 - Custom loss functions and regularization.
 - Domain versatility: Examples from biology, pharmacology, physics, finance and beyond.
 
+
 Contents
 --------
 
@@ -29,7 +30,8 @@ Contents
    installation
    quickstart
    api_reference
-   case_studies/index  
+   case_studies/index
+
 
 .. toctree::
    :maxdepth: 2

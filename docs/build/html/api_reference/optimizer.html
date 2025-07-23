@@ -1,0 +1,861 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>invode.optimizer &#8212; InvODE 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/optimizer';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="invode.sampling" href="sampling.html" />
+    <link rel="prev" title="API Reference" href="../api_reference.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">InvODE 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">invode.utils</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../case_studies/index.html">Case Studies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../case_studies/lotka-volterra.html">Lotka–Volterra Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../case_studies/chemical-kinetics.html">Chemical Kinetics Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../case_studies/phage-onestep.html">Phage One-Step Growth Case Study</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/api_reference/optimizer.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>invode.optimizer</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.best_error"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.best_error()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.best_params"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.best_params()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.fit"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.fit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.get_top_candidates_history"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.get_top_candidates_history()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.get_top_candidates_table"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.get_top_candidates_table()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.plot_error_history"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.plot_error_history()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.summary"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.summary()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-invode.optimizer">
+<span id="invode-optimizer"></span><h1>invode.optimizer<a class="headerlink" href="#module-invode.optimizer" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="invode.optimizer.ODEOptimizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">invode.optimizer.</span></span><span class="sig-name descname"><span class="pre">ODEOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ode_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_guess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_top_candidates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_local_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'L-BFGS-B'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shrink_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose_plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/optimizer.html#ODEOptimizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.optimizer.ODEOptimizer" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="invode.optimizer.ODEOptimizer.best_error">
+<span class="sig-name descname"><span class="pre">best_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/optimizer.html#ODEOptimizer.best_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.optimizer.ODEOptimizer.best_error" title="Link to this definition">#</a></dt>
+<dd><p>Returns the best error found during the optimization process.</p>
+<p>This method retrieves the value of the best error that has been recorded
+by the optimizer. The best error is typically the lowest error value
+achieved by the optimization algorithm, indicating the best fit to the
+data or model being optimized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The best error value found.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="invode.optimizer.ODEOptimizer.best_params">
+<span class="sig-name descname"><span class="pre">best_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/optimizer.html#ODEOptimizer.best_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.optimizer.ODEOptimizer.best_params" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the best parameters found during the optimization process.</p>
+<p>This method returns the best parameters that have been identified
+by the optimizer. The parameters are typically the result of
+an optimization algorithm that seeks to minimize or maximize
+a specific objective function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A dictionary containing the best parameters found,</dt><dd><p>where keys are parameter names and values are the
+corresponding optimal values.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="invode.optimizer.ODEOptimizer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/optimizer.html#ODEOptimizer.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.optimizer.ODEOptimizer.fit" title="Link to this definition">#</a></dt>
+<dd><p>Fit the model using a global optimization algorithm to minimize ODE function error.</p>
+<p>This method implements a sophisticated parameter optimization strategy that combines
+global exploration with local refinement. It uses Latin Hypercube Sampling (LHS)
+around the best candidates from each iteration, progressively shrinking search regions
+to converge on optimal parameter values. The algorithm maintains diversity by tracking
+multiple top candidates and optionally performs local optimization for fine-tuning.</p>
+<p>The optimization process consists of three main phases:</p>
+<ol class="arabic simple">
+<li><p><strong>Global Search</strong>: Iteratively samples parameter space using LHS around current
+best candidates, with search regions that shrink over iterations</p></li>
+<li><p><strong>Candidate Selection</strong>: Evaluates all samples and retains the top performers
+for the next iteration</p></li>
+<li><p><strong>Local Refinement</strong> (optional): Applies gradient-based optimization to polish
+the final results</p></li>
+</ol>
+<section id="algorithm-details">
+<h2>Algorithm Details<a class="headerlink" href="#algorithm-details" title="Link to this heading">#</a></h2>
+<p>The method uses an adaptive sampling strategy where:</p>
+<ul class="simple">
+<li><p>Each iteration generates samples around the current top candidates</p></li>
+<li><p>Search regions shrink by a factor of <cite>shrink_rate</cite> each iteration</p></li>
+<li><p>Multiple candidates are maintained to preserve solution diversity</p></li>
+<li><p>Parallel evaluation is supported for computational efficiency</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing:</p>
+<ul class="simple">
+<li><p><strong>best_params</strong> (dict): The optimal parameter set found during optimization.
+Contains both varying and fixed parameters as key-value pairs.</p></li>
+<li><p><strong>best_error</strong> (float): The minimum error value achieved by the best parameters.
+This represents the objective function value at the optimum.</p></li>
+</ul>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple of (dict, float)</p>
+</dd>
+<dt class="field-odd">raises RuntimeError<span class="colon">:</span></dt>
+<dd class="field-odd"><p>If all parameter evaluations fail during any iteration. This typically occurs
+    when the ODE function encounters numerical issues or parameter bounds are
+    too restrictive.</p>
+</dd>
+<dt class="field-even">raises Attributes Modified<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+<dt class="field-odd">raises ——————-<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">raises The method updates several instance attributes during execution:<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+<dt class="field-odd">raises - <strong>best_params</strong> (dict)<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Updated with the optimal parameter set:</p>
+</dd>
+<dt class="field-even">raises - <strong>best_error</strong> (float)<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated with the minimum error found:</p>
+</dd>
+<dt class="field-odd">raises - <strong>history</strong> (list)<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Appends the best error from each iteration:</p>
+</dd>
+<dt class="field-even">raises - <strong>top_candidates_per_iter</strong> (list)<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stores top candidates from each iteration:</p>
+</dd>
+<dt class="field-odd">raises Configuration Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">raises ————————<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+<dt class="field-odd">raises The fitting behavior is controlled by several instance attributes:<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">raises - <strong>num_iter</strong> (int)<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of optimization iterations to perform:</p>
+</dd>
+<dt class="field-odd">raises - <strong>num_top_candidates</strong> (int)<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of best candidates to retain per iteration:</p>
+</dd>
+<dt class="field-even">raises - <strong>n_samples</strong> (int)<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of LHS samples to generate around each candidate:</p>
+</dd>
+<dt class="field-odd">raises - <strong>shrink_rate</strong> (float)<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Rate at which search regions contract (0 &lt; rate &lt; 1):</p>
+</dd>
+<dt class="field-even">raises - <strong>do_local_opt</strong> (bool)<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether to perform local refinement after global search:</p>
+</dd>
+<dt class="field-odd">raises - <strong>parallel</strong> (bool)<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Enable parallel evaluation of candidate parameters:</p>
+</dd>
+<dt class="field-even">raises - <strong>local_parallel</strong> (bool)<span class="colon">:</span></dt>
+<dd class="field-even"><p>Enable parallel local refinement:</p>
+</dd>
+<dt class="field-odd">raises - <strong>verbose</strong> (bool)<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Print detailed progress information:</p>
+</dd>
+<dt class="field-even">raises - <strong>verbose_plot</strong> (bool)<span class="colon">:</span></dt>
+<dd class="field-even"><p>Display error history plot after fitting:</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The algorithm maintains both varying and fixed parameters. Only varying parameters
+are optimized, while fixed parameters remain constant throughout.</p></li>
+<li><p>Search regions are bounded by the original parameter bounds specified in
+<cite>param_bounds</cite>, ensuring samples never exceed feasible ranges.</p></li>
+<li><p>The shrinking search strategy balances exploration and exploitation, starting
+with broad sampling and gradually focusing on promising regions.</p></li>
+<li><p>Local refinement uses gradient-based methods (specified by <cite>local_method</cite>)
+which can significantly improve convergence for smooth objective functions.</p></li>
+<li><p>Progress tracking through <cite>trange</cite> provides real-time feedback on optimization
+status and estimated completion time.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Basic usage with default settings:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">ODEOptimizer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">ode_func</span><span class="o">=</span><span class="n">my_ode_solver</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">error_func</span><span class="o">=</span><span class="n">my_error_metric</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">param_bounds</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;k1&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s1">&#39;k2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">)},</span>
+<span class="gp">... </span>    <span class="n">varying_params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;k1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">best_params</span><span class="p">,</span> <span class="n">best_error</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimal parameters: </span><span class="si">{</span><span class="n">best_params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final error: </span><span class="si">{</span><span class="n">best_error</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With custom configuration for faster convergence:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">ODEOptimizer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">ode_func</span><span class="o">=</span><span class="n">my_ode_solver</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">error_func</span><span class="o">=</span><span class="n">my_error_metric</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">param_bounds</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;k1&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s1">&#39;k2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">)},</span>
+<span class="gp">... </span>    <span class="n">varying_params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;k1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">num_iter</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">num_top_candidates</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">shrink_rate</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">do_local_opt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">best_params</span><span class="p">,</span> <span class="n">best_error</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Accessing optimization history:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">optimizer</span><span class="o">.</span><span class="n">history</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Best Error&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Optimization Progress&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="performance-considerations">
+<h2>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Parallel Evaluation</strong>: Enable <cite>parallel=True</cite> for computationally expensive
+ODE functions. Most effective when <cite>n_samples * num_top_candidates &gt; num_cores</cite>.</p></li>
+<li><p><strong>Local Optimization</strong>: Set <cite>do_local_opt=True</cite> for smooth objective functions
+where gradient information is available and reliable.</p></li>
+<li><p><strong>Memory Usage</strong>: Large values of <cite>num_iter</cite> or <cite>num_top_candidates</cite> increase
+memory usage through history storage.</p></li>
+<li><p><strong>Convergence</strong>: Monitor <cite>history</cite> attribute to detect premature convergence
+or the need for additional iterations.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#invode.optimizer.ODEOptimizer.get_top_candidates_history" title="invode.optimizer.ODEOptimizer.get_top_candidates_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_candidates_history</span></code></a></dt><dd><p>Access the complete candidate history</p>
+</dd>
+<dt><a class="reference internal" href="#invode.optimizer.ODEOptimizer.get_top_candidates_table" title="invode.optimizer.ODEOptimizer.get_top_candidates_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_candidates_table</span></code></a></dt><dd><p>Get optimization results as a pandas DataFrame</p>
+</dd>
+<dt><a class="reference internal" href="#invode.optimizer.ODEOptimizer.plot_error_history" title="invode.optimizer.ODEOptimizer.plot_error_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_error_history</span></code></a></dt><dd><p>Visualize the optimization progress</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">local_refine</span></code></dt><dd><p>The local optimization function used in refinement phase</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhs_sample</span></code></dt><dd><p>Latin Hypercube Sampling function for parameter generation</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>McKay, M. D., Beckman, R. J., &amp; Conover, W. J. (1979). “Comparison of
+three methods for selecting values of input variables in the analysis
+of output from a computer code.” Technometrics, 21(2), 239-245.</p>
+</aside>
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<p>Nocedal, J., &amp; Wright, S. (2006). “Numerical optimization”
+(Vol. 2, pp. 497-528). New York: Springer.</p>
+</aside>
+</aside>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="invode.optimizer.ODEOptimizer.get_top_candidates_history">
+<span class="sig-name descname"><span class="pre">get_top_candidates_history</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/optimizer.html#ODEOptimizer.get_top_candidates_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.optimizer.ODEOptimizer.get_top_candidates_history" title="Link to this definition">#</a></dt>
+<dd><p>Returns the history of top candidates from each optimization iteration.
+This method retrieves the stored history of top candidates found during each
+iteration of the optimization process. Each entry in the history corresponds to
+a specific iteration and contains the best parameter sets along with their
+associated error values.
+:returns: A list of lists, where each inner list contains tuples of (parameter_dict, error_value)</p>
+<blockquote>
+<div><p>representing the top candidates for that iteration. The outer list corresponds to the
+iterations performed during optimization.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Each inner list contains the top candidates sorted by their error values.</p></li>
+<li><p>The first element of each inner list is the best candidate for that iteration.</p></li>
+<li><p>If no optimization has been performed, this method returns an empty list.</p></li>
+<li><p>The structure allows easy access to the best candidates at each iteration for further analysis.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="invode.optimizer.ODEOptimizer.get_top_candidates_table">
+<span class="sig-name descname"><span class="pre">get_top_candidates_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/optimizer.html#ODEOptimizer.get_top_candidates_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.optimizer.ODEOptimizer.get_top_candidates_table" title="Link to this definition">#</a></dt>
+<dd><p>Returns a pandas DataFrame with the top candidates and their errors from all iterations.</p>
+<p>This method aggregates the optimization history by collecting the top candidate
+parameter sets and their corresponding error values from each iteration, then
+structures them into a comprehensive DataFrame for analysis and visualization.</p>
+<p>The resulting DataFrame provides a complete view of the optimization process,
+showing how candidate solutions evolved across iterations and their relative
+performance rankings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>A DataFrame containing the top candidates from all optimization iterations.
+Each row represents one candidate solution with the following columns:</p>
+<ul class="simple">
+<li><p><strong>iteration</strong> (int): The iteration number (1-indexed)</p></li>
+<li><p><strong>rank</strong> (int): The ranking of the candidate within its iteration (1-indexed,
+where 1 is the best performing candidate)</p></li>
+<li><p><strong>error</strong> (float): The error/loss value for this candidate</p></li>
+<li><p><strong>Additional columns</strong>: All parameter names and their values from the
+parameter dictionary are flattened into separate columns</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The iteration and rank columns are 1-indexed for better readability</p></li>
+<li><p>Parameter dictionaries are flattened, so each parameter becomes its own column</p></li>
+<li><p>The DataFrame structure allows for easy filtering, sorting, and analysis of
+optimization progress</p></li>
+<li><p>If no optimization history exists, an empty DataFrame is returned</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">YourOptimizerClass</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># ... run optimization ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">get_top_candidates_table</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="go">   iteration  rank     error  param1  param2  param3</span>
+<span class="go">0          1     1  0.125430    0.45    2.1    True</span>
+<span class="go">1          1     2  0.134521    0.52    1.8   False</span>
+<span class="go">2          2     1  0.098234    0.48    2.3    True</span>
+<span class="go">3          2     2  0.112456    0.41    2.0    True</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Filter to see only the best candidate from each iteration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">best_per_iter</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Analyze parameter evolution over iterations</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">best_per_iter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;iteration&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Best Error vs Iteration&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#invode.optimizer.ODEOptimizer.get_top_candidates_history" title="invode.optimizer.ODEOptimizer.get_top_candidates_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_candidates_history</span></code></a></dt><dd><p>Returns the raw history data used by this method</p>
+</dd>
+</dl>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>AttributeError</strong> – If the optimizer instance doesn’t have the required history tracking methods</p></li>
+<li><p><strong>KeyError</strong> – If the parameter dictionaries contain inconsistent keys across iterations</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="invode.optimizer.ODEOptimizer.plot_error_history">
+<span class="sig-name descname"><span class="pre">plot_error_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(6,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iteration'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Best</span> <span class="pre">Error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Error</span> <span class="pre">over</span> <span class="pre">Optimization</span> <span class="pre">Iterations'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/optimizer.html#ODEOptimizer.plot_error_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.optimizer.ODEOptimizer.plot_error_history" title="Link to this definition">#</a></dt>
+<dd><p>Plots the optimization error over iterations.</p>
+<p>This method generates a line plot representing the best error recorded during
+the optimization process across multiple iterations. It provides a visual
+representation of how the optimization error changes over time, which can be
+useful for diagnosing the performance of the optimization algorithm.</p>
+<section id="parameters">
+<h2>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h2>
+<dl class="simple">
+<dt>figsize<span class="classifier">tuple, optional</span></dt><dd><p>The size of the figure to be created (default is (6, 4)).</p>
+</dd>
+<dt>xlabel<span class="classifier">str, optional</span></dt><dd><p>The label for the x-axis (default is ‘Iteration’).</p>
+</dd>
+<dt>ylabel<span class="classifier">str, optional</span></dt><dd><p>The label for the y-axis (default is ‘Best Error’).</p>
+</dd>
+<dt>title<span class="classifier">str, optional</span></dt><dd><p>The title of the plot (default is ‘Error over Optimization Iterations’).</p>
+</dd>
+<dt>fontsize<span class="classifier">int, optional</span></dt><dd><p>The font size for the labels and title (default is 12).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns:<a class="headerlink" href="#returns" title="Link to this heading">#</a></h2>
+<p>None</p>
+</section>
+<section id="raises">
+<h2>Raises:<a class="headerlink" href="#raises" title="Link to this heading">#</a></h2>
+<p>None</p>
+</section>
+<section id="notes">
+<h2>Notes:<a class="headerlink" href="#notes" title="Link to this heading">#</a></h2>
+<p>If there is no optimization history available, a message will be printed
+indicating that there is no data to plot.</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="invode.optimizer.ODEOptimizer.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/optimizer.html#ODEOptimizer.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.optimizer.ODEOptimizer.summary" title="Link to this definition">#</a></dt>
+<dd><p>Summary of the optimizer settings and current best result.
+This method provides a comprehensive overview of the optimizer’s configuration and its best-found parameters. It can either print the summary to the console or return it as a dictionary, depending on the value of the <cite>return_dict</cite> parameter.
+return_dict : bool, optional</p>
+<blockquote>
+<div><p>If True, the summary is returned as a dictionary. If False (default), the summary is printed to the console.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>dict or None</em> – Returns a dictionary containing the optimizer settings and results if <cite>return_dict</cite> is True; otherwise, returns None.</p></li>
+<li><p><em>Attributes Included in Summary</em></p></li>
+<li><p><em>——————————-</em></p></li>
+<li><p><strong>- ode_func</strong> (<em>The name of the ODE function being optimized.</em>)</p></li>
+<li><p><strong>- error_func</strong> (<em>The name of the error function used for optimization.</em>)</p></li>
+<li><p><strong>- param_bounds</strong> (<em>The bounds for the parameters being optimized.</em>)</p></li>
+<li><p><strong>- initial_guess</strong> (<em>The initial guess for the parameters.</em>)</p></li>
+<li><p><strong>- n_samples</strong> (<em>The number of samples used in the optimization process.</em>)</p></li>
+<li><p><strong>- num_iter</strong> (<em>The number of iterations performed during optimization.</em>)</p></li>
+<li><p><strong>- num_top_candidates</strong> (<em>The number of top candidates to consider.</em>)</p></li>
+<li><p><strong>- do_local_opt</strong> (<em>A flag indicating whether local optimization is performed.</em>)</p></li>
+<li><p><strong>- local_method</strong> (<em>The method used for local optimization.</em>)</p></li>
+<li><p><strong>- shrink_rate</strong> (<em>The rate at which the search space is shrunk.</em>)</p></li>
+<li><p><strong>- parallel</strong> (<em>A flag indicating whether parallel processing is enabled.</em>)</p></li>
+<li><p><strong>- local_parallel</strong> (<em>A flag indicating whether local optimization should be parallelized.</em>)</p></li>
+<li><p><strong>- verbose</strong> (<em>A flag indicating whether verbose output is enabled.</em>)</p></li>
+<li><p><strong>- verbose_plot</strong> (<em>A flag indicating whether verbose plotting is enabled.</em>)</p></li>
+<li><p><strong>- seed</strong> (<em>The random seed used for reproducibility.</em>)</p></li>
+<li><p><strong>- best_error</strong> (<em>The best error found during optimization.</em>)</p></li>
+<li><p><strong>- best_params</strong> (<em>The parameters corresponding to the best error found.</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../api_reference.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="sampling.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">invode.sampling</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.best_error"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.best_error()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.best_params"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.best_params()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.fit"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.fit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.get_top_candidates_history"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.get_top_candidates_history()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.get_top_candidates_table"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.get_top_candidates_table()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.plot_error_history"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.plot_error_history()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.optimizer.ODEOptimizer.summary"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer.summary()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raunak Dey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

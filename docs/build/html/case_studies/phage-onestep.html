@@ -153,6 +153,13 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">invode.utils</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Case Studies</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="lotka-volterra.html">Lotka–Volterra Case Study</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chemical-kinetics.html">Chemical Kinetics Case Study</a></li>
@@ -312,6 +319,20 @@ document.write(`
   <section id="Phage-One-Step-Growth-Case-Study">
 <h1>Phage One-Step Growth Case Study<a class="headerlink" href="#Phage-One-Step-Growth-Case-Study" title="Link to this heading">#</a></h1>
 <p>This example uses the model developed in the paper: <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2025.05.15.651590v1">https://www.biorxiv.org/content/10.1101/2025.05.15.651590v1</a></p>
+<p>A compartmental model of ODE is used in this example, where the bacterial cells goes through different stages of infection. They are given by Susceptible (S), Exposed (E), Infected (I), and the free virus is given by (V). The model is parameterized by traits such as <span class="math notranslate nohighlight">\(r,\phi,\tau,\beta\)</span>, the bacterial growth rate, adsorption rate, latent period and burst size respectively. For more information please consult the paper. Here is the differential equation.</p>
+<div class="math notranslate nohighlight">
+\[\frac{dS}{dt} =  rS - \phi SV\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dE_1}{dt} =  \phi SV - \frac{N_E+1}{\tau}E_1\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dE_i}{dt} =  \frac{N_E+1}{\tau}E_{i-1} - \frac{N_E+1}{\tau}E_{i}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dE_{N_E}}{dt} =  \frac{N_E+1}{\tau}E_{N_E-1} - \frac{N_E+1}{\tau}E_{N_E}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dI}{dt} =  \frac{N_E+1}{\tau}E_{N_E} - \frac{N_E+1}{\tau}I\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dV}{dt} =  \beta\frac{N_E+1}{\tau}I - V\phi (S+\sum E_i + I)\]</div>
+<p>Here only <span class="math notranslate nohighlight">\(V\)</span> is observed.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -325,7 +346,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
 
 <span class="c1"># Get path</span>
-<span class="n">project_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="n">project_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">project_root</span><span class="p">)</span>
 <br/><br/><br/></pre></div>
 </div>
@@ -377,38 +398,27 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
+<p>We can have a initial guess if we want to, but not needed. If that is a good candidate, InvODE will also consider it.</p>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
-
-<span class="sd"># Initial guess for parameters ===</span>
-<span class="sd">initial_guess = {</span>
-<span class="sd">    &#39;r&#39;: 0.3,</span>
-<span class="sd">    &#39;phi&#39;: 4.5e-08 ,</span>
-<span class="sd">    &#39;beta&#39;:  256,</span>
-<span class="sd">    &#39;tau&#39;: 2,</span>
-<span class="sd">    &#39;NE&#39;: 180</span>
-<span class="sd">}</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><br/><span></span><span class="c1"># Initial guess for parameters ===</span>
+<span class="n">initial_guess</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+    <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="mf">4.5e-08</span> <span class="p">,</span>
+    <span class="s1">&#39;beta&#39;</span><span class="p">:</span>  <span class="mi">256</span><span class="p">,</span>
+    <span class="s1">&#39;tau&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;NE&#39;</span><span class="p">:</span> <span class="mi">180</span>
+<span class="p">}</span>
 
 
-<span class="sd"># Initial conditions ===</span>
-<span class="sd">y0 = np.zeros((initial_guess[&#39;NE&#39;]+3,))</span>
-<span class="sd">y0[0] = S0</span>
-<span class="sd">y0[-1] = V0</span>
-<span class="sd">&#39;&#39;&#39;</span>
-</pre></div>
+<span class="c1"># Initial conditions ===</span>
+<span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">initial_guess</span><span class="p">[</span><span class="s1">&#39;NE&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">3</span><span class="p">,))</span>
+<span class="n">y0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S0</span>
+<span class="n">y0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">V0</span>
+<br/></pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&#34;\n\n# Initial guess for parameters ===\ninitial_guess = {\n    &#39;r&#39;: 0.3,\n    &#39;phi&#39;: 4.5e-08 ,\n    &#39;beta&#39;:  256,\n    &#39;tau&#39;: 2,\n    &#39;NE&#39;: 180\n}\n\n\n# Initial conditions ===\ny0 = np.zeros((initial_guess[&#39;NE&#39;]+3,))\ny0[0] = S0\ny0[-1] = V0\n&#34;
-</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -570,7 +580,7 @@ Iteration 2/5
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-Fitting Progress:  40%|████████████████████▍                              | 2/5 [00:03&lt;00:06,  2.02s/it]
+Fitting Progress:  40%|████████████████████▍                              | 2/5 [00:03&lt;00:05,  1.96s/it]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -589,7 +599,7 @@ Iteration 3/5
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-Fitting Progress:  60%|██████████████████████████████▌                    | 3/5 [00:06&lt;00:04,  2.47s/it]
+Fitting Progress:  60%|██████████████████████████████▌                    | 3/5 [00:06&lt;00:04,  2.39s/it]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -608,7 +618,7 @@ Iteration 4/5
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-Fitting Progress:  80%|████████████████████████████████████████▊          | 4/5 [00:09&lt;00:02,  2.64s/it]
+Fitting Progress:  80%|████████████████████████████████████████▊          | 4/5 [00:09&lt;00:02,  2.56s/it]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -627,7 +637,7 @@ Iteration 5/5
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-Fitting Progress: 100%|███████████████████████████████████████████████████| 5/5 [00:12&lt;00:00,  2.48s/it]
+Fitting Progress: 100%|███████████████████████████████████████████████████| 5/5 [00:12&lt;00:00,  2.43s/it]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -670,7 +680,7 @@ Best error: 0.0042
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/case_studies_phage-onestep_11_14.png" src="../_images/case_studies_phage-onestep_11_14.png" />
+<img alt="../_images/case_studies_phage-onestep_12_14.png" src="../_images/case_studies_phage-onestep_12_14.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -719,7 +729,7 @@ Best error: 0.0042
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/case_studies_phage-onestep_13_0.png" src="../_images/case_studies_phage-onestep_13_0.png" />
+<img alt="../_images/case_studies_phage-onestep_14_0.png" src="../_images/case_studies_phage-onestep_14_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
