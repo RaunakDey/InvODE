@@ -5,7 +5,7 @@
    <img src="docs/source/_static/logo.png" alt="InvODE Logo" width="200"/>
    </p>
 
-**Intelligent Variational Optimization for Differential Equations**
+**Inverse problems on Ordinary Differential Equations**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/release/python-380/)
