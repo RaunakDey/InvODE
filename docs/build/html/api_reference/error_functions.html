@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>invode.optimizer &#8212; InvODE 0.1 documentation</title>
+    <title>invode.error_functions &#8212; InvODE 0.1 documentation</title>
   
   
   
@@ -44,7 +44,6 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/error_functions';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Case Studies" href="../case_studies/index.html" />
     <link rel="prev" title="invode.utils" href="utils.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -149,21 +148,32 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="optimizer.html">invode.optimizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sensitivity.html">invode.sensitivity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sampling.html">invode.sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">invode.utils</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">invode.optimizer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage &amp; Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Simple Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/fitting_initial_conditions.html">Fitting vs Non-Fitting initial condition</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/adding_constraints.html">Adding constraints</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../case_studies/index.html">Case Studies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../case_studies/lotka-volterra.html">Lotka–Volterra Case Study</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../case_studies/chemical-kinetics.html">Chemical Kinetics Case Study</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../case_studies/phage-onestep.html">Phage One-Step Growth Case Study</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">invode.utils</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">invode.error_functions</a></li>
 </ul>
 </details></li>
 </ul>
@@ -304,7 +314,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>invode.optimizer</h1>
+    <h1>invode.error_functions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -318,6 +328,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.ChiSquaredMSE"><code class="docutils literal notranslate"><span class="pre">ChiSquaredMSE</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.ErrorFunction"><code class="docutils literal notranslate"><span class="pre">ErrorFunction</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.HuberLoss"><code class="docutils literal notranslate"><span class="pre">HuberLoss</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.LogLikelihood"><code class="docutils literal notranslate"><span class="pre">LogLikelihood</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.MAE"><code class="docutils literal notranslate"><span class="pre">MAE</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.MSE"><code class="docutils literal notranslate"><span class="pre">MSE</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.RMSE"><code class="docutils literal notranslate"><span class="pre">RMSE</span></code></a></li>
@@ -339,10 +350,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-invode.error_functions">
-<span id="invode-optimizer"></span><h1>invode.optimizer<a class="headerlink" href="#module-invode.error_functions" title="Link to this heading">#</a></h1>
+  <section id="invode-error-functions">
+<h1>invode.error_functions<a class="headerlink" href="#invode-error-functions" title="Link to this heading">#</a></h1>
 <section id="error-functions-module-erf">
-<h2>Error Functions Module (erf)<a class="headerlink" href="#error-functions-module-erf" title="Link to this heading">#</a></h2>
+<span id="module-invode.error_functions"></span><h2>Error Functions Module (erf)<a class="headerlink" href="#error-functions-module-erf" title="Link to this heading">#</a></h2>
 <p>This module provides a collection of common error/loss functions for ODE parameter
 optimization. These functions are designed to work with the invode optimization
 framework and provide standardized metrics for model fitting.</p>
@@ -417,6 +428,31 @@ smoothness for optimization.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Huber Loss: </span><span class="si">{</span><span class="n">error</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="invode.error_functions.LogLikelihood">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">invode.error_functions.</span></span><span class="sig-name descname"><span class="pre">LogLikelihood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/error_functions.html#LogLikelihood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.error_functions.LogLikelihood" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#invode.error_functions.ErrorFunction" title="invode.error_functions.ErrorFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ErrorFunction</span></code></a></p>
+<p>Gaussian Log-Likelihood Error Function.</p>
+<p>Computes the log-likelihood of the predicted values <cite>y_pred</cite> under the
+assumption that the observed data <cite>data</cite> follows a Gaussian distribution
+with mean equal to <cite>y_pred</cite> and constant variance <cite>sigma^2</cite>.</p>
+<dl class="simple">
+<dt>The log-likelihood is given by:</dt><dd><p>LL(μ, σ²) = -n/2 * log(2πσ²) - 1/(2σ²) * Σ(yi - μ)²</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – Observed data points.</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) – Standard deviation of the Gaussian noise. Must be positive.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If sigma is not positive or if the data array is empty.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
@@ -626,15 +662,6 @@ Create Chi-squared error function.</p>
         <p class="prev-next-title">invode.utils</p>
       </div>
     </a>
-    <a class="right-next"
-       href="../case_studies/index.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Case Studies</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -655,6 +682,7 @@ Create Chi-squared error function.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.ChiSquaredMSE"><code class="docutils literal notranslate"><span class="pre">ChiSquaredMSE</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.ErrorFunction"><code class="docutils literal notranslate"><span class="pre">ErrorFunction</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.HuberLoss"><code class="docutils literal notranslate"><span class="pre">HuberLoss</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.LogLikelihood"><code class="docutils literal notranslate"><span class="pre">LogLikelihood</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.MAE"><code class="docutils literal notranslate"><span class="pre">MAE</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.MSE"><code class="docutils literal notranslate"><span class="pre">MSE</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.error_functions.RMSE"><code class="docutils literal notranslate"><span class="pre">RMSE</span></code></a></li>

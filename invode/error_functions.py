@@ -159,6 +159,50 @@ class ChiSquaredMSE(ErrorFunction):
         return y_pred
 
 
+
+
+class LogLikelihood(ErrorFunction):
+    """
+    Gaussian Log-Likelihood Error Function.
+
+    Computes the log-likelihood of the predicted values `y_pred` under the
+    assumption that the observed data `data` follows a Gaussian distribution 
+    with mean equal to `y_pred` and constant variance `sigma^2`.
+
+    The log-likelihood is given by:
+        LL(μ, σ²) = -n/2 * log(2πσ²) - 1/(2σ²) * Σ(yi - μ)²
+
+    Parameters
+    ----------
+    data : np.ndarray
+        Observed data points.
+    sigma : float
+        Standard deviation of the Gaussian noise. Must be positive.
+
+    Raises
+    ------
+    ValueError
+        If sigma is not positive or if the data array is empty.
+    """
+
+    def __init__(self, data: np.ndarray, sigma: float, **kwargs):
+        super().__init__(data, **kwargs)
+        if sigma <= 0:
+            raise ValueError("Standard deviation sigma must be positive")
+        self.sigma = sigma
+        self.n = self.data.size
+
+    def __call__(self, y_pred: np.ndarray) -> float:
+        y_pred = self._validate_prediction(y_pred)
+        if not np.isfinite(y_pred).all():
+            return -np.inf  # Return log-likelihood as -inf if prediction is invalid
+
+        residuals = self.data - y_pred
+        squared_error = np.sum(residuals**2)
+        ll = -0.5 * self.n * np.log(2 * np.pi * self.sigma**2) - (0.5 / self.sigma**2) * squared_error
+        return ll
+    
+
 class MAE(ErrorFunction):
     """
     Mean Absolute Error (MAE) function.

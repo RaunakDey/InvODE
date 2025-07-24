@@ -1,6 +1,10 @@
 
 # 🚀 InvODE
 
+<p align="center">
+   <img src="docs/source/_static/logo.png" alt="InvODE Logo" width="200"/>
+   </p>
+
 **Intelligent Variational Optimization for Differential Equations**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -169,6 +173,10 @@ delta              0.775357
 gamma              0.350071
 ```
 ---
+
+<p align="center">
+   <img src="docs/source/_static/example.png" alt="InvODE Logo" width="1000"/>
+   </p>
 
 ## 📊 Real-World Applications
 

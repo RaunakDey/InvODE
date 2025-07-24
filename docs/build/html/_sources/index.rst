@@ -1,55 +1,61 @@
-.. invode documentation master file, created by
-   sphinx-quickstart on Mon Jul 21 20:33:46 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. raw:: html
 
+   <p align="center">
+   <img src="_static/logo.png" alt="InvODE Logo" width="200"/>
+   </p>
 
-.. Optimizer documentation master file, created by
-   sphinx-quickstart on 2025-07-21.
+Welcome to **InvODE**'s Documentation!
+=======================================
 
+**InvODE** is a Python library for flexible and interpretable **inference of ODE-based models** from time series data.  
+Whether you're modeling epidemics, enzyme kinetics, population dynamics, or financial systems — InvODE is built to help you **fit, refine, and understand** your dynamical models.
 
-Welcome to InvODE's documentation!
-=====================================
+✨ Key Features
+--------------
 
-**InvODE** is a Python package for fitting ODE-based models to data with support for:
+- 🔍 **Flexible optimization** for parameters, initial conditions, and latent states.
+- 🧩 **Custom loss functions**, and regularization terms.
+- ⚙️ **Solver-agnostic design** with compatibility across odeint, solve_ivp or other ecosystems.
+- 🧪 **Support for replicates, noisy data, and identifiability checks.**
+- 🌐 **Domain-agnostic**: Works for models in biology, chemistry, physics, and more.
+- 📦 **Ready for research and deployment** — ideal for rapid experimentation and rigorous validation.
 
-- Parameter and initial condition estimation.
-- Flexible solvers and constraints.
-- Support for replicates, latent variables, and identifiability checks.
-- Custom loss functions and regularization.
-- Domain versatility: Examples from biology, pharmacology, physics, finance and beyond.
-
-
-Contents
---------
+🚀 Get Started
+--------------
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Getting Started
+   :maxdepth: 1
+   :caption: Quickstart
 
    installation
    quickstart
-   api_reference
+
+📚 Learn & Explore
+------------------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Usage & Examples
+
+   tutorials/index
    case_studies/index
 
+🛠 API Reference
+----------------
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Features
+   :maxdepth: 1
 
-   features/solvers
-   features/parameter_fitting
-   features/constraints
-   features/replicates_latents
-   features/identifiability
-   features/local_minima
+   api_reference
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Developer Guide
+🤝 Contributing & Community
+---------------------------
 
-   contributing
-   testing
-   changelog
+We welcome contributions! Whether it’s fixing bugs, writing documentation, or adding features, we’d love your help.
 
+- `GitHub Repository <https://github.com/RaunakDey/invode>`_
+- `Contributing Guide <https://yourproject.readthedocs.io/en/latest/contributing.html>`_
 
+---
+
+*InvODE is developed with ❤️ by scientists transparency and open source ecosystem. If you use this package in your research, please consider citing us (citation coming soon!).*

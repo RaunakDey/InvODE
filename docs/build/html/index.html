@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Welcome to InvODE’s documentation! &#8212; InvODE 0.1 documentation</title>
+    <title>Welcome to InvODE’s Documentation! &#8212; InvODE 0.1 documentation</title>
   
   
   
@@ -152,21 +152,32 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/optimizer.html">invode.optimizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/sensitivity.html">invode.sensitivity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/sampling.html">invode.sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/utils.html">invode.utils</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html">invode.optimizer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage &amp; Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials/index.html">Simple Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/fitting_initial_conditions.html">Fitting vs Non-Fitting initial condition</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="tutorials/adding_constraints.html">Adding constraints</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="case_studies/index.html">Case Studies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="case_studies/lotka-volterra.html">Lotka–Volterra Case Study</a></li>
 <li class="toctree-l2"><a class="reference internal" href="case_studies/chemical-kinetics.html">Chemical Kinetics Case Study</a></li>
 <li class="toctree-l2"><a class="reference internal" href="case_studies/phage-onestep.html">Phage One-Step Growth Case Study</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html">invode.error_functions</a></li>
 </ul>
 </details></li>
 </ul>
@@ -307,7 +318,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Welcome to InvODE’s documentation!</h1>
+    <h1>Welcome to InvODE’s Documentation!</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -317,9 +328,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contents">Contents</a><ul class="nav section-nav flex-column">
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">✨ Key Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-started">🚀 Get Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-explore">📚 Learn &amp; Explore</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-reference">🛠 API Reference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing-community">🤝 Contributing &amp; Community</a></li>
 </ul>
             </nav>
         </div>
@@ -331,33 +344,41 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="welcome-to-invode-s-documentation">
-<h1>Welcome to InvODE’s documentation!<a class="headerlink" href="#welcome-to-invode-s-documentation" title="Link to this heading">#</a></h1>
-<p><strong>InvODE</strong> is a Python package for fitting ODE-based models to data with support for:</p>
+  <p align="center">
+<img src="_static/logo.png" alt="InvODE Logo" width="200"/>
+</p><section id="welcome-to-invode-s-documentation">
+<h1>Welcome to <strong>InvODE</strong>’s Documentation!<a class="headerlink" href="#welcome-to-invode-s-documentation" title="Link to this heading">#</a></h1>
+<p><strong>InvODE</strong> is a Python library for flexible and interpretable <strong>inference of ODE-based models</strong> from time series data.
+Whether you’re modeling epidemics, enzyme kinetics, population dynamics, or financial systems — InvODE is built to help you <strong>fit, refine, and understand</strong> your dynamical models.</p>
+<section id="key-features">
+<h2>✨ Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Parameter and initial condition estimation.</p></li>
-<li><p>Flexible solvers and constraints.</p></li>
-<li><p>Support for replicates, latent variables, and identifiability checks.</p></li>
-<li><p>Custom loss functions and regularization.</p></li>
-<li><p>Domain versatility: Examples from biology, pharmacology, physics, finance and beyond.</p></li>
+<li><p>🔍 <strong>Flexible optimization</strong> for parameters, initial conditions, and latent states.</p></li>
+<li><p>🧩 <strong>Custom loss functions</strong>, and regularization terms.</p></li>
+<li><p>⚙️ <strong>Solver-agnostic design</strong> with compatibility across odeint, solve_ivp or other ecosystems.</p></li>
+<li><p>🧪 <strong>Support for replicates, noisy data, and identifiability checks.</strong></p></li>
+<li><p>🌐 <strong>Domain-agnostic</strong>: Works for models in biology, chemistry, physics, and more.</p></li>
+<li><p>📦 <strong>Ready for research and deployment</strong> — ideal for rapid experimentation and rigorous validation.</p></li>
 </ul>
-<section id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Link to this heading">#</a></h2>
+</section>
+<section id="get-started">
+<h2>🚀 Get Started<a class="headerlink" href="#get-started" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#example-usage">Example Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#summary-and-plots">Summary and Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/optimizer.html">invode.optimizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/sensitivity.html">invode.sensitivity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/sampling.html">invode.sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/utils.html">invode.utils</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html">invode.optimizer</a></li>
+</div>
+</section>
+<section id="learn-explore">
+<h2>📚 Learn &amp; Explore<a class="headerlink" href="#learn-explore" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage &amp; Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Simple Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/fitting_initial_conditions.html">Fitting vs Non-Fitting initial condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/fitting_initial_conditions.html#Fitting-replicates">Fitting replicates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/adding_constraints.html">Adding constraints</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="case_studies/index.html">Case Studies</a><ul>
@@ -368,10 +389,24 @@ document.write(`
 </li>
 </ul>
 </div>
+</section>
+<section id="api-reference">
+<h2>🛠 API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+</ul>
 </div>
-<div class="toctree-wrapper compound">
-</div>
+</section>
+<section id="contributing-community">
+<h2>🤝 Contributing &amp; Community<a class="headerlink" href="#contributing-community" title="Link to this heading">#</a></h2>
+<p>We welcome contributions! Whether it’s fixing bugs, writing documentation, or adding features, we’d love your help.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/RaunakDey/invode">GitHub Repository</a></p></li>
+<li><p><a class="reference external" href="https://yourproject.readthedocs.io/en/latest/contributing.html">Contributing Guide</a></p></li>
+</ul>
+<p>—</p>
+<p><em>InvODE is developed with ❤️ by scientists transparency and open source ecosystem. If you use this package in your research, please consider citing us (citation coming soon!).</em></p>
 </section>
 </section>
 
@@ -411,9 +446,11 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contents">Contents</a><ul class="nav section-nav flex-column">
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">✨ Key Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-started">🚀 Get Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-explore">📚 Learn &amp; Explore</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-reference">🛠 API Reference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing-community">🤝 Contributing &amp; Community</a></li>
 </ul>
   </nav></div>
 
