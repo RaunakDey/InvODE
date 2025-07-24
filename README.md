@@ -5,7 +5,7 @@
    <img src="docs/source/_static/logo.png" alt="InvODE Logo" width="200"/>
    </p>
 
-# 🚀 InvODE: Inverse problems on Ordinary Differential Equations**
+# 🚀 InvODE: Inverse problems on Ordinary Differential Equations
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/release/python-380/)
@@ -214,7 +214,7 @@ error_func = erf.RegularizedError(data, 'mse', l1_lambda=0.01, l2_lambda=0.1)
 error_func = erf.huber(data, delta=1.5)
 ```
 
-### Parallel Optimization
+### Parallel Optimization (Under dev)
 ```python
 optimizer = invode.ODEOptimizer(
     # ... other parameters
