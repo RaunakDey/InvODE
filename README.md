@@ -9,7 +9,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/release/python-380/)
-[![Documentation Status](https://readthedocs.org/projects/invode/badge/?version=latest)](https://invode.readthedocs.io/en/latest/)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://raunakdey.github.io/InvODE/)
 [![PyPI version](https://badge.fury.io/py/invode.svg)](https://badge.fury.io/py/invode)
 
 A lightweight, powerful and intuitive Python library for parameter optimization in ordinary differential equation (ODE) systems. invode combines global optimization with local refinement techniques to efficiently find optimal parameter sets for complex dynamical systems.
