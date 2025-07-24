@@ -1,7 +1,7 @@
 Quickstart
 ==========
 
-This guide shows how to get started with `ODEOptimizer` from the `invode` package.
+This guide shows how to get started with the `invode` package.
 
 Installation
 ------------
@@ -10,9 +10,9 @@ You can install the package locally (until on PyPI) by cloning and using pip:
 
 .. code-block:: bash
 
-    git clone https://github.com/your-username/swarm_ode_fit.git
-    cd swarm_ode_fit
-    pip install .
+    git clone git@github.com:RaunakDey/InvODE.git
+    cd InvODE
+
 
 Example Usage
 -------------
