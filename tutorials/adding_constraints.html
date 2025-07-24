@@ -1,0 +1,648 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Adding constraints &#8212; InvODE 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/adding_constraints';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Case Studies" href="../case_studies/index.html" />
+    <link rel="prev" title="Fitting vs Non-Fitting initial condition" href="fitting_initial_conditions.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">InvODE 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage &amp; Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Simple Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="fitting_initial_conditions.html">Fitting vs Non-Fitting initial condition</a></li>
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Adding constraints</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../case_studies/index.html">Case Studies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../case_studies/lotka-volterra.html">Lotka–Volterra Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../case_studies/chemical-kinetics.html">Chemical Kinetics Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../case_studies/phage-onestep.html">Phage One-Step Growth Case Study</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/error_functions.html">invode.error_functions</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/adding_constraints.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Adding constraints</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#General-structure">General structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Adding-constraint">Adding constraint</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Adding-constraints">
+<h1>Adding constraints<a class="headerlink" href="#Adding-constraints" title="Link to this heading">#</a></h1>
+<p>We again consider the same problem.</p>
+<div class="math notranslate nohighlight">
+\[\frac{dy}{dt} = A\sin(\omega t + \delta)\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Dataset</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">0.</span>        <span class="p">,</span>  <span class="mf">0.20408163</span><span class="p">,</span>  <span class="mf">0.40816327</span><span class="p">,</span>  <span class="mf">0.6122449</span> <span class="p">,</span>  <span class="mf">0.81632653</span><span class="p">,</span>
+        <span class="mf">1.02040816</span><span class="p">,</span>  <span class="mf">1.2244898</span> <span class="p">,</span>  <span class="mf">1.42857143</span><span class="p">,</span>  <span class="mf">1.63265306</span><span class="p">,</span>  <span class="mf">1.83673469</span><span class="p">,</span>
+        <span class="mf">2.04081633</span><span class="p">,</span>  <span class="mf">2.24489796</span><span class="p">,</span>  <span class="mf">2.44897959</span><span class="p">,</span>  <span class="mf">2.65306122</span><span class="p">,</span>  <span class="mf">2.85714286</span><span class="p">,</span>
+        <span class="mf">3.06122449</span><span class="p">,</span>  <span class="mf">3.26530612</span><span class="p">,</span>  <span class="mf">3.46938776</span><span class="p">,</span>  <span class="mf">3.67346939</span><span class="p">,</span>  <span class="mf">3.87755102</span><span class="p">,</span>
+        <span class="mf">4.08163265</span><span class="p">,</span>  <span class="mf">4.28571429</span><span class="p">,</span>  <span class="mf">4.48979592</span><span class="p">,</span>  <span class="mf">4.69387755</span><span class="p">,</span>  <span class="mf">4.89795918</span><span class="p">,</span>
+        <span class="mf">5.10204082</span><span class="p">,</span>  <span class="mf">5.30612245</span><span class="p">,</span>  <span class="mf">5.51020408</span><span class="p">,</span>  <span class="mf">5.71428571</span><span class="p">,</span>  <span class="mf">5.91836735</span><span class="p">,</span>
+        <span class="mf">6.12244898</span><span class="p">,</span>  <span class="mf">6.32653061</span><span class="p">,</span>  <span class="mf">6.53061224</span><span class="p">,</span>  <span class="mf">6.73469388</span><span class="p">,</span>  <span class="mf">6.93877551</span><span class="p">,</span>
+        <span class="mf">7.14285714</span><span class="p">,</span>  <span class="mf">7.34693878</span><span class="p">,</span>  <span class="mf">7.55102041</span><span class="p">,</span>  <span class="mf">7.75510204</span><span class="p">,</span>  <span class="mf">7.95918367</span><span class="p">,</span>
+        <span class="mf">8.16326531</span><span class="p">,</span>  <span class="mf">8.36734694</span><span class="p">,</span>  <span class="mf">8.57142857</span><span class="p">,</span>  <span class="mf">8.7755102</span> <span class="p">,</span>  <span class="mf">8.97959184</span><span class="p">,</span>
+        <span class="mf">9.18367347</span><span class="p">,</span>  <span class="mf">9.3877551</span> <span class="p">,</span>  <span class="mf">9.59183673</span><span class="p">,</span>  <span class="mf">9.79591837</span><span class="p">,</span> <span class="mf">10.</span>        <span class="p">]),</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.91963291</span><span class="p">,</span> <span class="mf">0.99361406</span><span class="p">,</span> <span class="mf">1.27816619</span><span class="p">,</span> <span class="mf">1.83477302</span><span class="p">,</span> <span class="mf">2.0436977</span> <span class="p">,</span>
+       <span class="mf">2.4108738</span> <span class="p">,</span> <span class="mf">2.84511313</span><span class="p">,</span> <span class="mf">2.98244074</span><span class="p">,</span> <span class="mf">3.01343352</span><span class="p">,</span> <span class="mf">2.81703372</span><span class="p">,</span>
+       <span class="mf">2.66941941</span><span class="p">,</span> <span class="mf">2.31326251</span><span class="p">,</span> <span class="mf">1.89208529</span><span class="p">,</span> <span class="mf">1.40799057</span><span class="p">,</span> <span class="mf">1.2468084</span> <span class="p">,</span>
+       <span class="mf">1.08452949</span><span class="p">,</span> <span class="mf">1.03682804</span><span class="p">,</span> <span class="mf">1.22276976</span><span class="p">,</span> <span class="mf">1.58095538</span><span class="p">,</span> <span class="mf">1.73274129</span><span class="p">,</span>
+       <span class="mf">2.41068701</span><span class="p">,</span> <span class="mf">2.6162268</span> <span class="p">,</span> <span class="mf">3.08196062</span><span class="p">,</span> <span class="mf">3.0313903</span> <span class="p">,</span> <span class="mf">2.77556916</span><span class="p">,</span>
+       <span class="mf">2.75105715</span><span class="p">,</span> <span class="mf">2.46021415</span><span class="p">,</span> <span class="mf">1.85709704</span><span class="p">,</span> <span class="mf">1.60617448</span><span class="p">,</span> <span class="mf">1.22300332</span><span class="p">,</span>
+       <span class="mf">1.03747336</span><span class="p">,</span> <span class="mf">1.20756063</span><span class="p">,</span> <span class="mf">1.10867505</span><span class="p">,</span> <span class="mf">1.42444299</span><span class="p">,</span> <span class="mf">1.68301796</span><span class="p">,</span>
+       <span class="mf">2.09068759</span><span class="p">,</span> <span class="mf">2.61731029</span><span class="p">,</span> <span class="mf">2.42544506</span><span class="p">,</span> <span class="mf">2.97204288</span><span class="p">,</span> <span class="mf">2.97302454</span><span class="p">,</span>
+       <span class="mf">2.98836389</span><span class="p">,</span> <span class="mf">2.63614576</span><span class="p">,</span> <span class="mf">2.06298576</span><span class="p">,</span> <span class="mf">1.73999305</span><span class="p">,</span> <span class="mf">1.4090971</span> <span class="p">,</span>
+       <span class="mf">1.12819288</span><span class="p">,</span> <span class="mf">0.92043848</span><span class="p">,</span> <span class="mf">1.20091581</span><span class="p">,</span> <span class="mf">1.29993016</span><span class="p">,</span> <span class="mf">1.38187416</span><span class="p">])}</span>
+</pre></div>
+</div>
+</div>
+<section id="General-structure">
+<h2>General structure<a class="headerlink" href="#General-structure" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sine</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+    <span class="n">dy_dt</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span> <span class="o">*</span> <span class="n">t</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dy_dt</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_model</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;y0&#39;</span><span class="p">]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+    <span class="n">omega</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;omega&#39;</span><span class="p">]</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span>
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">sine</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">delta</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">sol</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<p>Next, we define an error function, this error function, depends on the data and the model predicted outcomes. The optimizer minimizes this error function</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">odeint</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
+
+<span class="c1"># Get path</span>
+<span class="c1"># Get path to MCMCwithODEs_primer (3 levels up)</span>
+<span class="n">project_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">project_root</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;./..&#39;</span><span class="p">)</span>  <span class="c1"># or absolute path if needed</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">invode</span><span class="w"> </span><span class="kn">import</span> <span class="n">ODEOptimizer</span><span class="p">,</span> <span class="n">lhs_sample</span><span class="p">,</span> <span class="n">MSE</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Adding-constraint">
+<h2>Adding constraint<a class="headerlink" href="#Adding-constraint" title="Link to this heading">#</a></h2>
+<p>For an example, let’s say we want the value at t = 10, is fixed to 1.5. We can use a constraints.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hyperparam</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mse_constrainted</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">output</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">hyperparam</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">param_bounds</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;y0&#39;</span><span class="p">:</span> <span class="mf">0.91963291</span><span class="p">,</span> <span class="c1"># fixed</span>
+    <span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+    <span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+    <span class="s1">&#39;omega&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">time</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span>
+
+<span class="n">optimizer_constrained</span> <span class="o">=</span> <span class="n">ODEOptimizer</span><span class="p">(</span>
+    <span class="n">ode_func</span><span class="o">=</span><span class="n">simulate_model</span><span class="p">,</span>
+    <span class="n">error_func</span><span class="o">=</span><span class="n">mse_constrainted</span><span class="p">,</span>
+    <span class="n">param_bounds</span><span class="o">=</span><span class="n">param_bounds</span><span class="p">,</span>
+    <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">num_top_candidates</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+    <span class="n">num_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose_plot</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">optimizer_constrained</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress: 100%|█████████████████████████████████████████████████| 10/10 [00:01&lt;00:00,  9.97it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Refining params: {&#39;A&#39;: 1.1915368305751737, &#39;delta&#39;: -0.02444698040884663, &#39;omega&#39;: 1.985154886052043}
+Refining params: {&#39;A&#39;: 0.9695259615925091, &#39;delta&#39;: 0.29615770908917377, &#39;omega&#39;: 1.9648598743384087}
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_adding_constraints_11_2.png" src="../_images/tutorials_adding_constraints_11_2.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+({&#39;A&#39;: 1.058478997699118,
+  &#39;delta&#39;: 0.035691140341976554,
+  &#39;omega&#39;: 1.9916707918835548,
+  &#39;y0&#39;: 0.91963291},
+ 0.013854377444252103)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_params</span> <span class="o">=</span> <span class="n">optimizer_constrained</span><span class="o">.</span><span class="n">best_params</span>
+<span class="n">best_fit</span> <span class="o">=</span> <span class="n">simulate_model</span><span class="p">(</span><span class="n">best_params</span><span class="p">)</span>
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">best_fit</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fit with last point fixed to 1.5&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The last point is </span><span class="si">{</span><span class="n">best_fit</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The last point is 1.499999984435069
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_adding_constraints_12_1.png" src="../_images/tutorials_adding_constraints_12_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="fitting_initial_conditions.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Fitting vs Non-Fitting initial condition</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../case_studies/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Case Studies</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#General-structure">General structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Adding-constraint">Adding constraint</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raunak Dey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

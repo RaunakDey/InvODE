@@ -1,0 +1,1247 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Fitting vs Non-Fitting initial condition &#8212; InvODE 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/fitting_initial_conditions';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Adding constraints" href="adding_constraints.html" />
+    <link rel="prev" title="Simple Tutorials" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">InvODE 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage &amp; Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Simple Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Fitting vs Non-Fitting initial condition</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="adding_constraints.html">Adding constraints</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../case_studies/index.html">Case Studies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../case_studies/lotka-volterra.html">Lotka–Volterra Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../case_studies/chemical-kinetics.html">Chemical Kinetics Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../case_studies/phage-onestep.html">Phage One-Step Growth Case Study</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/error_functions.html">invode.error_functions</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/fitting_initial_conditions.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Fitting vs Non-Fitting initial condition</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fitting vs Non-Fitting initial condition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Design-choice">Design choice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#General-structure">General structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Fitting-data-without-fitting-initial-conditions">Fitting data without fitting initial conditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Fitting-initial-conditions-too">Fitting initial conditions too</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#Fitting-replicates">Fitting replicates</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Fitting-vs-Non-Fitting-initial-condition">
+<h1>Fitting vs Non-Fitting initial condition<a class="headerlink" href="#Fitting-vs-Non-Fitting-initial-condition" title="Link to this heading">#</a></h1>
+<section id="Design-choice">
+<h2>Design choice<a class="headerlink" href="#Design-choice" title="Link to this heading">#</a></h2>
+<p>In many problems with ODE, we might decide to also fit the initial conditions for some of the state variables, to garner more insight and incorporate uncertainty into the inverse model. Here is how to do so. For this purpose, we are again going to use a simple example with sine wave.</p>
+<p>Consider this problem, which can be solved explicitly, but to be used here for demonstration purposes only.</p>
+<div class="math notranslate nohighlight">
+\[\frac{dy}{dt} = A\sin(\omega t + \delta)\]</div>
+<p>Here is the example of the dataset given in the paper, directly copied here for the ease of use.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Dataset</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">0.</span>        <span class="p">,</span>  <span class="mf">0.20408163</span><span class="p">,</span>  <span class="mf">0.40816327</span><span class="p">,</span>  <span class="mf">0.6122449</span> <span class="p">,</span>  <span class="mf">0.81632653</span><span class="p">,</span>
+        <span class="mf">1.02040816</span><span class="p">,</span>  <span class="mf">1.2244898</span> <span class="p">,</span>  <span class="mf">1.42857143</span><span class="p">,</span>  <span class="mf">1.63265306</span><span class="p">,</span>  <span class="mf">1.83673469</span><span class="p">,</span>
+        <span class="mf">2.04081633</span><span class="p">,</span>  <span class="mf">2.24489796</span><span class="p">,</span>  <span class="mf">2.44897959</span><span class="p">,</span>  <span class="mf">2.65306122</span><span class="p">,</span>  <span class="mf">2.85714286</span><span class="p">,</span>
+        <span class="mf">3.06122449</span><span class="p">,</span>  <span class="mf">3.26530612</span><span class="p">,</span>  <span class="mf">3.46938776</span><span class="p">,</span>  <span class="mf">3.67346939</span><span class="p">,</span>  <span class="mf">3.87755102</span><span class="p">,</span>
+        <span class="mf">4.08163265</span><span class="p">,</span>  <span class="mf">4.28571429</span><span class="p">,</span>  <span class="mf">4.48979592</span><span class="p">,</span>  <span class="mf">4.69387755</span><span class="p">,</span>  <span class="mf">4.89795918</span><span class="p">,</span>
+        <span class="mf">5.10204082</span><span class="p">,</span>  <span class="mf">5.30612245</span><span class="p">,</span>  <span class="mf">5.51020408</span><span class="p">,</span>  <span class="mf">5.71428571</span><span class="p">,</span>  <span class="mf">5.91836735</span><span class="p">,</span>
+        <span class="mf">6.12244898</span><span class="p">,</span>  <span class="mf">6.32653061</span><span class="p">,</span>  <span class="mf">6.53061224</span><span class="p">,</span>  <span class="mf">6.73469388</span><span class="p">,</span>  <span class="mf">6.93877551</span><span class="p">,</span>
+        <span class="mf">7.14285714</span><span class="p">,</span>  <span class="mf">7.34693878</span><span class="p">,</span>  <span class="mf">7.55102041</span><span class="p">,</span>  <span class="mf">7.75510204</span><span class="p">,</span>  <span class="mf">7.95918367</span><span class="p">,</span>
+        <span class="mf">8.16326531</span><span class="p">,</span>  <span class="mf">8.36734694</span><span class="p">,</span>  <span class="mf">8.57142857</span><span class="p">,</span>  <span class="mf">8.7755102</span> <span class="p">,</span>  <span class="mf">8.97959184</span><span class="p">,</span>
+        <span class="mf">9.18367347</span><span class="p">,</span>  <span class="mf">9.3877551</span> <span class="p">,</span>  <span class="mf">9.59183673</span><span class="p">,</span>  <span class="mf">9.79591837</span><span class="p">,</span> <span class="mf">10.</span>        <span class="p">]),</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.91963291</span><span class="p">,</span> <span class="mf">0.99361406</span><span class="p">,</span> <span class="mf">1.27816619</span><span class="p">,</span> <span class="mf">1.83477302</span><span class="p">,</span> <span class="mf">2.0436977</span> <span class="p">,</span>
+       <span class="mf">2.4108738</span> <span class="p">,</span> <span class="mf">2.84511313</span><span class="p">,</span> <span class="mf">2.98244074</span><span class="p">,</span> <span class="mf">3.01343352</span><span class="p">,</span> <span class="mf">2.81703372</span><span class="p">,</span>
+       <span class="mf">2.66941941</span><span class="p">,</span> <span class="mf">2.31326251</span><span class="p">,</span> <span class="mf">1.89208529</span><span class="p">,</span> <span class="mf">1.40799057</span><span class="p">,</span> <span class="mf">1.2468084</span> <span class="p">,</span>
+       <span class="mf">1.08452949</span><span class="p">,</span> <span class="mf">1.03682804</span><span class="p">,</span> <span class="mf">1.22276976</span><span class="p">,</span> <span class="mf">1.58095538</span><span class="p">,</span> <span class="mf">1.73274129</span><span class="p">,</span>
+       <span class="mf">2.41068701</span><span class="p">,</span> <span class="mf">2.6162268</span> <span class="p">,</span> <span class="mf">3.08196062</span><span class="p">,</span> <span class="mf">3.0313903</span> <span class="p">,</span> <span class="mf">2.77556916</span><span class="p">,</span>
+       <span class="mf">2.75105715</span><span class="p">,</span> <span class="mf">2.46021415</span><span class="p">,</span> <span class="mf">1.85709704</span><span class="p">,</span> <span class="mf">1.60617448</span><span class="p">,</span> <span class="mf">1.22300332</span><span class="p">,</span>
+       <span class="mf">1.03747336</span><span class="p">,</span> <span class="mf">1.20756063</span><span class="p">,</span> <span class="mf">1.10867505</span><span class="p">,</span> <span class="mf">1.42444299</span><span class="p">,</span> <span class="mf">1.68301796</span><span class="p">,</span>
+       <span class="mf">2.09068759</span><span class="p">,</span> <span class="mf">2.61731029</span><span class="p">,</span> <span class="mf">2.42544506</span><span class="p">,</span> <span class="mf">2.97204288</span><span class="p">,</span> <span class="mf">2.97302454</span><span class="p">,</span>
+       <span class="mf">2.98836389</span><span class="p">,</span> <span class="mf">2.63614576</span><span class="p">,</span> <span class="mf">2.06298576</span><span class="p">,</span> <span class="mf">1.73999305</span><span class="p">,</span> <span class="mf">1.4090971</span> <span class="p">,</span>
+       <span class="mf">1.12819288</span><span class="p">,</span> <span class="mf">0.92043848</span><span class="p">,</span> <span class="mf">1.20091581</span><span class="p">,</span> <span class="mf">1.29993016</span><span class="p">,</span> <span class="mf">1.38187416</span><span class="p">])}</span>
+</pre></div>
+</div>
+</div>
+<p>Next we defined the ODE equations, keeping everying same as given in the paper.</p>
+</section>
+<section id="General-structure">
+<h2>General structure<a class="headerlink" href="#General-structure" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sine</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+    <span class="n">dy_dt</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span> <span class="o">*</span> <span class="n">t</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dy_dt</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_model</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;y0&#39;</span><span class="p">]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+    <span class="n">omega</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;omega&#39;</span><span class="p">]</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span>
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">sine</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">delta</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">sol</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<p>Next, we define an error function, this error function, depends on the data and the model predicted outcomes. The optimizer minimizes this error function</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">odeint</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
+
+<span class="c1"># Get path</span>
+<span class="c1"># Get path to MCMCwithODEs_primer (3 levels up)</span>
+<span class="n">project_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">project_root</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;./..&#39;</span><span class="p">)</span>  <span class="c1"># or absolute path if needed</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">invode</span><span class="w"> </span><span class="kn">import</span> <span class="n">ODEOptimizer</span><span class="p">,</span> <span class="n">lhs_sample</span><span class="p">,</span> <span class="n">MSE</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Fitting-data-without-fitting-initial-conditions">
+<h2>Fitting data without fitting initial conditions<a class="headerlink" href="#Fitting-data-without-fitting-initial-conditions" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">param_bounds</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;y0&#39;</span><span class="p">:</span> <span class="mf">0.91963291</span><span class="p">,</span> <span class="c1"># fixed</span>
+    <span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+    <span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+    <span class="s1">&#39;omega&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">mse_func</span> <span class="o">=</span> <span class="n">MSE</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mse</span><span class="p">(</span><span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">mse_func</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">error</span>
+
+
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">ODEOptimizer</span><span class="p">(</span>
+    <span class="n">ode_func</span><span class="o">=</span><span class="n">simulate_model</span><span class="p">,</span>
+    <span class="n">error_func</span><span class="o">=</span><span class="n">mse</span><span class="p">,</span>
+    <span class="n">param_bounds</span><span class="o">=</span><span class="n">param_bounds</span><span class="p">,</span>
+    <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">num_top_candidates</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+    <span class="n">num_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">verbose_plot</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  20%|██████████                                        | 2/10 [00:00&lt;00:00, 12.44it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Iteration 1/10
+Best error so far: 0.0319
+Best params: {&#39;A&#39;: 1.168140028142529, &#39;delta&#39;: -0.07720727336595459, &#39;omega&#39;: 2.002175593725135, &#39;y0&#39;: 0.91963291}
+
+Iteration 2/10
+Best error so far: 0.0182
+Best params: {&#39;A&#39;: 1.045811159026857, &#39;delta&#39;: -0.09555069889028689, &#39;omega&#39;: 2.019658360998068, &#39;y0&#39;: 0.91963291}
+
+Iteration 3/10
+Best error so far: 0.0182
+Best params: {&#39;A&#39;: 1.045811159026857, &#39;delta&#39;: -0.09555069889028689, &#39;omega&#39;: 2.019658360998068, &#39;y0&#39;: 0.91963291}
+
+Iteration 4/10
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  60%|██████████████████████████████                    | 6/10 [00:00&lt;00:00, 10.39it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 0.0182
+Best params: {&#39;A&#39;: 1.045811159026857, &#39;delta&#39;: -0.09555069889028689, &#39;omega&#39;: 2.019658360998068, &#39;y0&#39;: 0.91963291}
+
+Iteration 5/10
+Best error so far: 0.0157
+Best params: {&#39;A&#39;: 1.0381311197585252, &#39;delta&#39;: 0.0690081293687369, &#39;omega&#39;: 1.9756783522432801, &#39;y0&#39;: 0.91963291}
+
+Iteration 6/10
+Best error so far: 0.0140
+Best params: {&#39;A&#39;: 1.0512865035769332, &#39;delta&#39;: 0.005383119169489824, &#39;omega&#39;: 1.9972166389138954, &#39;y0&#39;: 0.91963291}
+
+Iteration 7/10
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  80%|████████████████████████████████████████          | 8/10 [00:00&lt;00:00, 10.03it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 0.0140
+Best params: {&#39;A&#39;: 1.0512865035769332, &#39;delta&#39;: 0.005383119169489824, &#39;omega&#39;: 1.9972166389138954, &#39;y0&#39;: 0.91963291}
+
+Iteration 8/10
+Best error so far: 0.0138
+Best params: {&#39;A&#39;: 1.0534301206226777, &#39;delta&#39;: 0.03978869678111113, &#39;omega&#39;: 1.989053169627678, &#39;y0&#39;: 0.91963291}
+
+Iteration 9/10
+Best error so far: 0.0138
+Best params: {&#39;A&#39;: 1.0534301206226777, &#39;delta&#39;: 0.03978869678111113, &#39;omega&#39;: 1.989053169627678, &#39;y0&#39;: 0.91963291}
+
+Iteration 10/10
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress: 100%|█████████████████████████████████████████████████| 10/10 [00:00&lt;00:00, 10.20it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 0.0138
+Best params: {&#39;A&#39;: 1.056545607148581, &#39;delta&#39;: 0.03356573590691905, &#39;omega&#39;: 1.989016717607897, &#39;y0&#39;: 0.91963291}
+Refining params: {&#39;A&#39;: 1.056545607148581, &#39;delta&#39;: 0.03356573590691905, &#39;omega&#39;: 1.989016717607897}
+
+[Local Optimization]
+Refined parameters: {&#39;A&#39;: 1.0560379324115068, &#39;delta&#39;: 0.022068060110714268, &#39;omega&#39;: 1.9917066486447972, &#39;y0&#39;: 0.91963291}
+Refined error: 0.013748738280660198
+Refining params: {&#39;A&#39;: 0.9857635297013816, &#39;delta&#39;: 0.039353080625156134, &#39;omega&#39;: 1.9769982477129306}
+
+[Local Optimization]
+Refined parameters: {&#39;A&#39;: 1.0561353521005803, &#39;delta&#39;: 0.022018923113811893, &#39;omega&#39;: 1.9917261237026258, &#39;y0&#39;: 0.91963291}
+Refined error: 0.013748726040091095
+After local refinement:
+Best params: {&#39;A&#39;: 1.0561353521005803, &#39;delta&#39;: 0.022018923113811893, &#39;omega&#39;: 1.9917261237026258, &#39;y0&#39;: 0.91963291}
+Best error: 0.0137
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_fitting_initial_conditions_12_9.png" src="../_images/tutorials_fitting_initial_conditions_12_9.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+({&#39;A&#39;: 1.0561353521005803,
+  &#39;delta&#39;: 0.022018923113811893,
+  &#39;omega&#39;: 1.9917261237026258,
+  &#39;y0&#39;: 0.91963291},
+ 0.013748726040091095)
+</pre></div></div>
+</div>
+</section>
+<section id="Fitting-initial-conditions-too">
+<h2>Fitting initial conditions too<a class="headerlink" href="#Fitting-initial-conditions-too" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">param_bounds</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;y0&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">),</span> <span class="c1"># to be fit</span>
+    <span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+    <span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+    <span class="s1">&#39;omega&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">optimizer_init</span> <span class="o">=</span> <span class="n">ODEOptimizer</span><span class="p">(</span>
+    <span class="n">ode_func</span><span class="o">=</span><span class="n">simulate_model</span><span class="p">,</span>
+    <span class="n">error_func</span><span class="o">=</span><span class="n">mse</span><span class="p">,</span>
+    <span class="n">param_bounds</span><span class="o">=</span><span class="n">param_bounds</span><span class="p">,</span>
+    <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">num_top_candidates</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+    <span class="n">num_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">verbose_plot</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">optimizer_init</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:   0%|                                                          | 0/10 [00:00&lt;?, ?it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Iteration 1/10
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  20%|██████████                                        | 2/10 [00:00&lt;00:00,  8.31it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 0.0168
+Best params: {&#39;y0&#39;: 0.9564405848513244, &#39;A&#39;: 0.9911283621963101, &#39;delta&#39;: -0.010443730713275506, &#39;omega&#39;: 2.008637875754034}
+
+Iteration 2/10
+Best error so far: 0.0168
+Best params: {&#39;y0&#39;: 0.9564405848513244, &#39;A&#39;: 0.9911283621963101, &#39;delta&#39;: -0.010443730713275506, &#39;omega&#39;: 2.008637875754034}
+
+Iteration 3/10
+Best error so far: 0.0133
+Best params: {&#39;y0&#39;: 1.0370965121855702, &#39;A&#39;: 0.9971240229938314, &#39;delta&#39;: -0.11476876194661023, &#39;omega&#39;: 2.00726873303206}
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  50%|█████████████████████████                         | 5/10 [00:00&lt;00:00,  9.07it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Iteration 4/10
+Best error so far: 0.0133
+Best params: {&#39;y0&#39;: 1.0370965121855702, &#39;A&#39;: 0.9971240229938314, &#39;delta&#39;: -0.11476876194661023, &#39;omega&#39;: 2.00726873303206}
+
+Iteration 5/10
+Best error so far: 0.0133
+Best params: {&#39;y0&#39;: 1.0370965121855702, &#39;A&#39;: 0.9971240229938314, &#39;delta&#39;: -0.11476876194661023, &#39;omega&#39;: 2.00726873303206}
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  60%|██████████████████████████████                    | 6/10 [00:00&lt;00:00,  9.19it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Iteration 6/10
+Best error so far: 0.0133
+Best params: {&#39;y0&#39;: 1.0370965121855702, &#39;A&#39;: 0.9971240229938314, &#39;delta&#39;: -0.11476876194661023, &#39;omega&#39;: 2.00726873303206}
+
+Iteration 7/10
+Best error so far: 0.0133
+Best params: {&#39;y0&#39;: 1.0370965121855702, &#39;A&#39;: 0.9971240229938314, &#39;delta&#39;: -0.11476876194661023, &#39;omega&#39;: 2.00726873303206}
+
+Iteration 8/10
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  90%|█████████████████████████████████████████████     | 9/10 [00:00&lt;00:00,  9.61it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 0.0133
+Best params: {&#39;y0&#39;: 1.0370965121855702, &#39;A&#39;: 0.9971240229938314, &#39;delta&#39;: -0.11476876194661023, &#39;omega&#39;: 2.00726873303206}
+
+Iteration 9/10
+Best error so far: 0.0133
+Best params: {&#39;y0&#39;: 1.0370965121855702, &#39;A&#39;: 0.9971240229938314, &#39;delta&#39;: -0.11476876194661023, &#39;omega&#39;: 2.00726873303206}
+
+Iteration 10/10
+Best error so far: 0.0133
+Best params: {&#39;y0&#39;: 1.0370965121855702, &#39;A&#39;: 0.9971240229938314, &#39;delta&#39;: -0.11476876194661023, &#39;omega&#39;: 2.00726873303206}
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress: 100%|█████████████████████████████████████████████████| 10/10 [00:01&lt;00:00,  9.35it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Refining params: {&#39;y0&#39;: 1.0226316288325035, &#39;A&#39;: 0.9379243591192203, &#39;delta&#39;: -0.06491279874211497, &#39;omega&#39;: 2.001752259384231}
+
+[Local Optimization]
+Refined parameters: {&#39;y0&#39;: 1.0100147233268784, &#39;A&#39;: 0.9952796216949615, &#39;delta&#39;: 0.008061469875085391, &#39;omega&#39;: 1.9935965453448987}
+Refined error: 0.01070958836934748
+Refining params: {&#39;y0&#39;: 1.0853306550710178, &#39;A&#39;: 0.9645118937574587, &#39;delta&#39;: -0.15009082836065596, &#39;omega&#39;: 2.0305593250774443}
+
+[Local Optimization]
+Refined parameters: {&#39;y0&#39;: 1.0112583091783667, &#39;A&#39;: 0.994536192791167, &#39;delta&#39;: 0.012313818730878173, &#39;omega&#39;: 1.9929776210516146}
+Refined error: 0.010706618088041938
+After local refinement:
+Best params: {&#39;y0&#39;: 1.0112583091783667, &#39;A&#39;: 0.994536192791167, &#39;delta&#39;: 0.012313818730878173, &#39;omega&#39;: 1.9929776210516146}
+Best error: 0.0107
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_fitting_initial_conditions_14_13.png" src="../_images/tutorials_fitting_initial_conditions_14_13.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+({&#39;y0&#39;: 1.0112583091783667,
+  &#39;A&#39;: 0.994536192791167,
+  &#39;delta&#39;: 0.012313818730878173,
+  &#39;omega&#39;: 1.9929776210516146},
+ 0.010706618088041938)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_params</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">best_params</span>
+<span class="n">best_fit</span> <span class="o">=</span> <span class="n">simulate_model</span><span class="p">(</span><span class="n">best_params</span><span class="p">)</span>
+<span class="n">best_params_init</span> <span class="o">=</span> <span class="n">optimizer_init</span><span class="o">.</span><span class="n">best_params</span>
+<span class="n">best_fit_init</span> <span class="o">=</span> <span class="n">simulate_model</span><span class="p">(</span><span class="n">best_params_init</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">best_fit</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fit with fixed y0&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">best_fit_init</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fit with initial y0&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x1462d2cd0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_fitting_initial_conditions_15_1.png" src="../_images/tutorials_fitting_initial_conditions_15_1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Fitting-replicates">
+<h1>Fitting replicates<a class="headerlink" href="#Fitting-replicates" title="Link to this heading">#</a></h1>
+<p>Now say, we have more than one replicates, and we want to use both of them to fit the model.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.07361151</span><span class="p">,</span> <span class="mf">1.21215491</span><span class="p">,</span> <span class="mf">1.36986155</span><span class="p">,</span> <span class="mf">1.73030932</span><span class="p">,</span> <span class="mf">2.24416725</span><span class="p">,</span>
+       <span class="mf">2.47450877</span><span class="p">,</span> <span class="mf">2.82265203</span><span class="p">,</span> <span class="mf">3.13303415</span><span class="p">,</span> <span class="mf">2.94237672</span><span class="p">,</span> <span class="mf">2.78331504</span><span class="p">,</span>
+       <span class="mf">2.77477332</span><span class="p">,</span> <span class="mf">2.30881575</span><span class="p">,</span> <span class="mf">1.6857773</span> <span class="p">,</span> <span class="mf">1.40179982</span><span class="p">,</span> <span class="mf">1.2266223</span> <span class="p">,</span>
+       <span class="mf">0.9546354</span> <span class="p">,</span> <span class="mf">1.01174233</span><span class="p">,</span> <span class="mf">1.18537267</span><span class="p">,</span> <span class="mf">1.73544263</span><span class="p">,</span> <span class="mf">1.88389243</span><span class="p">,</span>
+       <span class="mf">2.23405254</span><span class="p">,</span> <span class="mf">2.51444005</span><span class="p">,</span> <span class="mf">2.87471318</span><span class="p">,</span> <span class="mf">3.13975545</span><span class="p">,</span> <span class="mf">3.01464544</span><span class="p">,</span>
+       <span class="mf">2.83216673</span><span class="p">,</span> <span class="mf">2.37472724</span><span class="p">,</span> <span class="mf">1.85761546</span><span class="p">,</span> <span class="mf">1.59781841</span><span class="p">,</span> <span class="mf">1.42317129</span><span class="p">,</span>
+       <span class="mf">1.10927539</span><span class="p">,</span> <span class="mf">1.20052413</span><span class="p">,</span> <span class="mf">1.27366477</span><span class="p">,</span> <span class="mf">1.4107367</span> <span class="p">,</span> <span class="mf">1.5436671</span> <span class="p">,</span>
+       <span class="mf">2.34982742</span><span class="p">,</span> <span class="mf">2.44866863</span><span class="p">,</span> <span class="mf">2.93237762</span><span class="p">,</span> <span class="mf">2.97178479</span><span class="p">,</span> <span class="mf">2.9309714</span> <span class="p">,</span>
+       <span class="mf">2.87300688</span><span class="p">,</span> <span class="mf">2.55836086</span><span class="p">,</span> <span class="mf">2.14322125</span><span class="p">,</span> <span class="mf">1.72324544</span><span class="p">,</span> <span class="mf">1.51411578</span><span class="p">,</span>
+       <span class="mf">1.03109252</span><span class="p">,</span> <span class="mf">0.99742575</span><span class="p">,</span> <span class="mf">0.95494922</span><span class="p">,</span> <span class="mf">1.28432555</span><span class="p">,</span> <span class="mf">1.62262172</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;Time&#39;: array([ 0.        ,  0.20408163,  0.40816327,  0.6122449 ,  0.81632653,
+         1.02040816,  1.2244898 ,  1.42857143,  1.63265306,  1.83673469,
+         2.04081633,  2.24489796,  2.44897959,  2.65306122,  2.85714286,
+         3.06122449,  3.26530612,  3.46938776,  3.67346939,  3.87755102,
+         4.08163265,  4.28571429,  4.48979592,  4.69387755,  4.89795918,
+         5.10204082,  5.30612245,  5.51020408,  5.71428571,  5.91836735,
+         6.12244898,  6.32653061,  6.53061224,  6.73469388,  6.93877551,
+         7.14285714,  7.34693878,  7.55102041,  7.75510204,  7.95918367,
+         8.16326531,  8.36734694,  8.57142857,  8.7755102 ,  8.97959184,
+         9.18367347,  9.3877551 ,  9.59183673,  9.79591837, 10.        ]),
+ &#39;y&#39;: array([0.91963291, 0.99361406, 1.27816619, 1.83477302, 2.0436977 ,
+        2.4108738 , 2.84511313, 2.98244074, 3.01343352, 2.81703372,
+        2.66941941, 2.31326251, 1.89208529, 1.40799057, 1.2468084 ,
+        1.08452949, 1.03682804, 1.22276976, 1.58095538, 1.73274129,
+        2.41068701, 2.6162268 , 3.08196062, 3.0313903 , 2.77556916,
+        2.75105715, 2.46021415, 1.85709704, 1.60617448, 1.22300332,
+        1.03747336, 1.20756063, 1.10867505, 1.42444299, 1.68301796,
+        2.09068759, 2.61731029, 2.42544506, 2.97204288, 2.97302454,
+        2.98836389, 2.63614576, 2.06298576, 1.73999305, 1.4090971 ,
+        1.12819288, 0.92043848, 1.20091581, 1.29993016, 1.38187416]),
+ &#39;y2&#39;: array([1.07361151, 1.21215491, 1.36986155, 1.73030932, 2.24416725,
+        2.47450877, 2.82265203, 3.13303415, 2.94237672, 2.78331504,
+        2.77477332, 2.30881575, 1.6857773 , 1.40179982, 1.2266223 ,
+        0.9546354 , 1.01174233, 1.18537267, 1.73544263, 1.88389243,
+        2.23405254, 2.51444005, 2.87471318, 3.13975545, 3.01464544,
+        2.83216673, 2.37472724, 1.85761546, 1.59781841, 1.42317129,
+        1.10927539, 1.20052413, 1.27366477, 1.4107367 , 1.5436671 ,
+        2.34982742, 2.44866863, 2.93237762, 2.97178479, 2.9309714 ,
+        2.87300688, 2.55836086, 2.14322125, 1.72324544, 1.51411578,
+        1.03109252, 0.99742575, 0.95494922, 1.28432555, 1.62262172])}
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">invode</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChiSquaredMSE</span>
+
+<span class="n">data_mean</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y2&#39;</span><span class="p">]]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data_sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y2&#39;</span><span class="p">]]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">chi2_func</span> <span class="o">=</span> <span class="n">ChiSquaredMSE</span><span class="p">(</span><span class="n">data_mean</span><span class="p">,</span> <span class="n">data_sigma</span><span class="p">)</span>
+<span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">error_func_replicates</span><span class="p">(</span><span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">chi2_func</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">error</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">param_bounds</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;y0&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">),</span> <span class="c1"># to be fit</span>
+    <span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+    <span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+    <span class="s1">&#39;omega&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">optimizer_replicates</span> <span class="o">=</span> <span class="n">ODEOptimizer</span><span class="p">(</span>
+    <span class="n">ode_func</span><span class="o">=</span><span class="n">simulate_model</span><span class="p">,</span>
+    <span class="n">error_func</span><span class="o">=</span><span class="n">error_func_replicates</span><span class="p">,</span>
+    <span class="n">param_bounds</span><span class="o">=</span><span class="n">param_bounds</span><span class="p">,</span>
+    <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">num_top_candidates</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+    <span class="n">num_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">verbose_plot</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">optimizer_replicates</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  20%|██████████                                        | 2/10 [00:00&lt;00:00, 10.46it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Iteration 1/10
+Best error so far: 114449.9848
+Best params: {&#39;y0&#39;: 0.9001526367210391, &#39;A&#39;: 1.028159496849852, &#39;delta&#39;: -0.09996629527932621, &#39;omega&#39;: 2.037668836633527}
+
+Iteration 2/10
+Best error so far: 114449.9848
+Best params: {&#39;y0&#39;: 0.9001526367210391, &#39;A&#39;: 1.028159496849852, &#39;delta&#39;: -0.09996629527932621, &#39;omega&#39;: 2.037668836633527}
+
+Iteration 3/10
+Best error so far: 114449.9848
+Best params: {&#39;y0&#39;: 0.9001526367210391, &#39;A&#39;: 1.028159496849852, &#39;delta&#39;: -0.09996629527932621, &#39;omega&#39;: 2.037668836633527}
+
+Iteration 4/10
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  50%|█████████████████████████                         | 5/10 [00:00&lt;00:00,  9.67it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 65171.6810
+Best params: {&#39;y0&#39;: 0.5439508248536276, &#39;A&#39;: 1.2537223140161797, &#39;delta&#39;: -0.23253618647506347, &#39;omega&#39;: 2.023521873910594}
+
+Iteration 5/10
+Best error so far: 65171.6810
+Best params: {&#39;y0&#39;: 0.5439508248536276, &#39;A&#39;: 1.2537223140161797, &#39;delta&#39;: -0.23253618647506347, &#39;omega&#39;: 2.023521873910594}
+
+Iteration 6/10
+Best error so far: 65171.6810
+Best params: {&#39;y0&#39;: 0.5439508248536276, &#39;A&#39;: 1.2537223140161797, &#39;delta&#39;: -0.23253618647506347, &#39;omega&#39;: 2.023521873910594}
+
+Iteration 7/10
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  80%|████████████████████████████████████████          | 8/10 [00:00&lt;00:00,  9.70it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 65171.6810
+Best params: {&#39;y0&#39;: 0.5439508248536276, &#39;A&#39;: 1.2537223140161797, &#39;delta&#39;: -0.23253618647506347, &#39;omega&#39;: 2.023521873910594}
+
+Iteration 8/10
+Best error so far: 65171.6810
+Best params: {&#39;y0&#39;: 0.5439508248536276, &#39;A&#39;: 1.2537223140161797, &#39;delta&#39;: -0.23253618647506347, &#39;omega&#39;: 2.023521873910594}
+
+Iteration 9/10
+Best error so far: 65171.6810
+Best params: {&#39;y0&#39;: 0.5439508248536276, &#39;A&#39;: 1.2537223140161797, &#39;delta&#39;: -0.23253618647506347, &#39;omega&#39;: 2.023521873910594}
+
+Iteration 10/10
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress: 100%|█████████████████████████████████████████████████| 10/10 [00:01&lt;00:00,  9.81it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 65171.6810
+Best params: {&#39;y0&#39;: 0.5439508248536276, &#39;A&#39;: 1.2537223140161797, &#39;delta&#39;: -0.23253618647506347, &#39;omega&#39;: 2.023521873910594}
+Refining params: {&#39;y0&#39;: 0.6842069991662677, &#39;A&#39;: 1.1542704360842206, &#39;delta&#39;: -0.09268111484809301, &#39;omega&#39;: 2.0216642544629475}
+
+[Local Optimization]
+Refined parameters: {&#39;y0&#39;: 1.0544409173231115, &#39;A&#39;: 0.9623682222023404, &#39;delta&#39;: -0.1170877556466916, &#39;omega&#39;: 2.0454085116455185}
+Refined error: 6361.016522641541
+Refining params: {&#39;y0&#39;: 0.5609434685651457, &#39;A&#39;: 1.2196578309637716, &#39;delta&#39;: 0.03921739112415468, &#39;omega&#39;: 2.0132279835033153}
+
+[Local Optimization]
+Refined parameters: {&#39;y0&#39;: 1.050844854892481, &#39;A&#39;: 0.9602834768065078, &#39;delta&#39;: -0.03661762511259229, &#39;omega&#39;: 2.0307489988031215}
+Refined error: 7083.258839718901
+After local refinement:
+Best params: {&#39;y0&#39;: 1.0544409173231115, &#39;A&#39;: 0.9623682222023404, &#39;delta&#39;: -0.1170877556466916, &#39;omega&#39;: 2.0454085116455185}
+Best error: 6361.0165
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_fitting_initial_conditions_21_8.png" src="../_images/tutorials_fitting_initial_conditions_21_8.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+({&#39;y0&#39;: 1.0544409173231115,
+  &#39;A&#39;: 0.9623682222023404,
+  &#39;delta&#39;: -0.1170877556466916,
+  &#39;omega&#39;: 2.0454085116455185},
+ 6361.016522641541)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_params_repli</span> <span class="o">=</span> <span class="n">optimizer_replicates</span><span class="o">.</span><span class="n">best_params</span>
+<span class="n">best_fit_repli</span> <span class="o">=</span> <span class="n">simulate_model</span><span class="p">(</span><span class="n">best_params_repli</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;y2&#39;</span><span class="p">],</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">best_fit_repli</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fitting replicates&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x1464c68d0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_fitting_initial_conditions_22_1.png" src="../_images/tutorials_fitting_initial_conditions_22_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Simple Tutorials</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="adding_constraints.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Adding constraints</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fitting vs Non-Fitting initial condition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Design-choice">Design choice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#General-structure">General structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Fitting-data-without-fitting-initial-conditions">Fitting data without fitting initial conditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Fitting-initial-conditions-too">Fitting initial conditions too</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#Fitting-replicates">Fitting replicates</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raunak Dey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

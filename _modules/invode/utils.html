@@ -1,0 +1,719 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>invode.utils &#8212; InvODE 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/invode/utils';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">InvODE 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage &amp; Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Simple Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/fitting_initial_conditions.html">Fitting vs Non-Fitting initial condition</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/adding_constraints.html">Adding constraints</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../case_studies/index.html">Case Studies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../case_studies/lotka-volterra.html">Lotka–Volterra Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../case_studies/chemical-kinetics.html">Chemical Kinetics Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../case_studies/phage-onestep.html">Phage One-Step Growth Case Study</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/error_functions.html">invode.error_functions</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for invode.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># utils.py</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">import</span> <span class="nn">scipy.io</span>
+
+
+<div class="viewcode-block" id="load_matlab_data">
+<a class="viewcode-back" href="../../api_reference/utils.html#invode.utils.load_matlab_data">[docs]</a>
+<span class="k">def</span> <span class="nf">load_matlab_data</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+
+<div class="viewcode-block" id="local_refine">
+<a class="viewcode-back" href="../../api_reference/utils.html#invode.utils.local_refine">[docs]</a>
+<span class="k">def</span> <span class="nf">local_refine</span><span class="p">(</span><span class="n">best_params</span><span class="p">,</span> <span class="n">ode_func</span><span class="p">,</span> <span class="n">error_func</span><span class="p">,</span> <span class="n">fixed_params</span><span class="p">,</span> <span class="n">param_bounds</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform local gradient-based optimization to refine parameter estimates.</span>
+<span class="sd">    </span>
+<span class="sd">    This function takes a set of promising parameter values (typically from global</span>
+<span class="sd">    optimization) and applies local optimization techniques to find a nearby local</span>
+<span class="sd">    optimum with higher precision. It uses gradient-based methods that can efficiently</span>
+<span class="sd">    navigate smooth objective function landscapes to achieve fine-scale convergence.</span>
+<span class="sd">    </span>
+<span class="sd">    The function is designed to work seamlessly with mixed parameter sets containing</span>
+<span class="sd">    both varying (free) and fixed parameters. Only the free parameters are optimized,</span>
+<span class="sd">    while fixed parameters remain constant throughout the refinement process.</span>
+<span class="sd">    </span>
+<span class="sd">    Local refinement is particularly effective when:</span>
+<span class="sd">    </span>
+<span class="sd">    - The objective function is smooth and differentiable near the optimum</span>
+<span class="sd">    - Global optimization has identified a promising region</span>
+<span class="sd">    - High precision is required for the final parameter estimates</span>
+<span class="sd">    - Gradient information is available or can be approximated numerically</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    best_params : dict</span>
+<span class="sd">        Initial parameter estimates to be refined. Should contain values for all</span>
+<span class="sd">        parameters required by the ODE function. These typically come from a</span>
+<span class="sd">        global optimization phase and represent a good starting point for local</span>
+<span class="sd">        search.</span>
+<span class="sd">        </span>
+<span class="sd">        Example: ``{&#39;k1&#39;: 2.5, &#39;k2&#39;: 0.15, &#39;alpha&#39;: 0.8, &#39;beta&#39;: 1.2}``</span>
+<span class="sd">        </span>
+<span class="sd">    ode_func : callable</span>
+<span class="sd">        The ODE solver function that takes a parameter dictionary and returns</span>
+<span class="sd">        model output. Must have signature ``ode_func(params) -&gt; output`` where</span>
+<span class="sd">        params is a dictionary of parameter values and output is the model</span>
+<span class="sd">        prediction that will be compared against data.</span>
+<span class="sd">        </span>
+<span class="sd">    error_func : callable  </span>
+<span class="sd">        Error/objective function that quantifies model fit quality. Must have</span>
+<span class="sd">        signature ``error_func(model_output) -&gt; float`` where model_output is</span>
+<span class="sd">        the result from ode_func and the return value is a scalar error measure</span>
+<span class="sd">        (lower values indicate better fit).</span>
+<span class="sd">        </span>
+<span class="sd">    fixed_params : dict</span>
+<span class="sd">        Dictionary of parameters that should remain constant during optimization.</span>
+<span class="sd">        These parameters will be included in every evaluation but their values</span>
+<span class="sd">        will not be modified by the local optimizer.</span>
+<span class="sd">        </span>
+<span class="sd">        Example: ``{&#39;temp&#39;: 298.15, &#39;pH&#39;: 7.4}``</span>
+<span class="sd">        </span>
+<span class="sd">    param_bounds : dict</span>
+<span class="sd">        Dictionary mapping parameter names to their allowable bounds. Each value</span>
+<span class="sd">        should be a tuple (min_val, max_val). Only bounds for free parameters</span>
+<span class="sd">        (those not in fixed_params) are used during optimization.</span>
+<span class="sd">        </span>
+<span class="sd">        Example: ``{&#39;k1&#39;: (0.1, 10.0), &#39;k2&#39;: (0.01, 1.0)}``</span>
+<span class="sd">        </span>
+<span class="sd">    method : str, optional</span>
+<span class="sd">        Optimization algorithm to use. Must be a method supported by </span>
+<span class="sd">        scipy.optimize.minimize that handles bound constraints. Common choices:</span>
+<span class="sd">        </span>
+<span class="sd">        - ``&#39;L-BFGS-B&#39;`` (default): Limited-memory BFGS with bounds</span>
+<span class="sd">        - ``&#39;TNC&#39;``: Truncated Newton with bounds  </span>
+<span class="sd">        - ``&#39;SLSQP&#39;``: Sequential Least Squares Programming</span>
+<span class="sd">        - ``&#39;trust-constr&#39;``: Trust-region constrained optimization</span>
+<span class="sd">        </span>
+<span class="sd">        Default is &#39;L-BFGS-B&#39; which provides good performance for smooth problems.</span>
+<span class="sd">        </span>
+<span class="sd">    verbose : bool, optional</span>
+<span class="sd">        If True, print detailed information about the optimization process,</span>
+<span class="sd">        including refined parameter values, final error, and success status.</span>
+<span class="sd">        Useful for debugging and monitoring convergence. Default is False.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of (dict, float)</span>
+<span class="sd">        A tuple containing the refined results:</span>
+<span class="sd">        </span>
+<span class="sd">        - **refined_params** (dict): The optimized parameter set containing both</span>
+<span class="sd">          refined free parameters and unchanged fixed parameters. Has the same</span>
+<span class="sd">          keys as the input best_params.</span>
+<span class="sd">        - **refined_error** (float): The error value achieved by the refined</span>
+<span class="sd">          parameters. This should be less than or equal to the initial error</span>
+<span class="sd">          if optimization was successful.</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    **Algorithm Details:**</span>
+<span class="sd">    </span>
+<span class="sd">    The function implements a parameter space transformation to work with scipy&#39;s</span>
+<span class="sd">    optimize interface:</span>
+<span class="sd">    </span>
+<span class="sd">    1. Separates free parameters (to be optimized) from fixed parameters</span>
+<span class="sd">    2. Creates a wrapper function that converts parameter vectors back to dictionaries</span>
+<span class="sd">    3. Merges free and fixed parameters for each function evaluation</span>
+<span class="sd">    4. Handles exceptions gracefully by returning infinite error for failed evaluations</span>
+<span class="sd">    </span>
+<span class="sd">    **Error Handling:**</span>
+<span class="sd">    </span>
+<span class="sd">    The wrapped objective function includes robust exception handling. If the ODE</span>
+<span class="sd">    solver or error function raises any exception (numerical instability, domain</span>
+<span class="sd">    errors, etc.), the function returns np.inf, allowing the optimizer to continue</span>
+<span class="sd">    with other parameter values.</span>
+<span class="sd">    </span>
+<span class="sd">    **Convergence Criteria:**</span>
+<span class="sd">    </span>
+<span class="sd">    The optimization uses scipy&#39;s default convergence criteria for the selected</span>
+<span class="sd">    method. These typically include:</span>
+<span class="sd">    </span>
+<span class="sd">    - Gradient norm tolerance</span>
+<span class="sd">    - Function value change tolerance  </span>
+<span class="sd">    - Maximum iteration limits</span>
+<span class="sd">    - Constraint satisfaction tolerance</span>
+<span class="sd">    </span>
+<span class="sd">    **Parameter Bounds:**</span>
+<span class="sd">    </span>
+<span class="sd">    All free parameters are constrained to remain within their specified bounds</span>
+<span class="sd">    throughout the optimization process. The optimizer will not evaluate parameter</span>
+<span class="sd">    values outside these bounds.</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Basic usage after global optimization:</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; # Assume we have results from global optimization</span>
+<span class="sd">    &gt;&gt;&gt; global_best = {&#39;k1&#39;: 2.3, &#39;k2&#39;: 0.18, &#39;temp&#39;: 298.15}</span>
+<span class="sd">    &gt;&gt;&gt; fixed = {&#39;temp&#39;: 298.15}  # Temperature held constant</span>
+<span class="sd">    &gt;&gt;&gt; bounds = {&#39;k1&#39;: (0.1, 10.0), &#39;k2&#39;: (0.01, 1.0)}</span>
+<span class="sd">    &gt;&gt;&gt; </span>
+<span class="sd">    &gt;&gt;&gt; refined_params, refined_error = local_refine(</span>
+<span class="sd">    ...     global_best, my_ode_solver, my_error_function, </span>
+<span class="sd">    ...     fixed, bounds, verbose=True</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;Refined parameters: {refined_params}&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;Final error: {refined_error:.6f}&quot;)</span>
+<span class="sd">    </span>
+<span class="sd">    Comparing different optimization methods:</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; methods = [&#39;L-BFGS-B&#39;, &#39;TNC&#39;, &#39;SLSQP&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; results = {}</span>
+<span class="sd">    &gt;&gt;&gt; </span>
+<span class="sd">    &gt;&gt;&gt; for method in methods:</span>
+<span class="sd">    ...     params, error = local_refine(</span>
+<span class="sd">    ...         initial_params, ode_func, error_func,</span>
+<span class="sd">    ...         fixed_params, param_bounds, method=method</span>
+<span class="sd">    ...     )</span>
+<span class="sd">    ...     results[method] = (params, error)</span>
+<span class="sd">    ...     print(f&quot;{method}: error = {error:.6f}&quot;)</span>
+<span class="sd">    </span>
+<span class="sd">    Integration with global optimization workflow:</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; def optimize_ode_model(ode_func, error_func, param_config):</span>
+<span class="sd">    ...     # Global optimization phase</span>
+<span class="sd">    ...     global_optimizer = ODEOptimizer(</span>
+<span class="sd">    ...         ode_func=ode_func,</span>
+<span class="sd">    ...         error_func=error_func,</span>
+<span class="sd">    ...         **param_config</span>
+<span class="sd">    ...     )</span>
+<span class="sd">    ...     global_best, global_error = global_optimizer.fit()</span>
+<span class="sd">    ...     </span>
+<span class="sd">    ...     # Local refinement phase</span>
+<span class="sd">    ...     refined_best, refined_error = local_refine(</span>
+<span class="sd">    ...         global_best, ode_func, error_func,</span>
+<span class="sd">    ...         param_config[&#39;fixed_params&#39;],</span>
+<span class="sd">    ...         param_config[&#39;param_bounds&#39;],</span>
+<span class="sd">    ...         method=&#39;L-BFGS-B&#39;,</span>
+<span class="sd">    ...         verbose=True</span>
+<span class="sd">    ...     )</span>
+<span class="sd">    ...     </span>
+<span class="sd">    ...     improvement = global_error - refined_error</span>
+<span class="sd">    ...     print(f&quot;Local refinement improved error by {improvement:.6f}&quot;)</span>
+<span class="sd">    ...     return refined_best, refined_error</span>
+<span class="sd">    </span>
+<span class="sd">    Handling optimization failures:</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; try:</span>
+<span class="sd">    ...     refined_params, refined_error = local_refine(</span>
+<span class="sd">    ...         best_params, ode_func, error_func, fixed_params, bounds</span>
+<span class="sd">    ...     )</span>
+<span class="sd">    ...     if refined_error == np.inf:</span>
+<span class="sd">    ...         print(&quot;Warning: Local optimization failed to find valid solution&quot;)</span>
+<span class="sd">    ...         # Fall back to global optimization result</span>
+<span class="sd">    ...         refined_params = best_params</span>
+<span class="sd">    ... except Exception as e:</span>
+<span class="sd">    ...     print(f&quot;Local refinement failed: {e}&quot;)</span>
+<span class="sd">    ...     refined_params = best_params  # Use original parameters</span>
+<span class="sd">    </span>
+<span class="sd">    Performance Tips</span>
+<span class="sd">    ----------------</span>
+<span class="sd">    **Method Selection:**</span>
+<span class="sd">    </span>
+<span class="sd">    - Use ``&#39;L-BFGS-B&#39;`` for smooth, well-behaved problems (default choice)</span>
+<span class="sd">    - Use ``&#39;TNC&#39;`` for problems with more complex constraint handling needs</span>
+<span class="sd">    - Use ``&#39;trust-constr&#39;`` for highly nonlinear problems or when high accuracy is needed</span>
+<span class="sd">    - Avoid gradient-free methods unless the objective function is non-smooth</span>
+<span class="sd">    </span>
+<span class="sd">    **Numerical Stability:**</span>
+<span class="sd">    </span>
+<span class="sd">    - Ensure ODE solver uses appropriate tolerances for the refinement scale</span>
+<span class="sd">    - Consider parameter scaling if parameters have very different magnitudes</span>
+<span class="sd">    - Monitor for numerical issues in verbose mode</span>
+<span class="sd">    </span>
+<span class="sd">    **Computational Efficiency:**</span>
+<span class="sd">    </span>
+<span class="sd">    - Local refinement is typically fast (10-100 function evaluations)</span>
+<span class="sd">    - Most time is spent in ODE solving, not optimization overhead</span>
+<span class="sd">    - Consider parallel local refinement of multiple candidates</span>
+<span class="sd">    </span>
+<span class="sd">    Troubleshooting</span>
+<span class="sd">    ---------------</span>
+<span class="sd">    **Common Issues:**</span>
+<span class="sd">    </span>
+<span class="sd">    - **Optimization not improving**: Check that the starting point is reasonable</span>
+<span class="sd">      and within bounds. Verify the objective function is smooth locally.</span>
+<span class="sd">    - **Numerical errors**: Reduce ODE solver tolerances or adjust parameter bounds</span>
+<span class="sd">      to avoid regions where the model becomes unstable.</span>
+<span class="sd">    - **Slow convergence**: Try different optimization methods or check for</span>
+<span class="sd">      ill-conditioning in the parameter space.</span>
+<span class="sd">    </span>
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    scipy.optimize.minimize : The underlying optimization function</span>
+<span class="sd">    ODEOptimizer.fit : Global optimization method that often precedes local refinement</span>
+<span class="sd">    lhs_sample : Parameter sampling function for global search phase</span>
+<span class="sd">    </span>
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Nocedal, J., &amp; Wright, S. (2006). &quot;Numerical optimization&quot; </span>
+<span class="sd">           (Vol. 2). New York: Springer.</span>
+<span class="sd">    .. [2] Byrd, R. H., Lu, P., Nocedal, J., &amp; Zhu, C. (1995). &quot;A limited </span>
+<span class="sd">           memory algorithm for bound constrained optimization.&quot; SIAM Journal </span>
+<span class="sd">           on scientific computing, 16(5), 1190-1208.</span>
+<span class="sd">    .. [3] Liu, D. C., &amp; Nocedal, J. (1989). &quot;On the limited memory BFGS </span>
+<span class="sd">           method for large scale optimization.&quot; Mathematical programming, </span>
+<span class="sd">           45(1-3), 503-528.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">free_params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">best_params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fixed_params</span><span class="p">}</span>
+    <span class="n">free_param_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">free_params</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">wrapped_error</span><span class="p">(</span><span class="n">param_vector</span><span class="p">):</span>
+        <span class="n">param_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">free_param_keys</span><span class="p">,</span> <span class="n">param_vector</span><span class="p">))</span>
+        <span class="n">full_param_dict</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">param_dict</span><span class="p">,</span> <span class="o">**</span><span class="n">fixed_params</span><span class="p">}</span>  <span class="c1"># merge at every call!</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">ode_func</span><span class="p">(</span><span class="n">full_param_dict</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">error_func</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception in wrapped_error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+    <span class="n">initial_vector</span> <span class="o">=</span> <span class="p">[</span><span class="n">free_params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">free_param_keys</span><span class="p">]</span>
+    <span class="n">bounds_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">param_bounds</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">free_param_keys</span><span class="p">]</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">wrapped_error</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">initial_vector</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">bounds_list</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[Local Optimization]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+            <span class="n">refined_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">free_param_keys</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Refined parameters:&quot;</span><span class="p">,</span> <span class="p">{</span><span class="o">**</span><span class="n">refined_params</span><span class="p">,</span> <span class="o">**</span><span class="n">fixed_params</span><span class="p">})</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Refined error:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Local optimization failed:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="n">final_params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">free_param_keys</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">)),</span> <span class="o">**</span><span class="n">fixed_params</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">final_params</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">fun</span></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">def local_refine3(best_params, ode_func, error_func, fixed_params, param_bounds, method=&#39;L-BFGS-B&#39;, verbose=False):</span>
+<span class="sd">    # Identify which parameters are fixed (same low == high)</span>
+<span class="sd">    #fixed_params = {k: v[0] for k, v in param_bounds.items() if isinstance(v, tuple) and v[0] == v[1]}</span>
+
+<span class="sd">    free_params = {k: v for k, v in best_params.items() if k not in fixed_params}</span>
+<span class="sd">    full_param_dict = {**free_params, **fixed_params}  # combine free and fixed</span>
+
+<span class="sd">    free_param_keys = list(free_params.keys())</span>
+<span class="sd">    </span>
+<span class="sd">    def wrapped_error(param_vector):</span>
+<span class="sd">        param_dict = dict(zip(free_param_keys, param_vector))</span>
+<span class="sd">        #full_param_dict = {**param_dict, **fixed_params}  # combine free and fixed</span>
+<span class="sd">        print(&quot;\nFull param:&quot;, full_param_dict)</span>
+<span class="sd">        try:</span>
+<span class="sd">            output = ode_func(full_param_dict)</span>
+<span class="sd">            return error_func(output)</span>
+<span class="sd">        except:</span>
+<span class="sd">            return np.inf</span>
+
+<span class="sd">    initial_vector = [free_params[k] for k in free_param_keys]</span>
+<span class="sd">    bounds_list = [param_bounds[k] for k in free_param_keys]</span>
+
+<span class="sd">    result = minimize(wrapped_error, x0=initial_vector, method=method, bounds=bounds_list)</span>
+
+<span class="sd">    if verbose:</span>
+<span class="sd">        print(&quot;\n[Local Optimization]&quot;)</span>
+<span class="sd">        if result.success:</span>
+<span class="sd">            refined_params = dict(zip(free_param_keys, result.x))</span>
+<span class="sd">            print(&quot;Refined parameters:&quot;, {**refined_params, **fixed_params})</span>
+<span class="sd">            print(&quot;Refined error:&quot;, result.fun)</span>
+<span class="sd">        else:</span>
+<span class="sd">            print(&quot;Local optimization failed:&quot;, result.message)</span>
+
+<span class="sd">    # Return merged result</span>
+<span class="sd">    final_params = {**dict(zip(free_param_keys, result.x)), **fixed_params}</span>
+<span class="sd">    return final_params, result.fun</span>
+
+
+<span class="sd">def local_refine2(best_params, ode_func, error_func, param_bounds, method=&#39;L-BFGS-B&#39;, verbose=True):</span>
+
+<span class="sd">    param_keys = list(best_params.keys())</span>
+<span class="sd">    print(&quot;\n[Local Optimization] Initial parameters:&quot;, best_params)</span>
+<span class="sd">    print(&quot;Parameter bounds:&quot;, param_bounds)</span>
+
+<span class="sd">    def wrapped_error(param_vector):</span>
+<span class="sd">        param_dict = dict(zip(param_keys, param_vector))</span>
+<span class="sd">        try:</span>
+<span class="sd">            output = ode_func(param_dict)</span>
+<span class="sd">            return error_func(output)</span>
+<span class="sd">        except:</span>
+<span class="sd">            return np.inf</span>
+
+<span class="sd">    initial_vector = [best_params[k] for k in param_keys]</span>
+<span class="sd">    bounds_list = [param_bounds[k] for k in param_keys]</span>
+
+<span class="sd">    result = minimize(wrapped_error, x0=initial_vector, method=method, bounds=bounds_list)</span>
+
+<span class="sd">    if verbose:</span>
+<span class="sd">        print(&quot;\n[Local Optimization]&quot;)</span>
+<span class="sd">        if result.success:</span>
+<span class="sd">            print(&quot;Refined parameters:&quot;, dict(zip(param_keys, result.x)))</span>
+<span class="sd">            print(&quot;Refined error:&quot;, result.fun)</span>
+<span class="sd">        else:</span>
+<span class="sd">            print(&quot;Local optimization failed:&quot;, result.message)</span>
+
+<span class="sd">    return dict(zip(param_keys, result.x)), result.fun</span>
+
+
+
+<span class="sd">def shrink_bounds(center, bounds, rate):</span>
+<span class="sd">    return {</span>
+<span class="sd">        k: (</span>
+<span class="sd">            max(bounds[k][0], center[k] - rate * (bounds[k][1] - bounds[k][0]) / 2),</span>
+<span class="sd">            min(bounds[k][1], center[k] + rate * (bounds[k][1] - bounds[k][0]) / 2)</span>
+<span class="sd">        )</span>
+<span class="sd">        for k in bounds</span>
+<span class="sd">    }</span>
+
+<span class="sd">def check_bounds(initial, bounds):</span>
+<span class="sd">    for k in initial:</span>
+<span class="sd">        if not (bounds[k][0] &lt;= initial[k] &lt;= bounds[k][1]):</span>
+<span class="sd">            raise ValueError(f&quot;Initial guess for {k} is out of bounds&quot;)</span>
+
+<span class="sd">def param_dict_to_array(param_dict, bounds):</span>
+<span class="sd">    return np.array([param_dict[k] for k in bounds])</span>
+
+<span class="sd">def array_to_param_dict(arr, bounds):</span>
+<span class="sd">    return dict(zip(bounds.keys(), arr))</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raunak Dey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

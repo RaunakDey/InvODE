@@ -1,0 +1,897 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Phage One-Step Growth Case Study &#8212; InvODE 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'case_studies/phage-onestep';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="../api_reference.html" />
+    <link rel="prev" title="Chemical Kinetics Case Study" href="chemical-kinetics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">InvODE 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage &amp; Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Simple Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/fitting_initial_conditions.html">Fitting vs Non-Fitting initial condition</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/adding_constraints.html">Adding constraints</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Case Studies</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="lotka-volterra.html">Lotka–Volterra Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chemical-kinetics.html">Chemical Kinetics Case Study</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Phage One-Step Growth Case Study</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/error_functions.html">invode.error_functions</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/case_studies/phage-onestep.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Phage One-Step Growth Case Study</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Phage-One-Step-Growth-Case-Study">
+<h1>Phage One-Step Growth Case Study<a class="headerlink" href="#Phage-One-Step-Growth-Case-Study" title="Link to this heading">#</a></h1>
+<p>This example uses the model developed in the paper: <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2025.05.15.651590v1">https://www.biorxiv.org/content/10.1101/2025.05.15.651590v1</a></p>
+<p>A compartmental model of ODE is used in this example, where the bacterial cells goes through different stages of infection. They are given by Susceptible (S), Exposed (E), Infected (I), and the free virus is given by (V). The model is parameterized by traits such as <span class="math notranslate nohighlight">\(r,\phi,\tau,\beta\)</span>, the bacterial growth rate, adsorption rate, latent period and burst size respectively. For more information please consult the paper. Here is the differential equation.</p>
+<div class="math notranslate nohighlight">
+\[\frac{dS}{dt} =  rS - \phi SV\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dE_1}{dt} =  \phi SV - \frac{N_E+1}{\tau}E_1\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dE_i}{dt} =  \frac{N_E+1}{\tau}E_{i-1} - \frac{N_E+1}{\tau}E_{i}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dE_{N_E}}{dt} =  \frac{N_E+1}{\tau}E_{N_E-1} - \frac{N_E+1}{\tau}E_{N_E}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dI}{dt} =  \frac{N_E+1}{\tau}E_{N_E} - \frac{N_E+1}{\tau}I\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dV}{dt} =  \beta\frac{N_E+1}{\tau}I - V\phi (S+\sum E_i + I)\]</div>
+<p>Here only <span class="math notranslate nohighlight">\(V\)</span> is observed.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">odeint</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
+
+<span class="c1"># Get path</span>
+<span class="n">project_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">project_root</span><span class="p">)</span>
+<br/><br/><br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;./..&#39;</span><span class="p">)</span>  <span class="c1"># or absolute path if needed</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">invode</span><span class="w"> </span><span class="kn">import</span> <span class="n">ODEOptimizer</span><span class="p">,</span> <span class="n">lhs_sample</span><span class="p">,</span> <span class="n">load_matlab_data</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">file_path = &#39;./../sample_data/HS6_13-15_2024.mat&#39;</span>
+<span class="sd">free_phages = load_matlab_data(file_path)[&#39;free_phages&#39;]</span>
+<span class="sd">S0 = np.mean(load_matlab_data(file_path)[&#39;S0_replicates&#39;])</span>
+<span class="sd">V0 = np.mean(load_matlab_data(file_path)[&#39;V0_replicates&#39;])</span>
+<span class="sd">time = load_matlab_data(file_path)[&#39;time_free_phages&#39;].flatten()/60  # Convert time to hours</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+
+<span class="n">free_phages</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span>   <span class="mi">13200</span><span class="p">,</span>    <span class="mi">13500</span><span class="p">,</span>    <span class="mi">15400</span><span class="p">],</span>
+       <span class="p">[</span>   <span class="mi">15500</span><span class="p">,</span>    <span class="mi">11800</span><span class="p">,</span>    <span class="mi">14450</span><span class="p">],</span>
+       <span class="p">[</span>   <span class="mi">17200</span><span class="p">,</span>    <span class="mi">13100</span><span class="p">,</span>    <span class="mi">15000</span><span class="p">],</span>
+       <span class="p">[</span>   <span class="mi">12100</span><span class="p">,</span>    <span class="mi">13000</span><span class="p">,</span>    <span class="mi">14500</span><span class="p">],</span>
+       <span class="p">[</span>   <span class="mi">16700</span><span class="p">,</span>    <span class="mi">12900</span><span class="p">,</span>    <span class="mi">13500</span><span class="p">],</span>
+       <span class="p">[</span>  <span class="mi">194000</span><span class="p">,</span>    <span class="mi">60000</span><span class="p">,</span>    <span class="mi">67000</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">2860000</span><span class="p">,</span>  <span class="mi">1280000</span><span class="p">,</span>  <span class="mi">1410000</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">12200000</span><span class="p">,</span> <span class="mi">11100000</span><span class="p">,</span> <span class="mi">10100000</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">42000000</span><span class="p">,</span> <span class="mi">27300000</span><span class="p">,</span> <span class="mi">25350000</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">49000000</span><span class="p">,</span> <span class="mi">53000000</span><span class="p">,</span> <span class="mi">47000000</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">58500000</span><span class="p">,</span> <span class="mi">50500000</span><span class="p">,</span> <span class="mi">61000000</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">42500000</span><span class="p">,</span> <span class="mi">33000000</span><span class="p">,</span> <span class="mi">44000000</span><span class="p">]])</span>
+
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span>        <span class="p">,</span> <span class="mf">0.33333333</span><span class="p">,</span> <span class="mf">0.66666667</span><span class="p">,</span> <span class="mf">1.</span>        <span class="p">,</span> <span class="mf">1.16666667</span><span class="p">,</span>
+       <span class="mf">1.33333333</span><span class="p">,</span> <span class="mf">1.5</span>       <span class="p">,</span> <span class="mf">1.66666667</span><span class="p">,</span> <span class="mf">1.83333333</span><span class="p">,</span> <span class="mf">2.</span>        <span class="p">,</span>
+       <span class="mf">2.33333333</span><span class="p">,</span> <span class="mf">2.66666667</span><span class="p">])</span>
+
+<span class="n">S0</span> <span class="o">=</span> <span class="mi">128906002</span>
+<span class="n">V0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">free_phages</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>We can have a initial guess if we want to, but not needed. If that is a good candidate, InvODE will also consider it.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><br/><span></span><span class="c1"># Initial guess for parameters ===</span>
+<span class="n">initial_guess</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+    <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="mf">4.5e-08</span> <span class="p">,</span>
+    <span class="s1">&#39;beta&#39;</span><span class="p">:</span>  <span class="mi">256</span><span class="p">,</span>
+    <span class="s1">&#39;tau&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;NE&#39;</span><span class="p">:</span> <span class="mi">180</span>
+<span class="p">}</span>
+
+
+<span class="c1"># Initial conditions ===</span>
+<span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">initial_guess</span><span class="p">[</span><span class="s1">&#39;NE&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">3</span><span class="p">,))</span>
+<span class="n">y0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S0</span>
+<span class="n">y0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">V0</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">onstep</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">]</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
+    <span class="n">NE</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;NE&#39;</span><span class="p">]</span>
+
+    <span class="n">S</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">E_mat</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">NE</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">NE</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">NE</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">etaeff</span> <span class="o">=</span> <span class="p">((</span><span class="n">NE</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">tau</span><span class="p">)</span>
+
+    <span class="n">dotS</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">S</span> <span class="o">-</span> <span class="n">phi</span><span class="o">*</span><span class="n">V</span><span class="o">*</span><span class="n">S</span>
+    <span class="n">dotE1</span> <span class="o">=</span> <span class="n">phi</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">V</span> <span class="o">-</span> <span class="n">etaeff</span> <span class="o">*</span> <span class="n">E_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">NE</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">dotE_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NE</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">dotE_mat</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">etaeff</span> <span class="o">*</span> <span class="n">E_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">etaeff</span> <span class="o">*</span> <span class="n">E_mat</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">dotI</span> <span class="o">=</span> <span class="n">etaeff</span> <span class="o">*</span> <span class="p">(</span><span class="n">E_mat</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">I</span><span class="p">)</span>
+    <span class="n">dotV</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">etaeff</span> <span class="o">*</span> <span class="n">I</span> <span class="o">-</span> <span class="n">V</span> <span class="o">*</span> <span class="n">phi</span> <span class="o">*</span> <span class="p">(</span><span class="n">S</span> <span class="o">+</span> <span class="n">I</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">E_mat</span><span class="p">))</span>
+
+    <span class="c1"># Build the full derivative vector (same length as y)</span>
+    <span class="n">dydt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">dydt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dotS</span>
+    <span class="n">dydt</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">NE</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dotE1</span> <span class="k">if</span> <span class="n">NE</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="n">dotE1</span><span class="p">],</span> <span class="n">dotE_mat</span><span class="p">])</span>
+    <span class="n">dydt</span><span class="p">[</span><span class="n">NE</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dotI</span>
+    <span class="n">dydt</span><span class="p">[</span><span class="n">NE</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">dotV</span>
+
+    <span class="k">return</span> <span class="n">dydt</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_model</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="c1"># Initial conditions ===</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;NE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;NE&#39;</span><span class="p">])</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;NE&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">3</span><span class="p">,))</span>
+    <span class="n">y0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S0</span>
+    <span class="n">y0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">V0</span>
+
+
+    <span class="c1">## dilution step</span>
+    <span class="n">time_dil</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>  <span class="c1"># Short time for dilution step</span>
+    <span class="n">sol_dil</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">onstep</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">time_dil</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">params</span><span class="p">,))</span>
+    <span class="n">y0_dil</span> <span class="o">=</span> <span class="n">sol_dil</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">/</span><span class="mi">100</span> <span class="c1"># Use the last state as the new initial condition</span>
+    <span class="c1">## main simulation</span>
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">onstep</span><span class="p">,</span> <span class="n">y0_dil</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">params</span><span class="p">,))</span>
+    <span class="n">phage_solution</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">phage_solution</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">mse</span><span class="p">(</span><span class="n">model_output</span><span class="p">):</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">free_phages</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_output</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Length mismatch between model output and data&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">model_output</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">target</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#free_phages_sol = simulate_model(initial_guess)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="n">param_bounds</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>  <span class="c1"># fixed</span>
+    <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1e-8</span><span class="p">,</span> <span class="mf">1e-7</span><span class="p">),</span>
+    <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+    <span class="s1">&#39;tau&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s1">&#39;NE&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="p">}</span>
+
+
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">ODEOptimizer</span><span class="p">(</span>
+    <span class="n">ode_func</span><span class="o">=</span><span class="n">simulate_model</span><span class="p">,</span>
+    <span class="n">error_func</span><span class="o">=</span><span class="n">mse</span><span class="p">,</span>
+    <span class="n">param_bounds</span><span class="o">=</span><span class="n">param_bounds</span><span class="p">,</span>
+    <span class="c1">#initial_guess=initial_guess,</span>
+    <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">num_top_candidates</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">num_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">verbose_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="n">optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:   0%|                                                           | 0/5 [00:00&lt;?, ?it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Iteration 1/5
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  20%|██████████▏                                        | 1/5 [00:00&lt;00:03,  1.02it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 0.1183
+Best params: {&#39;phi&#39;: 4.266983966023513e-08, &#39;beta&#39;: 377.39952281604735, &#39;tau&#39;: 2.0208683819873485, &#39;NE&#39;: 157, &#39;r&#39;: 0.3}
+
+Iteration 2/5
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  40%|████████████████████▍                              | 2/5 [00:03&lt;00:05,  1.96s/it]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 0.0041
+Best params: {&#39;phi&#39;: 7.00989772815266e-08, &#39;beta&#39;: 391.1287225045886, &#39;tau&#39;: 1.9741647732052143, &#39;NE&#39;: 163, &#39;r&#39;: 0.3}
+
+Iteration 3/5
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  60%|██████████████████████████████▌                    | 3/5 [00:06&lt;00:04,  2.39s/it]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 0.0041
+Best params: {&#39;phi&#39;: 7.00989772815266e-08, &#39;beta&#39;: 391.1287225045886, &#39;tau&#39;: 1.9741647732052143, &#39;NE&#39;: 163, &#39;r&#39;: 0.3}
+
+Iteration 4/5
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress:  80%|████████████████████████████████████████▊          | 4/5 [00:09&lt;00:02,  2.56s/it]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 0.0041
+Best params: {&#39;phi&#39;: 7.00989772815266e-08, &#39;beta&#39;: 391.1287225045886, &#39;tau&#39;: 1.9741647732052143, &#39;NE&#39;: 163, &#39;r&#39;: 0.3}
+
+Iteration 5/5
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Fitting Progress: 100%|███████████████████████████████████████████████████| 5/5 [00:12&lt;00:00,  2.43s/it]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Best error so far: 0.0041
+Best params: {&#39;phi&#39;: 7.00989772815266e-08, &#39;beta&#39;: 391.1287225045886, &#39;tau&#39;: 1.9741647732052143, &#39;NE&#39;: 163, &#39;r&#39;: 0.3}
+Refining params: {&#39;phi&#39;: 7.013988205829579e-08, &#39;beta&#39;: 348.49148227932295, &#39;tau&#39;: 1.9239617327028835, &#39;NE&#39;: 173}
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+[Local Optimization]
+Refined parameters: {&#39;phi&#39;: 6.823759283454945e-08, &#39;beta&#39;: 348.4914781187379, &#39;tau&#39;: 1.9422442211934774, &#39;NE&#39;: 173.0, &#39;r&#39;: 0.3}
+Refined error: 0.004188937021152051
+Refining params: {&#39;phi&#39;: 7.158050791552344e-08, &#39;beta&#39;: 445.2424565642069, &#39;tau&#39;: 1.9461328394135549, &#39;NE&#39;: 154}
+
+[Local Optimization]
+Local optimization failed: ABNORMAL_TERMINATION_IN_LNSRCH
+After local refinement:
+Best params: {&#39;phi&#39;: 6.823759283454945e-08, &#39;beta&#39;: 348.4914781187379, &#39;tau&#39;: 1.9422442211934774, &#39;NE&#39;: 173.0, &#39;r&#39;: 0.3}
+Best error: 0.0042
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_studies_phage-onestep_12_14.png" src="../_images/case_studies_phage-onestep_12_14.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+({&#39;phi&#39;: 6.823759283454945e-08,
+  &#39;beta&#39;: 348.4914781187379,
+  &#39;tau&#39;: 1.9422442211934774,
+  &#39;NE&#39;: 173.0,
+  &#39;r&#39;: 0.3},
+ 0.004188937021152051)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_params</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">best_params</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phages_fit</span> <span class="o">=</span> <span class="n">simulate_model</span><span class="p">(</span><span class="n">best_params</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">free_phages</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Measured Free Phages&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="c1">#plt.plot(time, free_phages_sol, label=&#39;Initial Guess&#39;, linestyle=&#39;--&#39;, color=&#39;orange&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">phages_fit</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Optimized Fit&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (hours)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Free Phages&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Free Phages Over Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/case_studies_phage-onestep_14_0.png" src="../_images/case_studies_phage-onestep_14_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+🔍 ODEOptimizer Summary:
+  ode_func: simulate_model
+  error_func: mse
+  param_bounds: {&#39;phi&#39;: (1e-08, 1e-07), &#39;beta&#39;: (100, 500), &#39;tau&#39;: (1, 5), &#39;NE&#39;: (100, 200)}
+  initial_guess: {&#39;phi&#39;: 5.4999999999999996e-08, &#39;beta&#39;: 300.0, &#39;tau&#39;: 3.0, &#39;NE&#39;: 150.0, &#39;r&#39;: 0.3}
+  n_samples: 100
+  num_iter: 5
+  num_top_candidates: 2
+  do_local_opt: True
+  local_method: L-BFGS-B
+  shrink_rate: 0.5
+  parallel: False
+  local_parallel: False
+  verbose: True
+  verbose_plot: True
+  seed: 42
+  best_error: 0.004188937021152051
+  best_params: {&#39;phi&#39;: 6.823759283454945e-08, &#39;beta&#39;: 348.4914781187379, &#39;tau&#39;: 1.9422442211934774, &#39;NE&#39;: 173, &#39;r&#39;: 0.3}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">get_top_candidates_table</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   iteration  rank     error           phi        beta       tau   NE    r
+0          1     1  0.118342  4.266984e-08  377.399523  2.020868  157  0.3
+1          1     2  0.131130  4.917636e-08  334.668375  2.045617  168  0.3
+2          2     1  0.004130  7.009898e-08  391.128723  1.974165  163  0.3
+3          2     2  0.006739  6.835375e-08  294.076868  1.907686  190  0.3
+4          3     1  0.005034  7.649504e-08  442.555402  1.990015  153  0.3
+5          3     2  0.014846  8.143537e-08  292.647566  1.947413  182  0.3
+6          4     1  0.016187  6.538001e-08  242.538774  1.912211  168  0.3
+7          4     2  0.020552  8.440974e-08  361.452366  1.934187  158  0.3
+8          5     1  0.005695  7.013988e-08  348.491482  1.923962  173  0.3
+9          5     2  0.014288  7.158051e-08  445.242457  1.946133  154  0.3
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chemical-kinetics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chemical Kinetics Case Study</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../api_reference.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raunak Dey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

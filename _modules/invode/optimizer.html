@@ -1,0 +1,1021 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>invode.optimizer &#8212; InvODE 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/invode/optimizer';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">InvODE 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage &amp; Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Simple Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/fitting_initial_conditions.html">Fitting vs Non-Fitting initial condition</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/adding_constraints.html">Adding constraints</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../case_studies/index.html">Case Studies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../case_studies/lotka-volterra.html">Lotka–Volterra Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../case_studies/chemical-kinetics.html">Chemical Kinetics Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../case_studies/phage-onestep.html">Phage One-Step Growth Case Study</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/error_functions.html">invode.error_functions</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for invode.optimizer</h1><div class="highlight"><pre>
+<span></span><span class="c1"># ode_fit/optimizer.py</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
+<span class="kn">from</span> <span class="nn">.sampling</span> <span class="kn">import</span> <span class="n">lhs_sample</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">local_refine</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">trange</span>  
+
+
+<div class="viewcode-block" id="ODEOptimizer">
+<a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer">[docs]</a>
+<span class="k">class</span> <span class="nc">ODEOptimizer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for optimizing parameters of an ordinary differential equation (ODE) model.</span>
+<span class="sd">    This class implements a sophisticated parameter optimization strategy that combines</span>
+<span class="sd">    global exploration with local refinement. It uses Latin Hypercube Sampling (LHS)</span>
+<span class="sd">    around the best candidates from each iteration, progressively shrinking search regions</span>
+<span class="sd">    to converge on optimal parameter values. The algorithm maintains diversity by tracking</span>
+<span class="sd">    multiple top candidates and optionally performs local optimization for fine-tuning.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">ode_func</span><span class="p">,</span>
+        <span class="n">error_func</span><span class="p">,</span>
+        <span class="n">param_bounds</span><span class="p">,</span>
+        <span class="n">initial_guess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">num_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">num_top_candidates</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">do_local_opt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">local_method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span>
+        <span class="n">shrink_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">parallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">local_parallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">verbose_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fixed_params</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the optimizer for solving ordinary differential equations (ODEs).</span>
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        ode_func : callable</span>
+<span class="sd">            The function representing the ODE to be solved.</span>
+<span class="sd">        error_func : callable</span>
+<span class="sd">            The function used to calculate the error between the model and the observed data.</span>
+<span class="sd">        param_bounds : dict</span>
+<span class="sd">            A dictionary defining the bounds for the parameters to be optimized. </span>
+<span class="sd">            Each key should correspond to a parameter name, and the value should be a tuple </span>
+<span class="sd">            (lower_bound, upper_bound) or a scalar for fixed parameters.</span>
+<span class="sd">        initial_guess : dict, optional</span>
+<span class="sd">            A dictionary providing the initial guess for the parameters. </span>
+<span class="sd">            Keys should match those in `param_bounds`. If not provided, a midpoint guess </span>
+<span class="sd">            will be used for varying parameters.</span>
+<span class="sd">        n_samples : int, optional</span>
+<span class="sd">            The number of samples to draw for the optimization process. Default is 100.</span>
+<span class="sd">        num_iter : int, optional</span>
+<span class="sd">            The number of iterations for the optimization process. Default is 10.</span>
+<span class="sd">        num_top_candidates : int, optional</span>
+<span class="sd">            The number of top candidates to retain after each iteration. Default is 1.</span>
+<span class="sd">        do_local_opt : bool, optional</span>
+<span class="sd">            Whether to perform local optimization after the global search. Default is True.</span>
+<span class="sd">        local_method : str, optional</span>
+<span class="sd">            The optimization method to use for local optimization. Default is &#39;L-BFGS-B&#39;.</span>
+<span class="sd">        shrink_rate : float, optional</span>
+<span class="sd">            The rate at which to shrink the search space during optimization. Default is 0.5.</span>
+<span class="sd">        parallel : bool, optional</span>
+<span class="sd">            Whether to run the optimization in parallel. Default is False.</span>
+<span class="sd">        local_parallel : bool, optional</span>
+<span class="sd">            Whether to run local optimization in parallel. Default is False.</span>
+<span class="sd">        verbose : bool, optional</span>
+<span class="sd">            If True, enables verbose output during optimization. Default is False.</span>
+<span class="sd">        verbose_plot : bool, optional</span>
+<span class="sd">            If True, enables plotting of the optimization process. Default is False.</span>
+<span class="sd">        seed : int, optional</span>
+<span class="sd">            Random seed for reproducibility. Default is None.</span>
+<span class="sd">        fixed_params : dict, optional</span>
+<span class="sd">            A dictionary of parameters that should remain fixed during optimization. </span>
+<span class="sd">            Keys should match those in `param_bounds`. Default is None.</span>
+<span class="sd">        Raises:</span>
+<span class="sd">        -------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If no parameters are free for optimization, if the initial guess does not match </span>
+<span class="sd">            fixed values, or if the initial guess is out of bounds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ode_func</span> <span class="o">=</span> <span class="n">ode_func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error_func</span> <span class="o">=</span> <span class="n">error_func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose_plot</span> <span class="o">=</span> <span class="n">verbose_plot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_samples</span> <span class="o">=</span> <span class="n">n_samples</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_iter</span> <span class="o">=</span> <span class="n">num_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_top_candidates</span> <span class="o">=</span> <span class="n">num_top_candidates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_local_opt</span> <span class="o">=</span> <span class="n">do_local_opt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local_method</span> <span class="o">=</span> <span class="n">local_method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shrink_rate</span> <span class="o">=</span> <span class="n">shrink_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parallel</span> <span class="o">=</span> <span class="n">parallel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local_parallel</span> <span class="o">=</span> <span class="n">local_parallel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_candidates_per_iter</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Handle fixed parameters directly from bounds if provided as scalar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param_bounds</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span> <span class="o">=</span> <span class="n">fixed_params</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">fixed_params</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">bound</span> <span class="ow">in</span> <span class="n">param_bounds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bound</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">bound</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">param_bounds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">bound</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">varying_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_bounds</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">varying_params</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least one parameter must be free (not fixed) for optimization.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Handle initial guess</span>
+        <span class="k">if</span> <span class="n">initial_guess</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_guess</span> <span class="o">=</span> <span class="n">initial_guess</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_guess</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initial guess for &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; = </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2"> does not match fixed value </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_bounds</span><span class="p">:</span>
+                    <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_bounds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">low</span> <span class="o">&lt;=</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initial guess for &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; = </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2"> is out of bounds (</span><span class="si">{</span><span class="n">low</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">high</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown parameter &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; in initial guess.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Midpoint guess for varying, use fixed values for fixed</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_guess</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_bounds</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_guess</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_guess</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_error</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ODEOptimizer.get_top_candidates_history">
+<a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.get_top_candidates_history">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_top_candidates_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the history of top candidates from each optimization iteration.</span>
+<span class="sd">        This method retrieves the stored history of top candidates found during each</span>
+<span class="sd">        iteration of the optimization process. Each entry in the history corresponds to</span>
+<span class="sd">        a specific iteration and contains the best parameter sets along with their</span>
+<span class="sd">        associated error values.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of lists, where each inner list contains tuples of (parameter_dict, error_value)</span>
+<span class="sd">            representing the top candidates for that iteration. The outer list corresponds to the</span>
+<span class="sd">            iterations performed during optimization.</span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - Each inner list contains the top candidates sorted by their error values.</span>
+<span class="sd">        - The first element of each inner list is the best candidate for that iteration.</span>
+<span class="sd">        - If no optimization has been performed, this method returns an empty list.</span>
+<span class="sd">        - The structure allows easy access to the best candidates at each iteration for further analysis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_candidates_per_iter</span></div>
+
+
+<div class="viewcode-block" id="ODEOptimizer.fit">
+<a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.fit">[docs]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fit the model using a global optimization algorithm to minimize ODE function error.</span>
+<span class="sd">    </span>
+<span class="sd">    This method implements a sophisticated parameter optimization strategy that combines</span>
+<span class="sd">    global exploration with local refinement. It uses Latin Hypercube Sampling (LHS) </span>
+<span class="sd">    around the best candidates from each iteration, progressively shrinking search regions</span>
+<span class="sd">    to converge on optimal parameter values. The algorithm maintains diversity by tracking</span>
+<span class="sd">    multiple top candidates and optionally performs local optimization for fine-tuning.</span>
+<span class="sd">    </span>
+<span class="sd">    The optimization process consists of three main phases:</span>
+<span class="sd">    </span>
+<span class="sd">    1. **Global Search**: Iteratively samples parameter space using LHS around current</span>
+<span class="sd">       best candidates, with search regions that shrink over iterations</span>
+<span class="sd">    2. **Candidate Selection**: Evaluates all samples and retains the top performers</span>
+<span class="sd">       for the next iteration</span>
+<span class="sd">    3. **Local Refinement** (optional): Applies gradient-based optimization to polish</span>
+<span class="sd">       the final results</span>
+<span class="sd">    </span>
+<span class="sd">    Algorithm Details</span>
+<span class="sd">    -----------------</span>
+<span class="sd">    The method uses an adaptive sampling strategy where:</span>
+<span class="sd">    </span>
+<span class="sd">    - Each iteration generates samples around the current top candidates</span>
+<span class="sd">    - Search regions shrink by a factor of `shrink_rate` each iteration</span>
+<span class="sd">    - Multiple candidates are maintained to preserve solution diversity</span>
+<span class="sd">    - Parallel evaluation is supported for computational efficiency</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of (dict, float)</span>
+<span class="sd">        A tuple containing:</span>
+<span class="sd">        </span>
+<span class="sd">        - **best_params** (dict): The optimal parameter set found during optimization.</span>
+<span class="sd">          Contains both varying and fixed parameters as key-value pairs.</span>
+<span class="sd">        - **best_error** (float): The minimum error value achieved by the best parameters.</span>
+<span class="sd">          This represents the objective function value at the optimum.</span>
+<span class="sd">    </span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        If all parameter evaluations fail during any iteration. This typically occurs</span>
+<span class="sd">        when the ODE function encounters numerical issues or parameter bounds are </span>
+<span class="sd">        too restrictive.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes Modified</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    The method updates several instance attributes during execution:</span>
+<span class="sd">    </span>
+<span class="sd">    - **best_params** (dict): Updated with the optimal parameter set</span>
+<span class="sd">    - **best_error** (float): Updated with the minimum error found</span>
+<span class="sd">    - **history** (list): Appends the best error from each iteration</span>
+<span class="sd">    - **top_candidates_per_iter** (list): Stores top candidates from each iteration</span>
+<span class="sd">    </span>
+<span class="sd">    Configuration Parameters</span>
+<span class="sd">    ------------------------</span>
+<span class="sd">    The fitting behavior is controlled by several instance attributes:</span>
+<span class="sd">    </span>
+<span class="sd">    - **num_iter** (int): Number of optimization iterations to perform</span>
+<span class="sd">    - **num_top_candidates** (int): Number of best candidates to retain per iteration</span>
+<span class="sd">    - **n_samples** (int): Number of LHS samples to generate around each candidate</span>
+<span class="sd">    - **shrink_rate** (float): Rate at which search regions contract (0 &lt; rate &lt; 1)</span>
+<span class="sd">    - **do_local_opt** (bool): Whether to perform local refinement after global search</span>
+<span class="sd">    - **parallel** (bool): Enable parallel evaluation of candidate parameters</span>
+<span class="sd">    - **local_parallel** (bool): Enable parallel local refinement</span>
+<span class="sd">    - **verbose** (bool): Print detailed progress information</span>
+<span class="sd">    - **verbose_plot** (bool): Display error history plot after fitting</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The algorithm maintains both varying and fixed parameters. Only varying parameters</span>
+<span class="sd">      are optimized, while fixed parameters remain constant throughout.</span>
+<span class="sd">    - Search regions are bounded by the original parameter bounds specified in</span>
+<span class="sd">      `param_bounds`, ensuring samples never exceed feasible ranges.</span>
+<span class="sd">    - The shrinking search strategy balances exploration and exploitation, starting</span>
+<span class="sd">      with broad sampling and gradually focusing on promising regions.</span>
+<span class="sd">    - Local refinement uses gradient-based methods (specified by `local_method`)</span>
+<span class="sd">      which can significantly improve convergence for smooth objective functions.</span>
+<span class="sd">    - Progress tracking through `trange` provides real-time feedback on optimization</span>
+<span class="sd">      status and estimated completion time.</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Basic usage with default settings:</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; optimizer = ODEOptimizer(</span>
+<span class="sd">    ...     ode_func=my_ode_solver,</span>
+<span class="sd">    ...     error_func=my_error_metric,</span>
+<span class="sd">    ...     param_bounds={&#39;k1&#39;: (0.1, 10), &#39;k2&#39;: (0.01, 1)},</span>
+<span class="sd">    ...     varying_params=[&#39;k1&#39;, &#39;k2&#39;]</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; best_params, best_error = optimizer.fit()</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;Optimal parameters: {best_params}&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;Final error: {best_error:.6f}&quot;)</span>
+<span class="sd">    </span>
+<span class="sd">    With custom configuration for faster convergence:</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; optimizer = ODEOptimizer(</span>
+<span class="sd">    ...     ode_func=my_ode_solver,</span>
+<span class="sd">    ...     error_func=my_error_metric,</span>
+<span class="sd">    ...     param_bounds={&#39;k1&#39;: (0.1, 10), &#39;k2&#39;: (0.01, 1)},</span>
+<span class="sd">    ...     varying_params=[&#39;k1&#39;, &#39;k2&#39;],</span>
+<span class="sd">    ...     num_iter=50,</span>
+<span class="sd">    ...     num_top_candidates=5,</span>
+<span class="sd">    ...     shrink_rate=0.7,</span>
+<span class="sd">    ...     do_local_opt=True,</span>
+<span class="sd">    ...     parallel=True</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; best_params, best_error = optimizer.fit()</span>
+<span class="sd">    </span>
+<span class="sd">    Accessing optimization history:</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; optimizer.fit()</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; plt.plot(optimizer.history)</span>
+<span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;Iteration&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Best Error&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; plt.title(&#39;Optimization Progress&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; plt.show()</span>
+<span class="sd">    </span>
+<span class="sd">    Performance Considerations</span>
+<span class="sd">    --------------------------</span>
+<span class="sd">    - **Parallel Evaluation**: Enable `parallel=True` for computationally expensive</span>
+<span class="sd">      ODE functions. Most effective when `n_samples * num_top_candidates &gt; num_cores`.</span>
+<span class="sd">    - **Local Optimization**: Set `do_local_opt=True` for smooth objective functions</span>
+<span class="sd">      where gradient information is available and reliable.</span>
+<span class="sd">    - **Memory Usage**: Large values of `num_iter` or `num_top_candidates` increase</span>
+<span class="sd">      memory usage through history storage.</span>
+<span class="sd">    - **Convergence**: Monitor `history` attribute to detect premature convergence</span>
+<span class="sd">      or the need for additional iterations.</span>
+<span class="sd">    </span>
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    get_top_candidates_history : Access the complete candidate history</span>
+<span class="sd">    get_top_candidates_table : Get optimization results as a pandas DataFrame</span>
+<span class="sd">    plot_error_history : Visualize the optimization progress</span>
+<span class="sd">    local_refine : The local optimization function used in refinement phase</span>
+<span class="sd">    lhs_sample : Latin Hypercube Sampling function for parameter generation</span>
+<span class="sd">    </span>
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] McKay, M. D., Beckman, R. J., &amp; Conover, W. J. (1979). &quot;Comparison of </span>
+<span class="sd">           three methods for selecting values of input variables in the analysis </span>
+<span class="sd">           of output from a computer code.&quot; Technometrics, 21(2), 239-245.</span>
+<span class="sd">    .. [2] Nocedal, J., &amp; Wright, S. (2006). &quot;Numerical optimization&quot; </span>
+<span class="sd">           (Vol. 2, pp. 497-528). New York: Springer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="n">top_candidates</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_params</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">))]</span>
+
+        <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="n">trange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_iter</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Fitting Progress&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Iteration </span><span class="si">{</span><span class="n">iteration</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_iter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">all_sampled</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">candidate_params</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">top_candidates</span><span class="p">:</span>
+                <span class="n">local_bounds</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varying_params</span><span class="p">:</span>
+                    <span class="n">full_min</span><span class="p">,</span> <span class="n">full_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_bounds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="n">center</span> <span class="o">=</span> <span class="n">candidate_params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="n">width</span> <span class="o">=</span> <span class="p">(</span><span class="n">full_max</span> <span class="o">-</span> <span class="n">full_min</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shrink_rate</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="n">new_min</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">center</span> <span class="o">-</span> <span class="n">width</span><span class="p">,</span> <span class="n">full_min</span><span class="p">)</span>
+                    <span class="n">new_max</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">center</span> <span class="o">+</span> <span class="n">width</span><span class="p">,</span> <span class="n">full_max</span><span class="p">)</span>
+                    <span class="n">local_bounds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_min</span><span class="p">,</span> <span class="n">new_max</span><span class="p">)</span>
+
+                <span class="n">local_samples</span> <span class="o">=</span> <span class="n">lhs_sample</span><span class="p">(</span><span class="n">local_bounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mf">1e9</span><span class="p">))</span>
+
+                <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">local_samples</span><span class="p">:</span>
+                    <span class="n">full_sample</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">sample</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">}</span>
+                    <span class="n">all_sampled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_sample</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">param_set</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ode_func</span><span class="p">(</span><span class="n">param_set</span><span class="p">)</span>
+                    <span class="n">err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_func</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="p">(</span><span class="n">param_set</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Evaluation failed for params </span><span class="si">{</span><span class="n">param_set</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parallel</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">evaluate</span><span class="p">,</span> <span class="n">all_sampled</span><span class="p">)</span>
+                    <span class="n">evaluated</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">evaluated</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="n">evaluate</span><span class="p">,</span> <span class="n">all_sampled</span><span class="p">)</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">evaluated</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;All evaluations failed. Check ODE function and parameter ranges.&quot;</span><span class="p">)</span>
+
+            <span class="n">evaluated</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">top_candidates</span> <span class="o">=</span> <span class="n">evaluated</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">num_top_candidates</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top_candidates_per_iter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">top_candidates</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+
+            <span class="k">if</span> <span class="n">top_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_error</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">best_params</span> <span class="o">=</span> <span class="n">top_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">best_error</span> <span class="o">=</span> <span class="n">top_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_error</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best error so far: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">best_error</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best params: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">best_params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Local refinement</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_local_opt</span><span class="p">:</span>
+            <span class="n">bounds_for_local</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_bounds</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varying_params</span><span class="p">}</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_parallel</span><span class="p">:</span>
+                <span class="k">def</span> <span class="nf">local_worker</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+                    <span class="n">var_params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varying_params</span><span class="p">}</span>
+                    
+                    <span class="n">refined_param</span><span class="p">,</span> <span class="n">refined_error</span> <span class="o">=</span> <span class="n">local_refine</span><span class="p">(</span>
+                        <span class="n">var_params</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ode_func</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">error_func</span><span class="p">,</span>
+                        <span class="n">bounds_for_local</span><span class="p">,</span>
+                        <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">local_method</span>
+                    <span class="p">)</span>
+                    <span class="n">full_param</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">refined_param</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">}</span>
+                    <span class="k">return</span> <span class="p">(</span><span class="n">full_param</span><span class="p">,</span> <span class="n">refined_error</span><span class="p">)</span>
+
+                <span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
+                    <span class="n">refined_candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">executor</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">local_worker</span><span class="p">,</span> <span class="n">top_candidates</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">refined_candidates</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">top_candidates</span><span class="p">):</span>
+                    <span class="n">var_params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varying_params</span><span class="p">}</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Refining params: </span><span class="si">{</span><span class="n">var_params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">refined_param</span><span class="p">,</span> <span class="n">refined_error</span> <span class="o">=</span> <span class="n">local_refine</span><span class="p">(</span>
+                        <span class="n">var_params</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ode_func</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">error_func</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">,</span>
+                        <span class="n">bounds_for_local</span><span class="p">,</span>
+                        <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">local_method</span><span class="p">,</span>
+                        <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span>
+                    <span class="p">)</span>
+                    <span class="c1">#refined_param, refined_error = local_refine(</span>
+                    <span class="c1">#    var_params,</span>
+                    <span class="c1">#    self.ode_func,</span>
+                    <span class="c1">#    self.error_func,</span>
+                    <span class="c1">#    bounds_for_local,</span>
+                    <span class="c1">#    method=self.local_method,</span>
+                    <span class="c1">#    verbose=self.verbose</span>
+                    <span class="c1">#)</span>
+
+                    <span class="n">full_param</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">refined_param</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">}</span>
+                    <span class="n">refined_candidates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">full_param</span><span class="p">,</span> <span class="n">refined_error</span><span class="p">))</span>
+
+            <span class="n">refined_candidates</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">best_params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_error</span> <span class="o">=</span> <span class="n">refined_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After local refinement:&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best params: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">best_params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best error: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">best_error</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose_plot</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_error_history</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_error</span></div>
+
+
+        
+<div class="viewcode-block" id="ODEOptimizer.best_params">
+<a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.best_params">[docs]</a>
+    <span class="k">def</span> <span class="nf">best_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the best parameters found during the optimization process.</span>
+
+<span class="sd">        This method returns the best parameters that have been identified </span>
+<span class="sd">        by the optimizer. The parameters are typically the result of </span>
+<span class="sd">        an optimization algorithm that seeks to minimize or maximize </span>
+<span class="sd">        a specific objective function.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary containing the best parameters found, </span>
+<span class="sd">                  where keys are parameter names and values are the </span>
+<span class="sd">                  corresponding optimal values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the best parameters found.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_params</span></div>
+
+    
+<div class="viewcode-block" id="ODEOptimizer.best_error">
+<a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.best_error">[docs]</a>
+    <span class="k">def</span> <span class="nf">best_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the best error found during the optimization process.</span>
+
+<span class="sd">        This method retrieves the value of the best error that has been recorded</span>
+<span class="sd">        by the optimizer. The best error is typically the lowest error value </span>
+<span class="sd">        achieved by the optimization algorithm, indicating the best fit to the </span>
+<span class="sd">        data or model being optimized.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: The best error value found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the best error found.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_error</span></div>
+
+    
+
+<div class="viewcode-block" id="ODEOptimizer.plot_error_history">
+<a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.plot_error_history">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot_error_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Iteration&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Best Error&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Error over Optimization Iterations&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plots the optimization error over iterations.</span>
+
+<span class="sd">        This method generates a line plot representing the best error recorded during </span>
+<span class="sd">        the optimization process across multiple iterations. It provides a visual </span>
+<span class="sd">        representation of how the optimization error changes over time, which can be </span>
+<span class="sd">        useful for diagnosing the performance of the optimization algorithm.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        figsize : tuple, optional</span>
+<span class="sd">            The size of the figure to be created (default is (6, 4)).</span>
+<span class="sd">        xlabel : str, optional</span>
+<span class="sd">            The label for the x-axis (default is &#39;Iteration&#39;).</span>
+<span class="sd">        ylabel : str, optional</span>
+<span class="sd">            The label for the y-axis (default is &#39;Best Error&#39;).</span>
+<span class="sd">        title : str, optional</span>
+<span class="sd">            The title of the plot (default is &#39;Error over Optimization Iterations&#39;).</span>
+<span class="sd">        fontsize : int, optional</span>
+<span class="sd">            The font size for the labels and title (default is 12).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        If there is no optimization history available, a message will be printed </span>
+<span class="sd">        indicating that there is no data to plot.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the optimization error over iterations.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No optimization history to plot.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ODEOptimizer.summary">
+<a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.summary">[docs]</a>
+    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Summary of the optimizer settings and current best result.</span>
+<span class="sd">        This method provides a comprehensive overview of the optimizer&#39;s configuration and its best-found parameters. It can either print the summary to the console or return it as a dictionary, depending on the value of the `return_dict` parameter.</span>
+<span class="sd">        return_dict : bool, optional</span>
+<span class="sd">            If True, the summary is returned as a dictionary. If False (default), the summary is printed to the console.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict or None</span>
+<span class="sd">            Returns a dictionary containing the optimizer settings and results if `return_dict` is True; otherwise, returns None.</span>
+<span class="sd">        Attributes Included in Summary</span>
+<span class="sd">        -------------------------------</span>
+<span class="sd">        - ode_func: The name of the ODE function being optimized.</span>
+<span class="sd">        - error_func: The name of the error function used for optimization.</span>
+<span class="sd">        - param_bounds: The bounds for the parameters being optimized.</span>
+<span class="sd">        - initial_guess: The initial guess for the parameters.</span>
+<span class="sd">        - n_samples: The number of samples used in the optimization process.</span>
+<span class="sd">        - num_iter: The number of iterations performed during optimization.</span>
+<span class="sd">        - num_top_candidates: The number of top candidates to consider.</span>
+<span class="sd">        - do_local_opt: A flag indicating whether local optimization is performed.</span>
+<span class="sd">        - local_method: The method used for local optimization.</span>
+<span class="sd">        - shrink_rate: The rate at which the search space is shrunk.</span>
+<span class="sd">        - parallel: A flag indicating whether parallel processing is enabled.</span>
+<span class="sd">        - local_parallel: A flag indicating whether local optimization should be parallelized.</span>
+<span class="sd">        - verbose: A flag indicating whether verbose output is enabled.</span>
+<span class="sd">        - verbose_plot: A flag indicating whether verbose plotting is enabled.</span>
+<span class="sd">        - seed: The random seed used for reproducibility.</span>
+<span class="sd">        - best_error: The best error found during optimization.</span>
+<span class="sd">        - best_params: The parameters corresponding to the best error found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+        <span class="n">summary_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;ode_func&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ode_func</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ode_func</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ode_func</span><span class="p">),</span>
+            <span class="s2">&quot;error_func&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_func</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">error_func</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">error_func</span><span class="p">),</span>
+            <span class="s2">&quot;param_bounds&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_bounds</span><span class="p">,</span>
+            <span class="s2">&quot;initial_guess&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_guess</span><span class="p">,</span>
+            <span class="s2">&quot;n_samples&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_samples</span><span class="p">,</span>
+            <span class="s2">&quot;num_iter&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_iter</span><span class="p">,</span>
+            <span class="s2">&quot;num_top_candidates&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_top_candidates</span><span class="p">,</span>
+            <span class="s2">&quot;do_local_opt&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_local_opt</span><span class="p">,</span>
+            <span class="s2">&quot;local_method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_method</span><span class="p">,</span>
+            <span class="s2">&quot;shrink_rate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shrink_rate</span><span class="p">,</span>
+            <span class="s2">&quot;parallel&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parallel</span><span class="p">,</span>
+            <span class="s2">&quot;local_parallel&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_parallel</span><span class="p">,</span>
+            <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="s2">&quot;verbose_plot&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose_plot</span><span class="p">,</span>
+            <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span>
+            <span class="s2">&quot;best_error&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_error</span><span class="p">,</span>
+            <span class="s2">&quot;best_params&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_params</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">return_dict</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">summary_dict</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔍 ODEOptimizer Summary:&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">summary_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+    
+
+<div class="viewcode-block" id="ODEOptimizer.get_top_candidates_table">
+<a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.get_top_candidates_table">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_top_candidates_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a pandas DataFrame with the top candidates and their errors from all iterations.</span>
+<span class="sd">    </span>
+<span class="sd">    This method aggregates the optimization history by collecting the top candidate</span>
+<span class="sd">    parameter sets and their corresponding error values from each iteration, then</span>
+<span class="sd">    structures them into a comprehensive DataFrame for analysis and visualization.</span>
+<span class="sd">    </span>
+<span class="sd">    The resulting DataFrame provides a complete view of the optimization process,</span>
+<span class="sd">    showing how candidate solutions evolved across iterations and their relative</span>
+<span class="sd">    performance rankings.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.DataFrame</span>
+<span class="sd">        A DataFrame containing the top candidates from all optimization iterations.</span>
+<span class="sd">        Each row represents one candidate solution with the following columns:</span>
+<span class="sd">        </span>
+<span class="sd">        - **iteration** (int): The iteration number (1-indexed)</span>
+<span class="sd">        - **rank** (int): The ranking of the candidate within its iteration (1-indexed, </span>
+<span class="sd">          where 1 is the best performing candidate)</span>
+<span class="sd">        - **error** (float): The error/loss value for this candidate</span>
+<span class="sd">        - **Additional columns**: All parameter names and their values from the </span>
+<span class="sd">          parameter dictionary are flattened into separate columns</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The iteration and rank columns are 1-indexed for better readability</span>
+<span class="sd">    - Parameter dictionaries are flattened, so each parameter becomes its own column</span>
+<span class="sd">    - The DataFrame structure allows for easy filtering, sorting, and analysis of </span>
+<span class="sd">      optimization progress</span>
+<span class="sd">    - If no optimization history exists, an empty DataFrame is returned</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; optimizer = YourOptimizerClass()</span>
+<span class="sd">    &gt;&gt;&gt; # ... run optimization ...</span>
+<span class="sd">    &gt;&gt;&gt; df = optimizer.get_top_candidates_table()</span>
+<span class="sd">    &gt;&gt;&gt; print(df.head())</span>
+<span class="sd">       iteration  rank     error  param1  param2  param3</span>
+<span class="sd">    0          1     1  0.125430    0.45    2.1    True</span>
+<span class="sd">    1          1     2  0.134521    0.52    1.8   False</span>
+<span class="sd">    2          2     1  0.098234    0.48    2.3    True</span>
+<span class="sd">    3          2     2  0.112456    0.41    2.0    True</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; # Filter to see only the best candidate from each iteration</span>
+<span class="sd">    &gt;&gt;&gt; best_per_iter = df[df[&#39;rank&#39;] == 1]</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; # Analyze parameter evolution over iterations</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; best_per_iter.plot(x=&#39;iteration&#39;, y=&#39;error&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; plt.title(&#39;Best Error vs Iteration&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; plt.show()</span>
+<span class="sd">    </span>
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    get_top_candidates_history : Returns the raw history data used by this method</span>
+<span class="sd">    </span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    AttributeError</span>
+<span class="sd">        If the optimizer instance doesn&#39;t have the required history tracking methods</span>
+<span class="sd">    KeyError</span>
+<span class="sd">        If the parameter dictionaries contain inconsistent keys across iterations</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">history</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_top_candidates_history</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">iter_idx</span><span class="p">,</span> <span class="n">candidates</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">history</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">candidates</span><span class="p">):</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;iteration&#39;</span><span class="p">:</span> <span class="n">iter_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;rank&#39;</span><span class="p">:</span> <span class="n">rank</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="n">error</span><span class="p">,</span>
+                <span class="p">}</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>  <span class="c1"># flatten the parameter dict into columns</span>
+                <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">)</span></div>
+</div>
+
+        
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raunak Dey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
