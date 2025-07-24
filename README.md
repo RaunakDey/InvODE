@@ -48,10 +48,11 @@ A lightweight, powerful and intuitive Python library for parameter optimization 
 
 ## 🚀 Quick Start
 
-### Installation (to be done)
+### Installation (for now use the GitHub rep)
+This soon shall be ported to PyPI.
 
 ```bash
-pip install invode
+git clone git@github.com:RaunakDey/InvODE.git
 ```
 
 ### Minimal Example
