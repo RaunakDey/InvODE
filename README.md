@@ -53,93 +53,120 @@ pip install invode
 ### Minimal Example
 
 ```python
+
 import numpy as np
 from scipy.integrate import odeint
-import invode
-from invode import erf
+import matplotlib.pyplot as plt
+import os
+import sys
+import scipy.io
+from invode import ODEOptimizer, lhs_sample, erf
 
 # Define your ODE system
-def lotka_volterra(y, t, alpha, beta, delta, gamma):
-    """Classic predator-prey model"""
-    prey, predator = y
-    dydt = [
-        alpha * prey - beta * prey * predator,
-        delta * prey * predator - gamma * predator
-    ]
-    return dydt
+def lotka_volterra(z, t, params):
+    x, y = z
+    alpha = params['alpha']
+    beta = params['beta']
+    delta = params['delta']
+    gamma = params['gamma']
+
+    dxdt = alpha * x - beta * x * y
+    dydt = delta * x * y - gamma * y
+    return [dxdt, dydt]
+
+
+true_params = {
+    'alpha': 1.0,    # prey growth rate
+    'beta': 0.1,     # predation rate
+    'delta': 0.075,  # predator growth per prey eaten
+    'gamma': 1.5     # predator death rate
+}
+
+t = np.linspace(0, 20, 200)
+z0 = [40, 9]  # initial population: 40 prey, 9 predators
+
 
 # Create ODE solver function
-def ode_solver(params):
-    """Solve ODE with given parameters"""
-    t = np.linspace(0, 10, 100)
-    y0 = [10, 5]  # Initial conditions
-    solution = odeint(
-        lotka_volterra, y0, t,
-        args=(params['alpha'], params['beta'], params['delta'], params['gamma'])
-    )
-    return solution.flatten()  # Return flattened array
+def simulate_model(params):
+    sol = odeint(lotka_volterra, z0, t, args=(params,))
+    return sol  # shape: (N, 2)
+
+
 
 # Generate synthetic noisy data (in practice, use your experimental data)
-true_params = {'alpha': 1.0, 'beta': 0.1, 'delta': 0.075, 'gamma': 1.5}
-true_solution = ode_solver(true_params)
-np.random.seed(42)
-noisy_data = true_solution + np.random.normal(0, 0.5, len(true_solution))
+t = np.linspace(0, 20, 200)
+z0 = [40, 9]  # initial population: 40 prey, 9 predators
+true_sol = odeint(lotka_volterra, z0, t, args=(true_params,))
+noisy_data = true_sol + np.random.normal(0, 1.0, true_sol.shape)
+
 
 # Set up optimization
-optimizer = invode.ODEOptimizer(
-    ode_func=ode_solver,
-    error_func=erf.mse(noisy_data),  # Mean squared error
-    param_bounds={
-        'alpha': (0.1, 2.0),
-        'beta': (0.01, 0.5), 
-        'delta': (0.01, 0.3),
-        'gamma': (0.5, 3.0)
-    },
-    varying_params=['alpha', 'beta', 'delta', 'gamma'],
-    num_iter=20,
-    n_samples=50,
-    do_local_opt=True,
-    parallel=True,
-    verbose=True
+
+param_bounds = {
+    'alpha': (0.5, 10),
+    'beta': (0.05, 0.9),
+    'delta': (0.05, 0.9),
+    'gamma': (1.0, 5.0)
+}
+
+
+optimizer = ODEOptimizer(
+    ode_func=simulate_model,
+    error_func=mse,
+    param_bounds=param_bounds,
+    seed=42,
+    num_top_candidates=3
 )
 
 # Run optimization
+optimizer.fit()
 best_params, best_error = optimizer.fit()
 
 print(f"Optimal parameters: {best_params}")
 print(f"Final error: {best_error:.6f}")
 
 # Analyze parameter sensitivity
-sensitivity = invode.ODESensitivity(ode_solver, erf.mse(noisy_data))
-candidates_df = optimizer.get_top_candidates_table()
-sensitivities = sensitivity.analyze_parameter_sensitivity(candidates_df)
+from invode import ODESensitivity
+sensitivity = ODESensitivity(ode_func=simulate_model,error_func=mse)
+sensitivities = sensitivity.analyze_parameter_sensitivity(df)
+# Identify most consistently sensitive parameters
+summary['mean_abs_sensitivity'] = summary.abs().mean(axis=1)
+print(summary.sort_values('mean_abs_sensitivity', ascending=False))
 
-print("\nParameter Sensitivity:")
-for param, sens in sorted(sensitivities.items(), key=lambda x: abs(x[1]), reverse=True):
-    print(f"  {param}: {sens:.4f}")
 ```
 
 ### Expected Output
 ```
-Iteration 1/20: Best error = 42.851
-Iteration 2/20: Best error = 15.234  
-...
-Iteration 20/20: Best error = 2.891
+Refining params: {'alpha': 0.5483310416214465, 'beta': 0.068028770810073, 'delta': 0.1451018918331013, 'gamma': 3.1481636450536428}
+Refining params: {'alpha': 0.8216385700908369, 'beta': 0.12479204383819222, 'delta': 0.0616377161233344, 'gamma': 1.615577581450748}
+Refining params: {'alpha': 1.088028953494527, 'beta': 0.24201471359553078, 'delta': 0.10339353925892915, 'gamma': 1.6535395505316968}
+[10]:
+({'alpha': 0.9998973552849139,
+  'beta': 0.09995621865139477,
+  'delta': 0.07482275016126995,
+  'gamma': 1.4972199684549248},
+ 0.9454500024300705)
 
-[Local Optimization]
-Refined parameters: {'alpha': 0.987, 'beta': 0.103, 'delta': 0.076, 'gamma': 1.485}
-Refined error: 2.456
 
-Optimal parameters: {'alpha': 0.987, 'beta': 0.103, 'delta': 0.076, 'gamma': 1.485}
-Final error: 2.456123
+Optimal parameters: {'alpha': 0.9998973552849139,
+ 'beta': 0.09995621865139477,
+ 'delta': 0.07482275016126995,
+ 'gamma': 1.4972199684549248}
 
-Parameter Sensitivity:
-  gamma: -0.8234  # Highly sensitive, negative correlation
-  alpha: 0.7156   # Highly sensitive, positive correlation  
-  beta: -0.4891   # Moderately sensitive
-  delta: 0.2134   # Less sensitive
-```
+Final error: 0.9454500024300705
 
+
+correlation  rank_correlation  variance  mutual_info  \
+beta      1.000000          1.000000  0.837219     1.000000
+alpha     0.939654          0.821020  0.705869     0.890829
+delta     0.882231          0.691107  1.000000     0.528090
+gamma     0.739286          0.660998  0.000000     0.000000
+
+       mean_abs_sensitivity
+beta               0.959305
+alpha              0.839343
+delta              0.775357
+gamma              0.350071
 ---
 
 ## 📊 Real-World Applications
