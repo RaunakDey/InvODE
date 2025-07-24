@@ -302,7 +302,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -318,6 +320,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.utils.load_matlab_data"><code class="docutils literal notranslate"><span class="pre">load_matlab_data()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.utils.local_refine"><code class="docutils literal notranslate"><span class="pre">local_refine()</span></code></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -327,8 +338,250 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="invode-utils">
-<h1>invode.utils<a class="headerlink" href="#invode-utils" title="Link to this heading">#</a></h1>
+  <section id="module-invode.utils">
+<span id="invode-utils"></span><h1>invode.utils<a class="headerlink" href="#module-invode.utils" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="invode.utils.load_matlab_data">
+<span class="sig-prename descclassname"><span class="pre">invode.utils.</span></span><span class="sig-name descname"><span class="pre">load_matlab_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/utils.html#load_matlab_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.utils.load_matlab_data" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="invode.utils.local_refine">
+<span class="sig-prename descclassname"><span class="pre">invode.utils.</span></span><span class="sig-name descname"><span class="pre">local_refine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">best_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ode_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'L-BFGS-B'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/utils.html#local_refine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.utils.local_refine" title="Link to this definition">#</a></dt>
+<dd><p>Perform local gradient-based optimization to refine parameter estimates.</p>
+<p>This function takes a set of promising parameter values (typically from global
+optimization) and applies local optimization techniques to find a nearby local
+optimum with higher precision. It uses gradient-based methods that can efficiently
+navigate smooth objective function landscapes to achieve fine-scale convergence.</p>
+<p>The function is designed to work seamlessly with mixed parameter sets containing
+both varying (free) and fixed parameters. Only the free parameters are optimized,
+while fixed parameters remain constant throughout the refinement process.</p>
+<p>Local refinement is particularly effective when:</p>
+<ul class="simple">
+<li><p>The objective function is smooth and differentiable near the optimum</p></li>
+<li><p>Global optimization has identified a promising region</p></li>
+<li><p>High precision is required for the final parameter estimates</p></li>
+<li><p>Gradient information is available or can be approximated numerically</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>best_params</strong> (<em>dict</em>) – <p>Initial parameter estimates to be refined. Should contain values for all
+parameters required by the ODE function. These typically come from a
+global optimization phase and represent a good starting point for local
+search.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">{'k1':</span> <span class="pre">2.5,</span> <span class="pre">'k2':</span> <span class="pre">0.15,</span> <span class="pre">'alpha':</span> <span class="pre">0.8,</span> <span class="pre">'beta':</span> <span class="pre">1.2}</span></code></p>
+</p></li>
+<li><p><strong>ode_func</strong> (<em>callable</em>) – The ODE solver function that takes a parameter dictionary and returns
+model output. Must have signature <code class="docutils literal notranslate"><span class="pre">ode_func(params)</span> <span class="pre">-&gt;</span> <span class="pre">output</span></code> where
+params is a dictionary of parameter values and output is the model
+prediction that will be compared against data.</p></li>
+<li><p><strong>error_func</strong> (<em>callable</em>) – Error/objective function that quantifies model fit quality. Must have
+signature <code class="docutils literal notranslate"><span class="pre">error_func(model_output)</span> <span class="pre">-&gt;</span> <span class="pre">float</span></code> where model_output is
+the result from ode_func and the return value is a scalar error measure
+(lower values indicate better fit).</p></li>
+<li><p><strong>fixed_params</strong> (<em>dict</em>) – <p>Dictionary of parameters that should remain constant during optimization.
+These parameters will be included in every evaluation but their values
+will not be modified by the local optimizer.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">{'temp':</span> <span class="pre">298.15,</span> <span class="pre">'pH':</span> <span class="pre">7.4}</span></code></p>
+</p></li>
+<li><p><strong>param_bounds</strong> (<em>dict</em>) – <p>Dictionary mapping parameter names to their allowable bounds. Each value
+should be a tuple (min_val, max_val). Only bounds for free parameters
+(those not in fixed_params) are used during optimization.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">{'k1':</span> <span class="pre">(0.1,</span> <span class="pre">10.0),</span> <span class="pre">'k2':</span> <span class="pre">(0.01,</span> <span class="pre">1.0)}</span></code></p>
+</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>Optimization algorithm to use. Must be a method supported by
+scipy.optimize.minimize that handles bound constraints. Common choices:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'L-BFGS-B'</span></code> (default): Limited-memory BFGS with bounds</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'TNC'</span></code>: Truncated Newton with bounds</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'SLSQP'</span></code>: Sequential Least Squares Programming</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'trust-constr'</span></code>: Trust-region constrained optimization</p></li>
+</ul>
+<p>Default is ‘L-BFGS-B’ which provides good performance for smooth problems.</p>
+</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, print detailed information about the optimization process,
+including refined parameter values, final error, and success status.
+Useful for debugging and monitoring convergence. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A tuple containing the refined results:</p>
+<ul class="simple">
+<li><p><strong>refined_params</strong> (dict): The optimized parameter set containing both
+refined free parameters and unchanged fixed parameters. Has the same
+keys as the input best_params.</p></li>
+<li><p><strong>refined_error</strong> (float): The error value achieved by the refined
+parameters. This should be less than or equal to the initial error
+if optimization was successful.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of (dict, float)</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Algorithm Details:</strong></p>
+<p>The function implements a parameter space transformation to work with scipy’s
+optimize interface:</p>
+<ol class="arabic simple">
+<li><p>Separates free parameters (to be optimized) from fixed parameters</p></li>
+<li><p>Creates a wrapper function that converts parameter vectors back to dictionaries</p></li>
+<li><p>Merges free and fixed parameters for each function evaluation</p></li>
+<li><p>Handles exceptions gracefully by returning infinite error for failed evaluations</p></li>
+</ol>
+<p><strong>Error Handling:</strong></p>
+<p>The wrapped objective function includes robust exception handling. If the ODE
+solver or error function raises any exception (numerical instability, domain
+errors, etc.), the function returns np.inf, allowing the optimizer to continue
+with other parameter values.</p>
+<p><strong>Convergence Criteria:</strong></p>
+<p>The optimization uses scipy’s default convergence criteria for the selected
+method. These typically include:</p>
+<ul class="simple">
+<li><p>Gradient norm tolerance</p></li>
+<li><p>Function value change tolerance</p></li>
+<li><p>Maximum iteration limits</p></li>
+<li><p>Constraint satisfaction tolerance</p></li>
+</ul>
+<p><strong>Parameter Bounds:</strong></p>
+<p>All free parameters are constrained to remain within their specified bounds
+throughout the optimization process. The optimizer will not evaluate parameter
+values outside these bounds.</p>
+<p class="rubric">Examples</p>
+<p>Basic usage after global optimization:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Assume we have results from global optimization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">global_best</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;k1&#39;</span><span class="p">:</span> <span class="mf">2.3</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">:</span> <span class="mf">0.18</span><span class="p">,</span> <span class="s1">&#39;temp&#39;</span><span class="p">:</span> <span class="mf">298.15</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fixed</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;temp&#39;</span><span class="p">:</span> <span class="mf">298.15</span><span class="p">}</span>  <span class="c1"># Temperature held constant</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bounds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;k1&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span> <span class="s1">&#39;k2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)}</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">refined_params</span><span class="p">,</span> <span class="n">refined_error</span> <span class="o">=</span> <span class="n">local_refine</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">global_best</span><span class="p">,</span> <span class="n">my_ode_solver</span><span class="p">,</span> <span class="n">my_error_function</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">fixed</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Refined parameters: </span><span class="si">{</span><span class="n">refined_params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final error: </span><span class="si">{</span><span class="n">refined_error</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Comparing different optimization methods:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span> <span class="s1">&#39;TNC&#39;</span><span class="p">,</span> <span class="s1">&#39;SLSQP&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">params</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">local_refine</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">initial_params</span><span class="p">,</span> <span class="n">ode_func</span><span class="p">,</span> <span class="n">error_func</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">fixed_params</span><span class="p">,</span> <span class="n">param_bounds</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">: error = </span><span class="si">{</span><span class="n">error</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Integration with global optimization workflow:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">optimize_ode_model</span><span class="p">(</span><span class="n">ode_func</span><span class="p">,</span> <span class="n">error_func</span><span class="p">,</span> <span class="n">param_config</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># Global optimization phase</span>
+<span class="gp">... </span>    <span class="n">global_optimizer</span> <span class="o">=</span> <span class="n">ODEOptimizer</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">ode_func</span><span class="o">=</span><span class="n">ode_func</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">error_func</span><span class="o">=</span><span class="n">error_func</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="o">**</span><span class="n">param_config</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">global_best</span><span class="p">,</span> <span class="n">global_error</span> <span class="o">=</span> <span class="n">global_optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="c1"># Local refinement phase</span>
+<span class="gp">... </span>    <span class="n">refined_best</span><span class="p">,</span> <span class="n">refined_error</span> <span class="o">=</span> <span class="n">local_refine</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">global_best</span><span class="p">,</span> <span class="n">ode_func</span><span class="p">,</span> <span class="n">error_func</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">param_config</span><span class="p">[</span><span class="s1">&#39;fixed_params&#39;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="n">param_config</span><span class="p">[</span><span class="s1">&#39;param_bounds&#39;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="n">improvement</span> <span class="o">=</span> <span class="n">global_error</span> <span class="o">-</span> <span class="n">refined_error</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Local refinement improved error by </span><span class="si">{</span><span class="n">improvement</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">refined_best</span><span class="p">,</span> <span class="n">refined_error</span>
+</pre></div>
+</div>
+<p>Handling optimization failures:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">refined_params</span><span class="p">,</span> <span class="n">refined_error</span> <span class="o">=</span> <span class="n">local_refine</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">best_params</span><span class="p">,</span> <span class="n">ode_func</span><span class="p">,</span> <span class="n">error_func</span><span class="p">,</span> <span class="n">fixed_params</span><span class="p">,</span> <span class="n">bounds</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">refined_error</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Local optimization failed to find valid solution&quot;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="c1"># Fall back to global optimization result</span>
+<span class="gp">... </span>        <span class="n">refined_params</span> <span class="o">=</span> <span class="n">best_params</span>
+<span class="gp">... </span><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Local refinement failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">refined_params</span> <span class="o">=</span> <span class="n">best_params</span>  <span class="c1"># Use original parameters</span>
+</pre></div>
+</div>
+<section id="performance-tips">
+<h2>Performance Tips<a class="headerlink" href="#performance-tips" title="Link to this heading">#</a></h2>
+<p><strong>Method Selection:</strong></p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">'L-BFGS-B'</span></code> for smooth, well-behaved problems (default choice)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">'TNC'</span></code> for problems with more complex constraint handling needs</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">'trust-constr'</span></code> for highly nonlinear problems or when high accuracy is needed</p></li>
+<li><p>Avoid gradient-free methods unless the objective function is non-smooth</p></li>
+</ul>
+<p><strong>Numerical Stability:</strong></p>
+<ul class="simple">
+<li><p>Ensure ODE solver uses appropriate tolerances for the refinement scale</p></li>
+<li><p>Consider parameter scaling if parameters have very different magnitudes</p></li>
+<li><p>Monitor for numerical issues in verbose mode</p></li>
+</ul>
+<p><strong>Computational Efficiency:</strong></p>
+<ul class="simple">
+<li><p>Local refinement is typically fast (10-100 function evaluations)</p></li>
+<li><p>Most time is spent in ODE solving, not optimization overhead</p></li>
+<li><p>Consider parallel local refinement of multiple candidates</p></li>
+</ul>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
+<p><strong>Common Issues:</strong></p>
+<ul class="simple">
+<li><p><strong>Optimization not improving</strong>: Check that the starting point is reasonable
+and within bounds. Verify the objective function is smooth locally.</p></li>
+<li><p><strong>Numerical errors</strong>: Reduce ODE solver tolerances or adjust parameter bounds
+to avoid regions where the model becomes unstable.</p></li>
+<li><p><strong>Slow convergence</strong>: Try different optimization methods or check for
+ill-conditioning in the parameter space.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipy.optimize.minimize</span></code></dt><dd><p>The underlying optimization function</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">ODEOptimizer.fit</span></code></dt><dd><p>Global optimization method that often precedes local refinement</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhs_sample</span></code></dt><dd><p>Parameter sampling function for global search phase</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Nocedal, J., &amp; Wright, S. (2006). “Numerical optimization”
+(Vol. 2). New York: Springer.</p>
+</aside>
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<p>Byrd, R. H., Lu, P., Nocedal, J., &amp; Zhu, C. (1995). “A limited
+memory algorithm for bound constrained optimization.” SIAM Journal
+on scientific computing, 16(5), 1190-1208.</p>
+</aside>
+<aside class="footnote brackets" id="id3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<p>Liu, D. C., &amp; Nocedal, J. (1989). “On the limited memory BFGS
+method for large scale optimization.” Mathematical programming,
+45(1-3), 503-528.</p>
+</aside>
+</aside>
+</section>
+</dd></dl>
+
 </section>
 
 
@@ -366,6 +619,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.utils.load_matlab_data"><code class="docutils literal notranslate"><span class="pre">load_matlab_data()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invode.utils.local_refine"><code class="docutils literal notranslate"><span class="pre">local_refine()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
