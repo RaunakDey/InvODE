@@ -30,9 +30,6 @@ jobs:
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           sphinx-build -b html docs/source docs/build/html
 
-      - name: Debug: List built HTML files
-        run: ls -R docs/build/html/api_reference
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
