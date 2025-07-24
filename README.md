@@ -167,6 +167,7 @@ beta               0.959305
 alpha              0.839343
 delta              0.775357
 gamma              0.350071
+```
 ---
 
 ## 📊 Real-World Applications
