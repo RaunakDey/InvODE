@@ -153,8 +153,10 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/sensitivity.html">invode.sensitivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/sampling.html">invode.sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html">invode.optimizer</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="case_studies/index.html">Case Studies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -269,17 +271,37 @@ document.write(`
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
- <a href="#B"><strong>B</strong></a>
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/sensitivity.html#invode.sensitivity.ODESensitivity.analyze_parameter_sensitivity">analyze_parameter_sensitivity() (invode.sensitivity.ODESensitivity method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/sensitivity.html#invode.sensitivity.ODESensitivity.analyze_sensitivity_by_iteration">analyze_sensitivity_by_iteration() (invode.sensitivity.ODESensitivity method)</a>
+</li>
+      <li><a href="api_reference/sensitivity.html#invode.sensitivity.ODESensitivity.analyze_sensitivity_by_rank">analyze_sensitivity_by_rank() (invode.sensitivity.ODESensitivity method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -288,6 +310,28 @@ document.write(`
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference/optimizer.html#invode.optimizer.ODEOptimizer.best_params">best_params() (invode.optimizer.ODEOptimizer method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.chisquared">chisquared() (in module invode.error_functions)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.ChiSquaredMSE">ChiSquaredMSE (class in invode.error_functions)</a>
+</li>
+      <li><a href="api_reference/sensitivity.html#invode.sensitivity.ODESensitivity.create_sensitivity_summary">create_sensitivity_summary() (invode.sensitivity.ODESensitivity method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.ErrorFunction">ErrorFunction (class in invode.error_functions)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -312,9 +356,28 @@ document.write(`
   </ul></td>
 </tr></table>
 
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.huber">huber() (in module invode.error_functions)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.HuberLoss">HuberLoss (class in invode.error_functions)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    invode.error_functions
+
+      <ul>
+        <li><a href="api_reference/error_functions.html#module-invode.error_functions">module</a>
+</li>
+      </ul></li>
       <li>
     invode.optimizer
 
@@ -331,6 +394,13 @@ document.write(`
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    invode.sensitivity
+
+      <ul>
+        <li><a href="api_reference/sensitivity.html#module-invode.sensitivity">module</a>
+</li>
+      </ul></li>
       <li>
     invode.utils
 
@@ -358,17 +428,31 @@ document.write(`
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.MAE">MAE (class in invode.error_functions)</a>
+</li>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.mae">mae() (in module invode.error_functions)</a>
+</li>
       <li>
     module
 
       <ul>
+        <li><a href="api_reference/error_functions.html#module-invode.error_functions">invode.error_functions</a>
+</li>
         <li><a href="api_reference/optimizer.html#module-invode.optimizer">invode.optimizer</a>
 </li>
         <li><a href="api_reference/sampling.html#module-invode.sampling">invode.sampling</a>
 </li>
+        <li><a href="api_reference/sensitivity.html#module-invode.sensitivity">invode.sensitivity</a>
+</li>
         <li><a href="api_reference/utils.html#module-invode.utils">invode.utils</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.MSE">MSE (class in invode.error_functions)</a>
+</li>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.mse">mse() (in module invode.error_functions)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -376,6 +460,10 @@ document.write(`
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference/optimizer.html#invode.optimizer.ODEOptimizer">ODEOptimizer (class in invode.optimizer)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/sensitivity.html#invode.sensitivity.ODESensitivity">ODESensitivity (class in invode.sensitivity)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -386,12 +474,38 @@ document.write(`
       <li><a href="api_reference/optimizer.html#invode.optimizer.ODEOptimizer.plot_error_history">plot_error_history() (invode.optimizer.ODEOptimizer method)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/sensitivity.html#invode.sensitivity.ODESensitivity.plot_sensitivity_analysis">plot_sensitivity_analysis() (invode.sensitivity.ODESensitivity method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.RegularizedError">RegularizedError (class in invode.error_functions)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.RMSE">RMSE (class in invode.error_functions)</a>
+</li>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.rmse">rmse() (in module invode.error_functions)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference/optimizer.html#invode.optimizer.ODEOptimizer.summary">summary() (invode.optimizer.ODEOptimizer method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/error_functions.html#invode.error_functions.WeightedError">WeightedError (class in invode.error_functions)</a>
 </li>
   </ul></td>
 </tr></table>

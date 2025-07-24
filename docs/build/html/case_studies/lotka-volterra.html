@@ -157,8 +157,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sensitivity.html">invode.sensitivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/sampling.html">invode.sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/error_functions.html">invode.optimizer</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Case Studies</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
@@ -351,7 +353,7 @@ document.write(`
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get path to MCMCwithODEs_primer (3 levels up)</span>
-<span class="n">project_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="n">project_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">project_root</span><span class="p">)</span>
 <br/></pre></div>
 </div>
@@ -472,7 +474,17 @@ document.write(`
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-Fitting Progress: 100%|█████████████████████████████████████████████████| 10/10 [00:03&lt;00:00,  2.95it/s]
+Fitting Progress: 100%|█████████████████████████████████████████████████| 10/10 [00:03&lt;00:00,  3.08it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Refining params: {&#39;alpha&#39;: 0.5483310416214465, &#39;beta&#39;: 0.068028770810073, &#39;delta&#39;: 0.1451018918331013, &#39;gamma&#39;: 3.1481636450536428}
+Refining params: {&#39;alpha&#39;: 0.8216385700908369, &#39;beta&#39;: 0.12479204383819222, &#39;delta&#39;: 0.0616377161233344, &#39;gamma&#39;: 1.615577581450748}
+Refining params: {&#39;alpha&#39;: 1.088028953494527, &#39;beta&#39;: 0.24201471359553078, &#39;delta&#39;: 0.10339353925892915, &#39;gamma&#39;: 1.6535395505316968}
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -481,11 +493,11 @@ Fitting Progress: 100%|███████████████████
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-({&#39;alpha&#39;: 1.0070617604208139,
-  &#39;beta&#39;: 0.10106403078501716,
-  &#39;delta&#39;: 0.07518141959837712,
-  &#39;gamma&#39;: 1.4907334496088311},
- 1.017800634314326)
+({&#39;alpha&#39;: 0.9998973552849139,
+  &#39;beta&#39;: 0.09995621865139477,
+  &#39;delta&#39;: 0.07482275016126995,
+  &#39;gamma&#39;: 1.4972199684549248},
+ 0.9454500024300705)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -517,8 +529,8 @@ Fitting Progress: 100%|███████████████████
   verbose: False
   verbose_plot: False
   seed: 42
-  best_error: 1.017800634314326
-  best_params: {&#39;alpha&#39;: 1.0070617604208139, &#39;beta&#39;: 0.10106403078501716, &#39;delta&#39;: 0.07518141959837712, &#39;gamma&#39;: 1.4907334496088311}
+  best_error: 0.9454500024300705
+  best_params: {&#39;alpha&#39;: 0.9998973552849139, &#39;beta&#39;: 0.09995621865139477, &#39;delta&#39;: 0.07482275016126995, &#39;gamma&#39;: 1.4972199684549248}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -550,10 +562,10 @@ Fitting Progress: 100%|███████████████████
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;alpha&#39;: 1.0070617604208139,
- &#39;beta&#39;: 0.10106403078501716,
- &#39;delta&#39;: 0.07518141959837712,
- &#39;gamma&#39;: 1.4907334496088311}
+{&#39;alpha&#39;: 0.9998973552849139,
+ &#39;beta&#39;: 0.09995621865139477,
+ &#39;delta&#39;: 0.07482275016126995,
+ &#39;gamma&#39;: 1.4972199684549248}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -570,7 +582,7 @@ Fitting Progress: 100%|███████████████████
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1.017800634314326
+0.9454500024300705
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -590,16 +602,16 @@ Fitting Progress: 100%|███████████████████
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Iteration 1: Best error = 205.4939
-Iteration 2: Best error = 146.2435
-Iteration 3: Best error = 122.2815
-Iteration 4: Best error = 38.3478
-Iteration 5: Best error = 18.4092
-Iteration 6: Best error = 50.1976
-Iteration 7: Best error = 12.9517
-Iteration 8: Best error = 30.5593
-Iteration 9: Best error = 50.5512
-Iteration 10: Best error = 26.4215
+Iteration 1: Best error = 204.6680
+Iteration 2: Best error = 145.7022
+Iteration 3: Best error = 124.5489
+Iteration 4: Best error = 40.5091
+Iteration 5: Best error = 19.2365
+Iteration 6: Best error = 51.9826
+Iteration 7: Best error = 12.4050
+Iteration 8: Best error = 32.4487
+Iteration 9: Best error = 50.0270
+Iteration 10: Best error = 26.6829
 </pre></div></div>
 </div>
 <p>If we wanted to explore what parameters were sampled and chosen on the way towards optimization, we can dig into it.</p>
@@ -618,36 +630,36 @@ Iteration 10: Best error = 26.4215
 <div class="output_area docutils container">
 <div class="highlight"><pre>
     iteration  rank       error     alpha      beta     delta     gamma
-0           1     1  205.493950  4.635283  0.548670  0.272194  3.750834
-1           1     2  216.311914  3.948483  0.639474  0.266935  3.296262
-2           1     3  222.192257  3.143117  0.334123  0.277048  2.619616
-3           2     1  146.243488  6.541759  0.669410  0.176117  3.965542
-4           2     2  152.667569  3.694805  0.448981  0.095968  2.381629
-5           2     3  152.875367  4.592497  0.524295  0.146545  3.973435
-6           3     1  122.281547  1.667789  0.482981  0.145486  1.406716
-7           3     2  128.026079  3.239774  0.298372  0.075456  1.800184
-8           3     3  138.298442  4.021883  0.458061  0.139802  3.099533
-9           4     1   38.347757  1.501547  0.157396  0.096360  1.188872
-10          4     2   66.360753  1.113214  0.313581  0.092433  1.601306
-11          4     3  105.272729  1.100925  0.343522  0.162367  2.142834
-12          5     1   18.409228  1.221271  0.188816  0.071793  1.239034
-13          5     2   62.934063  0.757612  0.173760  0.208879  2.972718
-14          5     3   77.399162  1.050500  0.111615  0.069860  1.256183
-15          6     1   50.197585  1.509966  0.133063  0.101699  1.197996
-16          6     2   52.663803  1.240501  0.234195  0.096619  1.421084
-17          6     3   64.199690  1.195991  0.279601  0.052210  1.229068
-18          7     1   12.951683  0.818549  0.082426  0.081083  1.861002
-19          7     2   17.754232  0.732057  0.097124  0.129818  2.363097
-20          7     3   25.901950  1.454759  0.170437  0.073618  1.060169
-21          8     1   30.559292  1.102807  0.121274  0.113574  1.619607
-22          8     2   31.593533  1.566777  0.165080  0.082514  1.096553
-23          8     3   45.350923  0.760460  0.185158  0.108213  2.202863
-24          9     1   50.551166  0.680582  0.058895  0.122742  2.325857
-25          9     2   79.519415  1.078495  0.083594  0.135380  1.802685
-26          9     3   86.748602  0.916940  0.247304  0.187210  2.566774
-27         10     1   26.421453  0.548331  0.068029  0.145102  3.148164
-28         10     2   37.848831  0.821639  0.124792  0.061638  1.615578
-29         10     3   61.760456  1.088029  0.242015  0.103394  1.653540
+0           1     1  204.667960  4.635283  0.548670  0.272194  3.750834
+1           1     2  218.967236  3.948483  0.639474  0.266935  3.296262
+2           1     3  224.830375  3.143117  0.334123  0.277048  2.619616
+3           2     1  145.702157  6.541759  0.669410  0.176117  3.965542
+4           2     2  150.452967  3.694805  0.448981  0.095968  2.381629
+5           2     3  151.425265  4.592497  0.524295  0.146545  3.973435
+6           3     1  124.548898  1.667789  0.482981  0.145486  1.406716
+7           3     2  126.479216  3.239774  0.298372  0.075456  1.800184
+8           3     3  139.599956  4.021883  0.458061  0.139802  3.099533
+9           4     1   40.509116  1.501547  0.157396  0.096360  1.188872
+10          4     2   67.987344  1.113214  0.313581  0.092433  1.601306
+11          4     3  108.088022  1.100925  0.343522  0.162367  2.142834
+12          5     1   19.236542  1.221271  0.188816  0.071793  1.239034
+13          5     2   64.401317  0.757612  0.173760  0.208879  2.972718
+14          5     3   77.198631  1.050500  0.111615  0.069860  1.256183
+15          6     1   51.982562  1.509966  0.133063  0.101699  1.197996
+16          6     2   54.708467  1.240501  0.234195  0.096619  1.421084
+17          6     3   64.200622  1.195991  0.279601  0.052210  1.229068
+18          7     1   12.404973  0.818549  0.082426  0.081083  1.861002
+19          7     2   18.786631  0.732057  0.097124  0.129818  2.363097
+20          7     3   26.713208  1.454759  0.170437  0.073618  1.060169
+21          8     1   32.448662  1.102807  0.121274  0.113574  1.619607
+22          8     2   33.477406  1.566777  0.165080  0.082514  1.096553
+23          8     3   46.206608  0.760460  0.185158  0.108213  2.202863
+24          9     1   50.027043  0.680582  0.058895  0.122742  2.325857
+25          9     2   81.652486  1.078495  0.083594  0.135380  1.802685
+26          9     3   89.614766  0.916940  0.247304  0.187210  2.566774
+27         10     1   26.682906  0.548331  0.068029  0.145102  3.148164
+28         10     2   36.568860  0.821639  0.124792  0.061638  1.615578
+29         10     3   63.653644  1.088029  0.242015  0.103394  1.653540
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -694,6 +706,58 @@ Iteration 10: Best error = 26.4215
 <div class="output_area docutils container">
 <img alt="../_images/case_studies_lotka-volterra_23_0.png" src="../_images/case_studies_lotka-volterra_23_0.png" />
 </div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">invode</span> <span class="kn">import</span> <span class="n">ODESensitivity</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sensitivity</span> <span class="o">=</span> <span class="n">ODESensitivity</span><span class="p">(</span><span class="n">ode_func</span><span class="o">=</span><span class="n">simulate_model</span><span class="p">,</span><span class="n">error_func</span><span class="o">=</span><span class="n">mse</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sensitivities</span> <span class="o">=</span> <span class="n">sensitivity</span><span class="o">.</span><span class="n">analyze_parameter_sensitivity</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Identify most consistently sensitive parameters</span>
+<span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean_abs_sensitivity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;mean_abs_sensitivity&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+       correlation  rank_correlation  variance  mutual_info  \
+beta      1.000000          1.000000  0.837219     1.000000
+alpha     0.939654          0.821020  0.705869     0.890829
+delta     0.882231          0.691107  1.000000     0.528090
+gamma     0.739286          0.660998  0.000000     0.000000
+
+       mean_abs_sensitivity
+beta               0.959305
+alpha              0.839343
+delta              0.775357
+gamma              0.350071
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:

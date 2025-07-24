@@ -9,17 +9,17 @@ import pandas as pd
 from tqdm import trange  
 
 
-from concurrent.futures import ProcessPoolExecutor
-from tqdm import trange
-import numpy as np
-from scipy.optimize import minimize
-
-
-from concurrent.futures import ProcessPoolExecutor
-from tqdm import trange
-import numpy as np
-
 class ODEOptimizer:
+    """
+    A class for optimizing parameters of an ordinary differential equation (ODE) model.
+    This class implements a sophisticated parameter optimization strategy that combines
+    global exploration with local refinement. It uses Latin Hypercube Sampling (LHS)
+    around the best candidates from each iteration, progressively shrinking search regions
+    to converge on optimal parameter values. The algorithm maintains diversity by tracking
+    multiple top candidates and optionally performs local optimization for fine-tuning.
+    """
+
+
     def __init__(
         self,
         ode_func,

@@ -153,6 +153,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/sensitivity.html">invode.sensitivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api_reference/sampling.html">invode.sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">invode.utils</a></li>
 </ul>
@@ -277,19 +278,19 @@ document.write(`
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">trange</span>  
 
 
-<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">trange</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
-
-
-<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">trange</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
 <div class="viewcode-block" id="ODEOptimizer">
 <a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer">[docs]</a>
 <span class="k">class</span> <span class="nc">ODEOptimizer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for optimizing parameters of an ordinary differential equation (ODE) model.</span>
+<span class="sd">    This class implements a sophisticated parameter optimization strategy that combines</span>
+<span class="sd">    global exploration with local refinement. It uses Latin Hypercube Sampling (LHS)</span>
+<span class="sd">    around the best candidates from each iteration, progressively shrinking search regions</span>
+<span class="sd">    to converge on optimal parameter values. The algorithm maintains diversity by tracking</span>
+<span class="sd">    multiple top candidates and optionally performs local optimization for fine-tuning.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">ode_func</span><span class="p">,</span>

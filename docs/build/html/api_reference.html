@@ -154,8 +154,10 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/sensitivity.html">invode.sensitivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/sampling.html">invode.sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html">invode.optimizer</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="case_studies/index.html">Case Studies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -323,6 +325,10 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="api_reference/optimizer.html#invode.optimizer.ODEOptimizer"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/sensitivity.html">invode.sensitivity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/sensitivity.html#invode.sensitivity.ODESensitivity"><code class="docutils literal notranslate"><span class="pre">ODESensitivity</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference/sampling.html">invode.sampling</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/sampling.html#invode.sampling.lhs_sample"><code class="docutils literal notranslate"><span class="pre">lhs_sample()</span></code></a></li>
 </ul>
@@ -330,6 +336,23 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="api_reference/utils.html">invode.utils</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/utils.html#invode.utils.load_matlab_data"><code class="docutils literal notranslate"><span class="pre">load_matlab_data()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/utils.html#invode.utils.local_refine"><code class="docutils literal notranslate"><span class="pre">local_refine()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/error_functions.html">invode.optimizer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#error-functions-module-erf">Error Functions Module (erf)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.ChiSquaredMSE"><code class="docutils literal notranslate"><span class="pre">ChiSquaredMSE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.ErrorFunction"><code class="docutils literal notranslate"><span class="pre">ErrorFunction</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.HuberLoss"><code class="docutils literal notranslate"><span class="pre">HuberLoss</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.MAE"><code class="docutils literal notranslate"><span class="pre">MAE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.MSE"><code class="docutils literal notranslate"><span class="pre">MSE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.RMSE"><code class="docutils literal notranslate"><span class="pre">RMSE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.RegularizedError"><code class="docutils literal notranslate"><span class="pre">RegularizedError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.WeightedError"><code class="docutils literal notranslate"><span class="pre">WeightedError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.chisquared"><code class="docutils literal notranslate"><span class="pre">chisquared()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.huber"><code class="docutils literal notranslate"><span class="pre">huber()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.mae"><code class="docutils literal notranslate"><span class="pre">mae()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.mse"><code class="docutils literal notranslate"><span class="pre">mse()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.rmse"><code class="docutils literal notranslate"><span class="pre">rmse()</span></code></a></li>
 </ul>
 </li>
 </ul>

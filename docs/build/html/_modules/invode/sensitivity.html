@@ -1,0 +1,921 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>invode.sensitivity &#8212; InvODE 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/invode/sensitivity';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">InvODE 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/error_functions.html">invode.optimizer</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../case_studies/index.html">Case Studies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../case_studies/lotka-volterra.html">Lotka–Volterra Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../case_studies/chemical-kinetics.html">Chemical Kinetics Case Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../case_studies/phage-onestep.html">Phage One-Step Growth Case Study</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for invode.sensitivity</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+
+<div class="viewcode-block" id="ODESensitivity">
+<a class="viewcode-back" href="../../api_reference/sensitivity.html#invode.sensitivity.ODESensitivity">[docs]</a>
+<span class="k">class</span> <span class="nc">ODESensitivity</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for performing sensitivity analysis on ODE model parameters.</span>
+<span class="sd">    </span>
+<span class="sd">    This class provides methods to analyze how sensitive the model output is to</span>
+<span class="sd">    changes in different parameters, using data from optimization history or</span>
+<span class="sd">    direct parameter sampling.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ode_func</span><span class="p">,</span> <span class="n">error_func</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the ODESensitivity analyzer.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ode_func : callable</span>
+<span class="sd">            The ODE solver function that takes a parameter dictionary and returns</span>
+<span class="sd">            model output.</span>
+<span class="sd">        error_func : callable</span>
+<span class="sd">            Error/objective function that quantifies model fit quality.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ode_func</span> <span class="o">=</span> <span class="n">ode_func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error_func</span> <span class="o">=</span> <span class="n">error_func</span>
+        
+<div class="viewcode-block" id="ODESensitivity.analyze_parameter_sensitivity">
+<a class="viewcode-back" href="../../api_reference/sensitivity.html#invode.sensitivity.ODESensitivity.analyze_parameter_sensitivity">[docs]</a>
+    <span class="k">def</span> <span class="nf">analyze_parameter_sensitivity</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">candidates_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;correlation&#39;</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">min_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="n">exclude_columns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Analyze parameter sensitivity using optimization candidates data.</span>
+<span class="sd">        </span>
+<span class="sd">        This method examines how changes in each parameter correlate with changes</span>
+<span class="sd">        in the error function, providing insights into which parameters have the</span>
+<span class="sd">        strongest influence on model performance.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        candidates_df : pd.DataFrame</span>
+<span class="sd">            DataFrame containing optimization candidates with parameter values and errors.</span>
+<span class="sd">            Expected to have columns: &#39;iteration&#39;, &#39;rank&#39;, &#39;error&#39;, and parameter columns.</span>
+<span class="sd">            This is typically obtained from ODEOptimizer.get_top_candidates_table().</span>
+<span class="sd">            </span>
+<span class="sd">        method : str, optional</span>
+<span class="sd">            Method for calculating sensitivity. Options:</span>
+<span class="sd">            </span>
+<span class="sd">            - &#39;correlation&#39;: Pearson correlation between parameter values and errors</span>
+<span class="sd">            - &#39;variance&#39;: Normalized variance of error with respect to parameter changes</span>
+<span class="sd">            - &#39;gradient&#39;: Approximate gradient of error with respect to parameters</span>
+<span class="sd">            - &#39;mutual_info&#39;: Mutual information between parameters and error</span>
+<span class="sd">            - &#39;rank_correlation&#39;: Spearman rank correlation (robust to outliers)</span>
+<span class="sd">            </span>
+<span class="sd">            Default is &#39;correlation&#39;.</span>
+<span class="sd">            </span>
+<span class="sd">        normalize : bool, optional</span>
+<span class="sd">            If True, normalize sensitivity values to [0, 1] range for comparison.</span>
+<span class="sd">            Default is True.</span>
+<span class="sd">            </span>
+<span class="sd">        min_samples : int, optional</span>
+<span class="sd">            Minimum number of samples required for reliable sensitivity analysis.</span>
+<span class="sd">            If fewer samples are available, a warning is issued. Default is 10.</span>
+<span class="sd">            </span>
+<span class="sd">        exclude_columns : List[str], optional</span>
+<span class="sd">            List of column names to exclude from sensitivity analysis.</span>
+<span class="sd">            By default, excludes [&#39;iteration&#39;, &#39;rank&#39;, &#39;error&#39;].</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Dict[str, float]</span>
+<span class="sd">            Dictionary mapping parameter names to their sensitivity values.</span>
+<span class="sd">            Higher absolute values indicate greater sensitivity. For correlation</span>
+<span class="sd">            methods, negative values indicate inverse relationships.</span>
+<span class="sd">            </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If candidates_df is empty, missing required columns, or contains insufficient data.</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If candidates_df is not a pandas DataFrame.</span>
+<span class="sd">            </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        **Sensitivity Interpretation:**</span>
+<span class="sd">        </span>
+<span class="sd">        - **High sensitivity**: Small parameter changes cause large error changes</span>
+<span class="sd">        - **Low sensitivity**: Parameter changes have minimal impact on error</span>
+<span class="sd">        - **Negative correlation**: Increasing parameter decreases error</span>
+<span class="sd">        - **Positive correlation**: Increasing parameter increases error</span>
+<span class="sd">        </span>
+<span class="sd">        **Method Details:**</span>
+<span class="sd">        </span>
+<span class="sd">        - **Correlation**: Measures linear relationship between parameter and error</span>
+<span class="sd">        - **Rank Correlation**: Spearman correlation, robust to non-linear monotonic relationships</span>
+<span class="sd">        - **Variance**: Quantifies error variability attributable to parameter</span>
+<span class="sd">        - **Gradient**: Estimates local derivative of error w.r.t. parameter</span>
+<span class="sd">        - **Mutual Info**: Captures non-linear parameter-error relationships</span>
+<span class="sd">        </span>
+<span class="sd">        The analysis uses all candidates from all iterations, providing a global</span>
+<span class="sd">        view of parameter sensitivity across the optimization landscape.</span>
+<span class="sd">        </span>
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Basic sensitivity analysis from optimizer results:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; # After running optimization</span>
+<span class="sd">        &gt;&gt;&gt; optimizer = ODEOptimizer(...)</span>
+<span class="sd">        &gt;&gt;&gt; optimizer.fit()</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Get candidates table and analyze sensitivity</span>
+<span class="sd">        &gt;&gt;&gt; df = optimizer.get_top_candidates_table()</span>
+<span class="sd">        &gt;&gt;&gt; sensitivity = ODESensitivity(optimizer.ode_func, optimizer.error_func)</span>
+<span class="sd">        &gt;&gt;&gt; sensitivities = sensitivity.analyze_parameter_sensitivity(df)</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Display results sorted by sensitivity magnitude</span>
+<span class="sd">        &gt;&gt;&gt; for param, sens in sorted(sensitivities.items(), key=lambda x: abs(x[1]), reverse=True):</span>
+<span class="sd">        ...     print(f&quot;{param}: {sens:.4f}&quot;)</span>
+<span class="sd">        alpha: -0.8234  # Highly sensitive, negative correlation</span>
+<span class="sd">        beta: 0.6891    # Highly sensitive, positive correlation</span>
+<span class="sd">        gamma: -0.3456  # Moderately sensitive</span>
+<span class="sd">        delta: 0.1234   # Low sensitivity</span>
+<span class="sd">        </span>
+<span class="sd">        Compare different sensitivity methods:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; methods = [&#39;correlation&#39;, &#39;rank_correlation&#39;, &#39;variance&#39;, &#39;mutual_info&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; results = {}</span>
+<span class="sd">        &gt;&gt;&gt; for method in methods:</span>
+<span class="sd">        ...     sens = sensitivity.analyze_parameter_sensitivity(df, method=method)</span>
+<span class="sd">        ...     results[method] = sens</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Create comparison DataFrame</span>
+<span class="sd">        &gt;&gt;&gt; comparison_df = pd.DataFrame(results)</span>
+<span class="sd">        &gt;&gt;&gt; print(comparison_df.round(4))</span>
+<span class="sd">                  correlation  rank_correlation  variance  mutual_info</span>
+<span class="sd">        alpha          -0.823            -0.801     0.745        0.234</span>
+<span class="sd">        beta            0.689             0.712     0.523        0.189</span>
+<span class="sd">        gamma          -0.346            -0.298     0.187        0.098</span>
+<span class="sd">        delta           0.123             0.145     0.076        0.043</span>
+<span class="sd">        </span>
+<span class="sd">        Analyze sensitivity for specific iterations:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; # Focus on later iterations (better convergence)</span>
+<span class="sd">        &gt;&gt;&gt; late_iterations = df[df[&#39;iteration&#39;] &gt;= 5]</span>
+<span class="sd">        &gt;&gt;&gt; late_sensitivities = sensitivity.analyze_parameter_sensitivity(late_iterations)</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Compare early vs late sensitivity</span>
+<span class="sd">        &gt;&gt;&gt; early_iterations = df[df[&#39;iteration&#39;] &lt;= 3]</span>
+<span class="sd">        &gt;&gt;&gt; early_sensitivities = sensitivity.analyze_parameter_sensitivity(early_iterations)</span>
+<span class="sd">        </span>
+<span class="sd">        Filter by rank to focus on best candidates:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; # Only analyze top candidates from each iteration</span>
+<span class="sd">        &gt;&gt;&gt; top_candidates = df[df[&#39;rank&#39;] == 1]</span>
+<span class="sd">        &gt;&gt;&gt; top_sensitivities = sensitivity.analyze_parameter_sensitivity(top_candidates)</span>
+<span class="sd">        </span>
+<span class="sd">        Custom column exclusions:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; # Exclude additional metadata columns</span>
+<span class="sd">        &gt;&gt;&gt; sensitivities = sensitivity.analyze_parameter_sensitivity(</span>
+<span class="sd">        ...     df, exclude_columns=[&#39;iteration&#39;, &#39;rank&#39;, &#39;error&#39;, &#39;timestamp&#39;]</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Validate input</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">candidates_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;candidates_df must be a pandas DataFrame&quot;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="n">candidates_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;candidates_df is empty&quot;</span><span class="p">)</span>
+            
+        <span class="c1"># Check for required columns</span>
+        <span class="n">required_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span>
+        <span class="n">missing_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">required_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">candidates_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">missing_columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing required columns: </span><span class="si">{</span><span class="n">missing_columns</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Set default excluded columns</span>
+        <span class="k">if</span> <span class="n">exclude_columns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">exclude_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;iteration&#39;</span><span class="p">,</span> <span class="s1">&#39;rank&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Ensure &#39;error&#39; is not excluded (we need it for analysis)</span>
+            <span class="n">exclude_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">exclude_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="o">!=</span> <span class="s1">&#39;error&#39;</span><span class="p">]</span>
+            
+        <span class="c1"># Get parameter columns</span>
+        <span class="n">param_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">candidates_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude_columns</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">param_columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No parameter columns found after excluding specified columns&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Check minimum samples</span>
+        <span class="n">n_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates_df</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_samples</span> <span class="o">&lt;</span> <span class="n">min_samples</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Only </span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s2"> samples available. &quot;</span>
+                  <span class="sa">f</span><span class="s2">&quot;Results may be unreliable (recommended minimum: </span><span class="si">{</span><span class="n">min_samples</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Calculate sensitivity for each parameter</span>
+        <span class="n">sensitivities</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_columns</span><span class="p">:</span>
+            <span class="n">param_values</span> <span class="o">=</span> <span class="n">candidates_df</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">errors</span> <span class="o">=</span> <span class="n">candidates_df</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            
+            <span class="c1"># Skip parameters with no variation</span>
+            <span class="k">if</span> <span class="n">param_values</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Parameter &#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&#39; has no variation, setting sensitivity to 0&quot;</span><span class="p">)</span>
+                <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="k">continue</span>
+            
+            <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;correlation&#39;</span><span class="p">:</span>
+                <span class="c1"># Pearson correlation coefficient</span>
+                <span class="n">corr</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">param_values</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
+                <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">corr</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.0</span>
+                
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;rank_correlation&#39;</span><span class="p">:</span>
+                <span class="c1"># Spearman rank correlation (robust to outliers)</span>
+                <span class="n">corr</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">param_values</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
+                <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">corr</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.0</span>
+                
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;variance&#39;</span><span class="p">:</span>
+                <span class="c1"># Variance-based sensitivity using binning approach</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># Bin parameters and calculate error variance within bins</span>
+                    <span class="n">n_bins</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_samples</span> <span class="o">//</span> <span class="mi">3</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">n_bins</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">n_bins</span> <span class="o">=</span> <span class="mi">2</span>
+                    
+                    <span class="n">param_bins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">param_values</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">duplicates</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
+                    <span class="n">df_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;param_bins&#39;</span><span class="p">:</span> <span class="n">param_bins</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="n">errors</span><span class="p">})</span>
+                    
+                    <span class="n">bin_variances</span> <span class="o">=</span> <span class="n">df_temp</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;param_bins&#39;</span><span class="p">)[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+                    <span class="n">mean_bin_variance</span> <span class="o">=</span> <span class="n">bin_variances</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                    <span class="n">total_variance</span> <span class="o">=</span> <span class="n">errors</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+                    
+                    <span class="c1"># Sensitivity as fraction of total variance explained</span>
+                    <span class="k">if</span> <span class="n">total_variance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">sensitivity</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">mean_bin_variance</span> <span class="o">/</span> <span class="n">total_variance</span><span class="p">)</span>
+                        <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sensitivity</span><span class="p">)</span>  <span class="c1"># Ensure non-negative</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                        
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Variance calculation failed for &#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                    
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;gradient&#39;</span><span class="p">:</span>
+                <span class="c1"># Approximate gradient using finite differences</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># Sort by parameter value</span>
+                    <span class="n">sorted_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">param_values</span><span class="p">)</span>
+                    <span class="n">sorted_params</span> <span class="o">=</span> <span class="n">param_values</span><span class="p">[</span><span class="n">sorted_indices</span><span class="p">]</span>
+                    <span class="n">sorted_errors</span> <span class="o">=</span> <span class="n">errors</span><span class="p">[</span><span class="n">sorted_indices</span><span class="p">]</span>
+                    
+                    <span class="c1"># Calculate approximate derivatives</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_params</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">gradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">sorted_errors</span><span class="p">,</span> <span class="n">sorted_params</span><span class="p">)</span>
+                        <span class="n">mean_gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">gradients</span><span class="p">))</span>
+                        <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_gradient</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                        
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Gradient calculation failed for &#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                    
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;mutual_info&#39;</span><span class="p">:</span>
+                <span class="c1"># Mutual information between parameter and error</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">mutual_info_regression</span>
+                    
+                    <span class="n">param_reshaped</span> <span class="o">=</span> <span class="n">param_values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">mi_score</span> <span class="o">=</span> <span class="n">mutual_info_regression</span><span class="p">(</span><span class="n">param_reshaped</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi_score</span>
+                    
+                <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;sklearn is required for mutual_info method&quot;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Mutual info calculation failed for &#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">sensitivities</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                    
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown sensitivity method: &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                               <span class="sa">f</span><span class="s2">&quot;Available methods: correlation, rank_correlation, variance, gradient, mutual_info&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Normalize if requested</span>
+        <span class="k">if</span> <span class="n">normalize</span> <span class="ow">and</span> <span class="n">sensitivities</span><span class="p">:</span>
+            <span class="n">sens_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sensitivities</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            
+            <span class="k">if</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;correlation&#39;</span><span class="p">,</span> <span class="s1">&#39;rank_correlation&#39;</span><span class="p">]:</span>
+                <span class="c1"># For correlation methods, preserve sign but normalize magnitude</span>
+                <span class="n">max_abs_sens</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sens_values</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">max_abs_sens</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">sensitivities</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="o">/</span> <span class="n">max_abs_sens</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sensitivities</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># For other methods, normalize to [0, 1]</span>
+                <span class="n">min_sens</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">sens_values</span><span class="p">)</span>
+                <span class="n">max_sens</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sens_values</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">max_sens</span> <span class="o">&gt;</span> <span class="n">min_sens</span><span class="p">:</span>
+                    <span class="n">sensitivities</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="n">k</span><span class="p">:</span> <span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="n">min_sens</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_sens</span> <span class="o">-</span> <span class="n">min_sens</span><span class="p">)</span> 
+                        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sensitivities</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                    <span class="p">}</span>
+        <span class="k">return</span> <span class="n">sensitivities</span></div>
+
+        
+<div class="viewcode-block" id="ODESensitivity.analyze_sensitivity_by_iteration">
+<a class="viewcode-back" href="../../api_reference/sensitivity.html#invode.sensitivity.ODESensitivity.analyze_sensitivity_by_iteration">[docs]</a>
+    <span class="k">def</span> <span class="nf">analyze_sensitivity_by_iteration</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">candidates_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;correlation&#39;</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Analyze how parameter sensitivity changes across optimization iterations.</span>
+<span class="sd">        </span>
+<span class="sd">        This method provides insights into how the importance of different parameters</span>
+<span class="sd">        evolves as the optimization progresses, which can reveal whether certain</span>
+<span class="sd">        parameters become more or less critical in later stages.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        candidates_df : pd.DataFrame</span>
+<span class="sd">            DataFrame containing optimization candidates from get_top_candidates_table().</span>
+<span class="sd">        method : str, optional</span>
+<span class="sd">            Sensitivity analysis method. Default is &#39;correlation&#39;.</span>
+<span class="sd">        normalize : bool, optional</span>
+<span class="sd">            Whether to normalize sensitivity values. Default is True.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pd.DataFrame</span>
+<span class="sd">            DataFrame with iterations as rows and parameters as columns,</span>
+<span class="sd">            containing sensitivity values for each iteration.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; df = optimizer.get_top_candidates_table()</span>
+<span class="sd">        &gt;&gt;&gt; sensitivity = ODESensitivity(optimizer.ode_func, optimizer.error_func)</span>
+<span class="sd">        &gt;&gt;&gt; iteration_sens = sensitivity.analyze_sensitivity_by_iteration(df)</span>
+<span class="sd">        &gt;&gt;&gt; print(iteration_sens)</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; # Plot evolution of parameter sensitivity</span>
+<span class="sd">        &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">        &gt;&gt;&gt; plt.figure(figsize=(12, 6))</span>
+<span class="sd">        &gt;&gt;&gt; for param in iteration_sens.columns:</span>
+<span class="sd">        ...     plt.plot(iteration_sens.index, iteration_sens[param], </span>
+<span class="sd">        ...              marker=&#39;o&#39;, label=param)</span>
+<span class="sd">        &gt;&gt;&gt; plt.xlabel(&#39;Iteration&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; plt.ylabel(&#39;Parameter Sensitivity&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; plt.title(&#39;Evolution of Parameter Sensitivity&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; plt.legend()</span>
+<span class="sd">        &gt;&gt;&gt; plt.grid(True, alpha=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; plt.show()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;iteration&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">candidates_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;DataFrame must contain &#39;iteration&#39; column&quot;</span><span class="p">)</span>
+            
+        <span class="n">iterations</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">candidates_df</span><span class="p">[</span><span class="s1">&#39;iteration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">param_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">candidates_df</span><span class="o">.</span><span class="n">columns</span> 
+                        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;iteration&#39;</span><span class="p">,</span> <span class="s1">&#39;rank&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">]]</span>
+        
+        <span class="n">sensitivity_by_iter</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="n">iterations</span><span class="p">:</span>
+            <span class="n">iter_data</span> <span class="o">=</span> <span class="n">candidates_df</span><span class="p">[</span><span class="n">candidates_df</span><span class="p">[</span><span class="s1">&#39;iteration&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">iteration</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">iter_data</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># Need at least 2 samples for correlation</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">iter_sensitivities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyze_parameter_sensitivity</span><span class="p">(</span>
+                        <span class="n">iter_data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">,</span> <span class="n">min_samples</span><span class="o">=</span><span class="mi">2</span>
+                    <span class="p">)</span>
+                    <span class="n">sensitivity_by_iter</span><span class="p">[</span><span class="n">iteration</span><span class="p">]</span> <span class="o">=</span> <span class="n">iter_sensitivities</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Sensitivity analysis failed for iteration </span><span class="si">{</span><span class="n">iteration</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="c1"># Fill with zeros</span>
+                    <span class="n">sensitivity_by_iter</span><span class="p">[</span><span class="n">iteration</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">param</span><span class="p">:</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_columns</span><span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Not enough data for this iteration</span>
+                <span class="n">sensitivity_by_iter</span><span class="p">[</span><span class="n">iteration</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">param</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_columns</span><span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sensitivity_by_iter</span><span class="p">)</span><span class="o">.</span><span class="n">T</span></div>
+
+    
+<div class="viewcode-block" id="ODESensitivity.analyze_sensitivity_by_rank">
+<a class="viewcode-back" href="../../api_reference/sensitivity.html#invode.sensitivity.ODESensitivity.analyze_sensitivity_by_rank">[docs]</a>
+    <span class="k">def</span> <span class="nf">analyze_sensitivity_by_rank</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">candidates_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;correlation&#39;</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Analyze parameter sensitivity for different candidate ranks.</span>
+<span class="sd">        </span>
+<span class="sd">        This method examines whether parameter sensitivity differs between</span>
+<span class="sd">        the best candidates (rank 1) versus lower-ranked candidates, which</span>
+<span class="sd">        can provide insights into parameter importance in high-performance regions.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        candidates_df : pd.DataFrame</span>
+<span class="sd">            DataFrame containing optimization candidates from get_top_candidates_table().</span>
+<span class="sd">        method : str, optional</span>
+<span class="sd">            Sensitivity analysis method. Default is &#39;correlation&#39;.</span>
+<span class="sd">        normalize : bool, optional</span>
+<span class="sd">            Whether to normalize sensitivity values. Default is True.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pd.DataFrame</span>
+<span class="sd">            DataFrame with ranks as rows and parameters as columns,</span>
+<span class="sd">            containing sensitivity values for each rank.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; df = optimizer.get_top_candidates_table()</span>
+<span class="sd">        &gt;&gt;&gt; sensitivity = ODESensitivity(optimizer.ode_func, optimizer.error_func)</span>
+<span class="sd">        &gt;&gt;&gt; rank_sens = sensitivity.analyze_sensitivity_by_rank(df)</span>
+<span class="sd">        &gt;&gt;&gt; print(rank_sens)</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; # Compare sensitivity between best and worst candidates</span>
+<span class="sd">        &gt;&gt;&gt; print(&quot;Best candidates (rank 1):&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(rank_sens.loc[1])</span>
+<span class="sd">        &gt;&gt;&gt; print(&quot;\nWorst candidates (rank 3):&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(rank_sens.loc[3])</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;rank&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">candidates_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;DataFrame must contain &#39;rank&#39; column&quot;</span><span class="p">)</span>
+            
+        <span class="n">ranks</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">candidates_df</span><span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">param_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">candidates_df</span><span class="o">.</span><span class="n">columns</span> 
+                        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;iteration&#39;</span><span class="p">,</span> <span class="s1">&#39;rank&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">]]</span>
+        
+        <span class="n">sensitivity_by_rank</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">ranks</span><span class="p">:</span>
+            <span class="n">rank_data</span> <span class="o">=</span> <span class="n">candidates_df</span><span class="p">[</span><span class="n">candidates_df</span><span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">rank</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rank_data</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># Need at least 2 samples</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">rank_sensitivities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyze_parameter_sensitivity</span><span class="p">(</span>
+                        <span class="n">rank_data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">,</span> <span class="n">min_samples</span><span class="o">=</span><span class="mi">2</span>
+                    <span class="p">)</span>
+                    <span class="n">sensitivity_by_rank</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">rank_sensitivities</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Sensitivity analysis failed for rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">sensitivity_by_rank</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">param</span><span class="p">:</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_columns</span><span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sensitivity_by_rank</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">param</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_columns</span><span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sensitivity_by_rank</span><span class="p">)</span><span class="o">.</span><span class="n">T</span></div>
+
+
+<div class="viewcode-block" id="ODESensitivity.create_sensitivity_summary">
+<a class="viewcode-back" href="../../api_reference/sensitivity.html#invode.sensitivity.ODESensitivity.create_sensitivity_summary">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_sensitivity_summary</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">candidates_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">methods</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a comprehensive summary of parameter sensitivities using multiple methods.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        candidates_df : pd.DataFrame</span>
+<span class="sd">            DataFrame containing optimization candidates from get_top_candidates_table().</span>
+<span class="sd">        methods : List[str], optional</span>
+<span class="sd">            List of sensitivity methods to compare. If None, uses all available methods.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pd.DataFrame</span>
+<span class="sd">            DataFrame with parameters as rows and different sensitivity methods as columns.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; df = optimizer.get_top_candidates_table()</span>
+<span class="sd">        &gt;&gt;&gt; sensitivity = ODESensitivity(optimizer.ode_func, optimizer.error_func)</span>
+<span class="sd">        &gt;&gt;&gt; summary = sensitivity.create_sensitivity_summary(df)</span>
+<span class="sd">        &gt;&gt;&gt; print(summary.round(4))</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; # Identify most consistently sensitive parameters</span>
+<span class="sd">        &gt;&gt;&gt; summary[&#39;mean_abs_sensitivity&#39;] = summary.abs().mean(axis=1)</span>
+<span class="sd">        &gt;&gt;&gt; print(summary.sort_values(&#39;mean_abs_sensitivity&#39;, ascending=False))</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">methods</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;correlation&#39;</span><span class="p">,</span> <span class="s1">&#39;rank_correlation&#39;</span><span class="p">,</span> <span class="s1">&#39;variance&#39;</span><span class="p">,</span> <span class="s1">&#39;mutual_info&#39;</span><span class="p">]</span>
+        
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sensitivities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyze_parameter_sensitivity</span><span class="p">(</span>
+                    <span class="n">candidates_df</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="n">sensitivities</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39; failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="c1"># Get parameter names from other successful methods or DataFrame</span>
+                <span class="n">param_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">candidates_df</span><span class="o">.</span><span class="n">columns</span> 
+                             <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;iteration&#39;</span><span class="p">,</span> <span class="s1">&#39;rank&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">]]</span>
+                <span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">param</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_names</span><span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="ODESensitivity.plot_sensitivity_analysis">
+<a class="viewcode-back" href="../../api_reference/sensitivity.html#invode.sensitivity.ODESensitivity.plot_sensitivity_analysis">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot_sensitivity_analysis</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">sensitivities</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+        <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Parameter Sensitivity Analysis&quot;</span><span class="p">,</span>
+        <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="n">save_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a visualization of parameter sensitivities.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        sensitivities : Dict[str, float]</span>
+<span class="sd">            Dictionary of parameter sensitivities from analyze_parameter_sensitivity_from_history</span>
+<span class="sd">        title : str, optional</span>
+<span class="sd">            Plot title. Default is &quot;Parameter Sensitivity Analysis&quot;.</span>
+<span class="sd">        figsize : Tuple[int, int], optional</span>
+<span class="sd">            Figure size as (width, height). Default is (10, 6).</span>
+<span class="sd">        save_path : str, optional</span>
+<span class="sd">            If provided, save the plot to this path.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        plt.Figure</span>
+<span class="sd">            The matplotlib figure object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+        
+        <span class="c1"># Sort parameters by sensitivity magnitude</span>
+        <span class="n">sorted_items</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sensitivities</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sorted_items</span><span class="p">]</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sorted_items</span><span class="p">]</span>
+        
+        <span class="c1"># Color bars based on sign (for correlation-based methods)</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;blue&#39;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+        
+        <span class="c1"># Create bar plot</span>
+        <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)),</span> <span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">],</span> 
+                     <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="c1"># Customize plot</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Parameters&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Sensitivity Magnitude&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Add value labels on bars</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">bar</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">values</span><span class="p">)):</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">height</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">,</span>
+                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        
+        <span class="c1"># Add legend for colors (if applicable)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Patch</span>
+            <span class="n">legend_elements</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Positive correlation&#39;</span><span class="p">),</span>
+                <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Negative correlation&#39;</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_elements</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+        
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">save_path</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">fig</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raunak Dey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
