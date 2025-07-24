@@ -54,7 +54,7 @@ Whether you're modeling epidemics, enzyme kinetics, population dynamics, or fina
 We welcome contributions! Whether it’s fixing bugs, writing documentation, or adding features, we’d love your help.
 
 - `GitHub Repository <https://github.com/RaunakDey/invode>`_
-- `Contributing Guide <https://yourproject.readthedocs.io/en/latest/contributing.html>`_
+- `Contributing Guide <https://github.com/RaunakDey/InvODE/blob/main/CONTRIBUTING.md>`_
 
 ---
 

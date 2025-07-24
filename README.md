@@ -1,11 +1,11 @@
 
-# 🚀 InvODE
+
 
 <p align="center">
    <img src="docs/source/_static/logo.png" alt="InvODE Logo" width="200"/>
    </p>
 
-**Inverse problems on Ordinary Differential Equations**
+# 🚀 InvODE: Inverse problems on Ordinary Differential Equations**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/release/python-380/)
@@ -179,28 +179,6 @@ gamma              0.350071
    <img src="docs/source/_static/example.png" alt="InvODE Logo" width="1000"/>
    </p>
 
-## 📊 Real-World Applications
-
-### 🧬 **Systems Biology**
-- Parameter estimation for biochemical reaction networks
-- Pharmacokinetic/pharmacodynamic modeling
-- Gene regulatory network analysis
-
-### 🌡️ **Engineering Systems** 
-- Control system parameter tuning
-- Heat transfer and fluid dynamics modeling
-- Chemical reactor optimization
-
-### 🌍 **Environmental Modeling**
-- Population dynamics and epidemiological models
-- Climate system parameter estimation
-- Ecosystem modeling and resource management
-
-### 🔬 **Physics & Chemistry**
-- Reaction kinetics parameter fitting
-- Mechanical system identification
-- Quantum system parameter estimation
-
 ---
 
 ## 📚 Documentation
@@ -290,6 +268,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ for the scientific computing community**
 
-[🏠 Website (tbd)](https://invode.org) • [📚 Docs (tbd)](https://invode.readthedocs.io/) • [🐛 Issues](https://github.com/RaunakDey/invode/issues) • [💬 Discussions](https://github.com/RaunakDey/invode/discussions)
+• [📚 Docs](https://raunakdey.github.io/InvODE/) • [🐛 Issues](https://github.com/RaunakDey/invode/issues) • [💬 Discussions](https://github.com/RaunakDey/invode/discussions)
 
 </div>
