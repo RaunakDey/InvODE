@@ -1,0 +1,7 @@
+sphinx
+sphinx-book-theme
+nbsphinx
+ipykernel
+matplotlib
+numpy
+pandas
