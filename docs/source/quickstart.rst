@@ -12,6 +12,7 @@ You can install the package locally (until on PyPI) by cloning and using pip:
 
     git clone git@github.com:RaunakDey/InvODE.git
     cd InvODE
+    pip install -r requirements.txt
 
 
 Example Usage
