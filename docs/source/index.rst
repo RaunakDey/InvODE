@@ -20,6 +20,12 @@ Whether you're modeling epidemics, enzyme kinetics, population dynamics, or fina
 - 🌐 **Domain-agnostic**: Works for models in biology, chemistry, physics, and more.
 - 📦 **Ready for research and deployment** — ideal for rapid experimentation and rigorous validation.
 
+
+😺 Visit our GitHub
+--------------------
+For the latest updates, source code, and to contribute, visit our GitHub repository:
+`https://github.com/RaunakDey/invode <https://github.com/RaunakDey/invode>`
+
 🚀 Get Started
 --------------
 
@@ -53,7 +59,6 @@ Whether you're modeling epidemics, enzyme kinetics, population dynamics, or fina
 
 We welcome contributions! Whether it’s fixing bugs, writing documentation, or adding features, we’d love your help.
 
-- `GitHub Repository <https://github.com/RaunakDey/invode>`_
 - `Contributing Guide <https://github.com/RaunakDey/InvODE/blob/main/CONTRIBUTING.md>`_
 
 ---
