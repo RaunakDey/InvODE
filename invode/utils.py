@@ -233,17 +233,6 @@ def local_refine(best_params, ode_func, error_func, fixed_params, param_bounds, 
     scipy.optimize.minimize : The underlying optimization function
     ODEOptimizer.fit : Global optimization method that often precedes local refinement
     lhs_sample : Parameter sampling function for global search phase
-    
-    References
-    ----------
-    .. [1] Nocedal, J., & Wright, S. (2006). "Numerical optimization" 
-           (Vol. 2). New York: Springer.
-    .. [2] Byrd, R. H., Lu, P., Nocedal, J., & Zhu, C. (1995). "A limited 
-           memory algorithm for bound constrained optimization." SIAM Journal 
-           on scientific computing, 16(5), 1190-1208.
-    .. [3] Liu, D. C., & Nocedal, J. (1989). "On the limited memory BFGS 
-           method for large scale optimization." Mathematical programming, 
-           45(1-3), 503-528.
     """
     free_params = {k: v for k, v in best_params.items() if k not in fixed_params}
     free_param_keys = list(free_params.keys())

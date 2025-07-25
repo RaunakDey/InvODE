@@ -168,13 +168,10 @@ def lhs_sample(param_bounds, n_samples, seed=None):
     
     References
     ----------
-    .. [1] McKay, M. D., Beckman, R. J., & Conover, W. J. (1979). "Comparison of 
-           three methods for selecting values of input variables in the analysis 
-           of output from a computer code." Technometrics, 21(2), 239-245.
+    .. [1] McKay, Michael D., Richard J. Beckman, and William J. Conover. "A comparison of three
+            methods for selecting values of input variables in the analysis of output from a computer code." Technometrics 42.1 (2000): 55-61.
     .. [2] Stein, M. (1987). "Large sample properties of simulations using Latin 
            hypercube sampling." Technometrics, 29(2), 143-151.
-    .. [3] Owen, A. B. (1994). "Controlling correlations in Latin hypercube samples."
-           Journal of the American Statistical Association, 89(428), 1517-1522.
     """
         
     keys = list(param_bounds.keys())

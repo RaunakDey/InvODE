@@ -306,11 +306,9 @@ class ODEOptimizer:
     
     References
     ----------
-    .. [1] McKay, M. D., Beckman, R. J., & Conover, W. J. (1979). "Comparison of 
-           three methods for selecting values of input variables in the analysis 
-           of output from a computer code." Technometrics, 21(2), 239-245.
-    .. [2] Nocedal, J., & Wright, S. (2006). "Numerical optimization" 
-           (Vol. 2, pp. 497-528). New York: Springer.
+    .. [1] McKay, Michael D., Richard J. Beckman, and William J. Conover. "A comparison of three
+            methods for selecting values of input variables in the analysis of output from a computer code." Technometrics 42.1 (2000): 55-61.
+    .. [2] Nocedal, J., & Wright, S. (2006). "Numerical optimization".
     """
         top_candidates = [(self.best_params.copy(), float('inf'))]
 
