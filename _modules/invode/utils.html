@@ -519,17 +519,6 @@ document.write(`
 <span class="sd">    scipy.optimize.minimize : The underlying optimization function</span>
 <span class="sd">    ODEOptimizer.fit : Global optimization method that often precedes local refinement</span>
 <span class="sd">    lhs_sample : Parameter sampling function for global search phase</span>
-<span class="sd">    </span>
-<span class="sd">    References</span>
-<span class="sd">    ----------</span>
-<span class="sd">    .. [1] Nocedal, J., &amp; Wright, S. (2006). &quot;Numerical optimization&quot; </span>
-<span class="sd">           (Vol. 2). New York: Springer.</span>
-<span class="sd">    .. [2] Byrd, R. H., Lu, P., Nocedal, J., &amp; Zhu, C. (1995). &quot;A limited </span>
-<span class="sd">           memory algorithm for bound constrained optimization.&quot; SIAM Journal </span>
-<span class="sd">           on scientific computing, 16(5), 1190-1208.</span>
-<span class="sd">    .. [3] Liu, D. C., &amp; Nocedal, J. (1989). &quot;On the limited memory BFGS </span>
-<span class="sd">           method for large scale optimization.&quot; Mathematical programming, </span>
-<span class="sd">           45(1-3), 503-528.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">free_params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">best_params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fixed_params</span><span class="p">}</span>
     <span class="n">free_param_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">free_params</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
