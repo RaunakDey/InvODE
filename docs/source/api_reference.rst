@@ -15,3 +15,28 @@ This section provides detailed documentation for all modules and functions in th
    
 
 
+invode.optimizer
+===============
+
+.. automodule:: invode.optimizer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+invode.sensitivity
+==================
+
+.. automodule:: invode.sensitivity
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+invode.error_functions
+======================
+
+.. automodule:: invode.error_functions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
