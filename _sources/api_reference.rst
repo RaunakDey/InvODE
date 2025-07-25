@@ -17,8 +17,8 @@ This section provides detailed documentation for all modules and functions in th
 
 .. currentmodule:: invode
 
-API Reference
-=============
+
+
 
 .. autosummary::
     :toctree: _autosummary
