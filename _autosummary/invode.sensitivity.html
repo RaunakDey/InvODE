@@ -41,11 +41,11 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/sensitivity';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/invode.sensitivity';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="invode.sampling" href="sampling.html" />
-    <link rel="prev" title="invode.optimizer" href="optimizer.html" />
+    <link rel="next" title="invode.error_functions" href="invode.error_functions.html" />
+    <link rel="prev" title="invode.optimizer" href="invode.optimizer.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -168,12 +168,12 @@
 </details></li>
 </ul>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="optimizer.html">invode.optimizer</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">invode.sensitivity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sampling.html">invode.sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">invode.utils</a></li>
-<li class="toctree-l2"><a class="reference internal" href="error_functions.html">invode.error_functions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/error_functions.html">invode.error_functions</a></li>
 </ul>
 </details></li>
 
@@ -231,7 +231,7 @@
       
       
       
-      <li><a href="../_sources/api_reference/sensitivity.rst" target="_blank"
+      <li><a href="../_sources/_autosummary/invode.sensitivity.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -346,6 +346,15 @@ document.write(`
                   
   <section id="module-invode.sensitivity">
 <span id="invode-sensitivity"></span><h1>invode.sensitivity<a class="headerlink" href="#module-invode.sensitivity" title="Link to this heading">#</a></h1>
+<p class="rubric">Classes</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api_reference/sensitivity.html#invode.sensitivity.ODESensitivity" title="invode.sensitivity.ODESensitivity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ODESensitivity</span></code></a>(ode_func, error_func)</p></td>
+<td><p>A class for performing sensitivity analysis on ODE model parameters.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="invode.sensitivity.ODESensitivity">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">invode.sensitivity.</span></span><span class="sig-name descname"><span class="pre">ODESensitivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ode_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/sensitivity.html#ODESensitivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.sensitivity.ODESensitivity" title="Link to this definition">#</a></dt>
@@ -638,7 +647,7 @@ containing sensitivity values for each rank.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="optimizer.html"
+       href="invode.optimizer.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
@@ -647,11 +656,11 @@ containing sensitivity values for each rank.</p>
       </div>
     </a>
     <a class="right-next"
-       href="sampling.html"
+       href="invode.error_functions.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">invode.sampling</p>
+        <p class="prev-next-title">invode.error_functions</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

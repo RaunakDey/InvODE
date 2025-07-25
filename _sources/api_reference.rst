@@ -15,28 +15,19 @@ This section provides detailed documentation for all modules and functions in th
    
 
 
-invode.optimizer
-===============
+.. currentmodule:: invode
 
-.. automodule:: invode.optimizer
-    :members:
-    :undoc-members:
-    :show-inheritance:
+API Reference
+=============
 
-invode.sensitivity
-==================
+.. autosummary::
+    :toctree: _autosummary
+    :recursive:
 
-.. automodule:: invode.sensitivity
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-invode.error_functions
-======================
-
-.. automodule:: invode.error_functions
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    invode.optimizer
+    invode.sensitivity
+    invode.error_functions
+    invode.sampling
+    invode.utils
 
 

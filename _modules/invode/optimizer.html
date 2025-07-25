@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>invode.optimizer &#8212; InvODE 0.1 documentation</title>
+    <title>invode.optimizer &#8212; InvODE  documentation</title>
   
   
   
@@ -27,7 +27,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -35,7 +35,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -132,7 +132,7 @@
   
   
   
-    <p class="title logo__title">InvODE 0.1 documentation</p>
+    <p class="title logo__title">InvODE  documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -152,7 +152,6 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage &amp; Examples</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Simple Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/fitting_initial_conditions.html">Fitting vs Non-Fitting initial condition</a></li>
@@ -176,6 +175,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api_reference/error_functions.html">invode.error_functions</a></li>
 </ul>
 </details></li>
+
 </ul>
 
     </div>
@@ -280,19 +280,19 @@ document.write(`
                   
   <h1>Source code for invode.optimizer</h1><div class="highlight"><pre>
 <span></span><span class="c1"># ode_fit/optimizer.py</span>
-<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
-<span class="kn">from</span> <span class="nn">.sampling</span> <span class="kn">import</span> <span class="n">lhs_sample</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">local_refine</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">trange</span>  
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessPoolExecutor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">lhs_sample</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">local_refine</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">trange</span>  
 
 
 <div class="viewcode-block" id="ODEOptimizer">
 <a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer">[docs]</a>
-<span class="k">class</span> <span class="nc">ODEOptimizer</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ODEOptimizer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for optimizing parameters of an ordinary differential equation (ODE) model.</span>
 <span class="sd">    This class implements a sophisticated parameter optimization strategy that combines</span>
@@ -303,7 +303,7 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">ode_func</span><span class="p">,</span>
         <span class="n">error_func</span><span class="p">,</span>
@@ -426,7 +426,7 @@ document.write(`
 
 <div class="viewcode-block" id="ODEOptimizer.get_top_candidates_history">
 <a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.get_top_candidates_history">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_top_candidates_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_top_candidates_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the history of top candidates from each optimization iteration.</span>
 <span class="sd">        This method retrieves the stored history of top candidates found during each</span>
@@ -452,7 +452,7 @@ document.write(`
 
 <div class="viewcode-block" id="ODEOptimizer.fit">
 <a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.fit">[docs]</a>
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fit the model using a global optimization algorithm to minimize ODE function error.</span>
@@ -624,7 +624,7 @@ document.write(`
                     <span class="n">full_sample</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">sample</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed_params</span><span class="p">}</span>
                     <span class="n">all_sampled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_sample</span><span class="p">)</span>
 
-            <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">param_set</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">param_set</span><span class="p">):</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ode_func</span><span class="p">(</span><span class="n">param_set</span><span class="p">)</span>
                     <span class="n">err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_func</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
@@ -663,7 +663,7 @@ document.write(`
             <span class="n">bounds_for_local</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_bounds</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varying_params</span><span class="p">}</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_parallel</span><span class="p">:</span>
-                <span class="k">def</span> <span class="nf">local_worker</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+                <span class="k">def</span><span class="w"> </span><span class="nf">local_worker</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
                     <span class="n">var_params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varying_params</span><span class="p">}</span>
                     
                     <span class="n">refined_param</span><span class="p">,</span> <span class="n">refined_error</span> <span class="o">=</span> <span class="n">local_refine</span><span class="p">(</span>
@@ -721,7 +721,7 @@ document.write(`
         
 <div class="viewcode-block" id="ODEOptimizer.best_params">
 <a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.best_params">[docs]</a>
-    <span class="k">def</span> <span class="nf">best_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">best_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the best parameters found during the optimization process.</span>
 
@@ -741,7 +741,7 @@ document.write(`
     
 <div class="viewcode-block" id="ODEOptimizer.best_error">
 <a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.best_error">[docs]</a>
-    <span class="k">def</span> <span class="nf">best_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">best_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the best error found during the optimization process.</span>
 
@@ -760,7 +760,7 @@ document.write(`
 
 <div class="viewcode-block" id="ODEOptimizer.plot_error_history">
 <a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.plot_error_history">[docs]</a>
-    <span class="k">def</span> <span class="nf">plot_error_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Iteration&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Best Error&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Error over Optimization Iterations&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_error_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Iteration&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Best Error&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Error over Optimization Iterations&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plots the optimization error over iterations.</span>
 
@@ -812,7 +812,7 @@ document.write(`
 
 <div class="viewcode-block" id="ODEOptimizer.summary">
 <a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.summary">[docs]</a>
-    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Summary of the optimizer settings and current best result.</span>
 <span class="sd">        This method provides a comprehensive overview of the optimizer&#39;s configuration and its best-found parameters. It can either print the summary to the console or return it as a dictionary, depending on the value of the `return_dict` parameter.</span>
@@ -876,7 +876,7 @@ document.write(`
 
 <div class="viewcode-block" id="ODEOptimizer.get_top_candidates_table">
 <a class="viewcode-back" href="../../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.get_top_candidates_table">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_top_candidates_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_top_candidates_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a pandas DataFrame with the top candidates and their errors from all iterations.</span>
 <span class="sd">    </span>

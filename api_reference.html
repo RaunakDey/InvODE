@@ -177,8 +177,6 @@
 </ul>
 </details></li>
 
-
-
 </ul>
 
     </div>
@@ -328,9 +326,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">API Reference</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#invode-optimizer">invode.optimizer</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#invode-sensitivity">invode.sensitivity</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#invode-error-functions">invode.error_functions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">API Reference</a></li>
 </ul>
 
             </nav>
@@ -348,8 +344,14 @@ document.write(`
 <p>This section provides detailed documentation for all modules and functions in the invode package.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api_reference/optimizer.html">invode.optimizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference/sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/optimizer.html">invode.optimizer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/optimizer.html#invode.optimizer.ODEOptimizer"><code class="docutils literal notranslate"><span class="pre">ODEOptimizer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/sensitivity.html">invode.sensitivity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/sensitivity.html#invode.sensitivity.ODESensitivity"><code class="docutils literal notranslate"><span class="pre">ODESensitivity</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference/sampling.html">invode.sampling</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/sampling.html#invode.sampling.lhs_sample"><code class="docutils literal notranslate"><span class="pre">lhs_sample()</span></code></a></li>
 </ul>
@@ -359,18 +361,49 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="api_reference/utils.html#invode.utils.local_refine"><code class="docutils literal notranslate"><span class="pre">local_refine()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference/error_functions.html">invode.error_functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/error_functions.html">invode.error_functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#error-functions-module-erf">Error Functions Module (erf)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.ChiSquaredMSE"><code class="docutils literal notranslate"><span class="pre">ChiSquaredMSE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.ErrorFunction"><code class="docutils literal notranslate"><span class="pre">ErrorFunction</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.HuberLoss"><code class="docutils literal notranslate"><span class="pre">HuberLoss</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.LogLikelihood"><code class="docutils literal notranslate"><span class="pre">LogLikelihood</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.MAE"><code class="docutils literal notranslate"><span class="pre">MAE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.MSE"><code class="docutils literal notranslate"><span class="pre">MSE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.RMSE"><code class="docutils literal notranslate"><span class="pre">RMSE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.RegularizedError"><code class="docutils literal notranslate"><span class="pre">RegularizedError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.WeightedError"><code class="docutils literal notranslate"><span class="pre">WeightedError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.chisquared"><code class="docutils literal notranslate"><span class="pre">chisquared()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.huber"><code class="docutils literal notranslate"><span class="pre">huber()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.mae"><code class="docutils literal notranslate"><span class="pre">mae()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.mse"><code class="docutils literal notranslate"><span class="pre">mse()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/error_functions.html#invode.error_functions.rmse"><code class="docutils literal notranslate"><span class="pre">rmse()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
-<section id="invode-optimizer">
-<h1>invode.optimizer<a class="headerlink" href="#invode-optimizer" title="Link to this heading">#</a></h1>
-</section>
-<section id="invode-sensitivity">
-<h1>invode.sensitivity<a class="headerlink" href="#invode-sensitivity" title="Link to this heading">#</a></h1>
-</section>
-<section id="invode-error-functions">
-<h1>invode.error_functions<a class="headerlink" href="#invode-error-functions" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h1>API Reference<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_reference/optimizer.html#module-invode.optimizer" title="invode.optimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">invode.optimizer</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_reference/sensitivity.html#module-invode.sensitivity" title="invode.sensitivity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">invode.sensitivity</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_reference/error_functions.html#module-invode.error_functions" title="invode.error_functions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">invode.error_functions</span></code></a></p></td>
+<td><p>Error Functions Module (erf)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_reference/sampling.html#module-invode.sampling" title="invode.sampling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">invode.sampling</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_reference/utils.html#module-invode.utils" title="invode.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">invode.utils</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 
 
@@ -419,9 +452,7 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">API Reference</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#invode-optimizer">invode.optimizer</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#invode-sensitivity">invode.sensitivity</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#invode-error-functions">invode.error_functions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">API Reference</a></li>
 </ul>
 
   </nav></div>

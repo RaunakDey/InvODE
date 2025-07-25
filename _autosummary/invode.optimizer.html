@@ -41,11 +41,11 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/optimizer';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/invode.optimizer';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="invode.sensitivity" href="sensitivity.html" />
-    <link rel="prev" title="API Reference" href="../api_reference.html" />
+    <link rel="next" title="invode.sensitivity" href="invode.sensitivity.html" />
+    <link rel="prev" title="invode.error_functions" href="../api_reference/error_functions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -168,12 +168,12 @@
 </details></li>
 </ul>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">invode.optimizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sensitivity.html">invode.sensitivity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sampling.html">invode.sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">invode.utils</a></li>
-<li class="toctree-l2"><a class="reference internal" href="error_functions.html">invode.error_functions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/optimizer.html">invode.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sensitivity.html">invode.sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/sampling.html">invode.sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">invode.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/error_functions.html">invode.error_functions</a></li>
 </ul>
 </details></li>
 
@@ -231,7 +231,7 @@
       
       
       
-      <li><a href="../_sources/api_reference/optimizer.rst" target="_blank"
+      <li><a href="../_sources/_autosummary/invode.optimizer.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -348,6 +348,15 @@ document.write(`
                   
   <section id="module-invode.optimizer">
 <span id="invode-optimizer"></span><h1>invode.optimizer<a class="headerlink" href="#module-invode.optimizer" title="Link to this heading">#</a></h1>
+<p class="rubric">Classes</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api_reference/optimizer.html#invode.optimizer.ODEOptimizer" title="invode.optimizer.ODEOptimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ODEOptimizer</span></code></a>(ode_func, error_func, param_bounds)</p></td>
+<td><p>A class for optimizing parameters of an ordinary differential equation (ODE) model.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="invode.optimizer.ODEOptimizer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">invode.optimizer.</span></span><span class="sig-name descname"><span class="pre">ODEOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ode_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_guess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_top_candidates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_local_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'L-BFGS-B'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shrink_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose_plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/invode/optimizer.html#ODEOptimizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#invode.optimizer.ODEOptimizer" title="Link to this definition">#</a></dt>
@@ -563,11 +572,11 @@ or the need for additional iterations.</p></li>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="#invode.optimizer.ODEOptimizer.get_top_candidates_history" title="invode.optimizer.ODEOptimizer.get_top_candidates_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_candidates_history</span></code></a></dt><dd><p>Access the complete candidate history</p>
+<dt><a class="reference internal" href="../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.get_top_candidates_history" title="invode.optimizer.ODEOptimizer.get_top_candidates_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_candidates_history</span></code></a></dt><dd><p>Access the complete candidate history</p>
 </dd>
-<dt><a class="reference internal" href="#invode.optimizer.ODEOptimizer.get_top_candidates_table" title="invode.optimizer.ODEOptimizer.get_top_candidates_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_candidates_table</span></code></a></dt><dd><p>Get optimization results as a pandas DataFrame</p>
+<dt><a class="reference internal" href="../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.get_top_candidates_table" title="invode.optimizer.ODEOptimizer.get_top_candidates_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_candidates_table</span></code></a></dt><dd><p>Get optimization results as a pandas DataFrame</p>
 </dd>
-<dt><a class="reference internal" href="#invode.optimizer.ODEOptimizer.plot_error_history" title="invode.optimizer.ODEOptimizer.plot_error_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_error_history</span></code></a></dt><dd><p>Visualize the optimization progress</p>
+<dt><a class="reference internal" href="../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.plot_error_history" title="invode.optimizer.ODEOptimizer.plot_error_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_error_history</span></code></a></dt><dd><p>Visualize the optimization progress</p>
 </dd>
 <dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">local_refine</span></code></dt><dd><p>The local optimization function used in refinement phase</p>
 </dd>
@@ -681,7 +690,7 @@ optimization progress</p></li>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="#invode.optimizer.ODEOptimizer.get_top_candidates_history" title="invode.optimizer.ODEOptimizer.get_top_candidates_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_candidates_history</span></code></a></dt><dd><p>Returns the raw history data used by this method</p>
+<dt><a class="reference internal" href="../api_reference/optimizer.html#invode.optimizer.ODEOptimizer.get_top_candidates_history" title="invode.optimizer.ODEOptimizer.get_top_candidates_history"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_candidates_history</span></code></a></dt><dd><p>Returns the raw history data used by this method</p>
 </dd>
 </dl>
 </div>
@@ -787,16 +796,16 @@ return_dict : bool, optional</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../api_reference.html"
+       href="../api_reference/error_functions.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">API Reference</p>
+        <p class="prev-next-title">invode.error_functions</p>
       </div>
     </a>
     <a class="right-next"
-       href="sensitivity.html"
+       href="invode.sensitivity.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
