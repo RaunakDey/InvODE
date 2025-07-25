@@ -58,7 +58,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 
 project = 'InvODE'
 author = 'Raunak Dey'
-release = '0.1'
+
 
 extensions = [
     'nbsphinx',
