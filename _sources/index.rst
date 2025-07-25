@@ -24,7 +24,7 @@ Whether you're modeling epidemics, enzyme kinetics, population dynamics, or fina
 😺 Visit our GitHub
 --------------------
 For the latest updates, source code, and to contribute, visit our GitHub repository:
-`https://github.com/RaunakDey/invode <https://github.com/RaunakDey/invode>`
+`https://github.com/RaunakDey/invode <https://github.com/RaunakDey/invode>`_
 
 🚀 Get Started
 --------------
@@ -41,7 +41,6 @@ For the latest updates, source code, and to contribute, visit our GitHub reposit
 
 .. toctree::
    :maxdepth: 2
-   :caption: Usage & Examples
 
    tutorials/index
    case_studies/index
