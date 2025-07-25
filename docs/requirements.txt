@@ -3,3 +3,6 @@ nbsphinx
 sphinx-rtd-theme
 scipy
 tqdm
+seaborn
+typing 
+warnings
