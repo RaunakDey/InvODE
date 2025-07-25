@@ -9,4 +9,3 @@ scipy
 tqdm
 seaborn
 typing 
-warnings
