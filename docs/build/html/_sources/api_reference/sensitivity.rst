@@ -1,5 +1,5 @@
 invode.sensitivity
-===============
+==================
 
 .. automodule:: invode.sensitivity
    :members:
