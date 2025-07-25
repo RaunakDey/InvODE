@@ -62,4 +62,4 @@ We welcome contributions! Whether it’s fixing bugs, writing documentation, or 
 
 ---
 
-*InvODE is developed with ❤️ by scientists transparency and open source ecosystem. If you use this package in your research, please consider citing us (citation coming soon!).*
+*InvODE is developed with ❤️ by scientists who care for transparency and open source ecosystem. If you use this package in your research, please consider citing us (citation coming soon!).*
